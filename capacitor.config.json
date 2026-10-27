@@ -1,0 +1,6 @@
+{
+  "appId": "com.yorehyona.piperlife",
+  "appName": "החיים של פייפר",
+  "webDir": "www",
+  "android": { "backgroundColor": "#E6F5EC" }
+}

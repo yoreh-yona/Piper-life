@@ -1,0 +1,956 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>החיים של פייפר</title>
+<meta name="theme-color" content="#2E9A68">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="החיים של פייפר">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="stylesheet" href="fonts/fonts.css">
+<style>
+html{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{margin:0;font-size:14px;-webkit-text-size-adjust:100%}
+img{max-width:100%}
+[hidden]{display:none!important}
+/* Single bright jungle look in both OS themes, chosen on purpose for a kid. Layout: one phone column — Piper's terrarium header, three "days since" cards, four big action buttons, then her diary */
+:root{ color-scheme:light;
+  --bg:#E6F5EC; --surface:#FFFFFF; --ink:#1F3328; --muted:#5A7266;
+  --leaf:#2E9A68; --sun:#FFC83D; --tangerine:#FF7A3D; --berry:#E2457A; --sky:#2F9FD8; --grape:#8A5CD6;
+  --scale:#C98A4B; --scale-dark:#6B4423; --belly:#F3D9A4;
+  --line:#CFE6D8; --chip:#EEF7F1; --shadow:0 4px 0 rgba(31,51,40,.12);
+  --sky-top:#8FD3FF; --sky-bottom:#D8F4FF; --sparkle:rgba(255,255,255,.55); --cloud:#FFFFFF; --face:#8A5A00; --hill-far:#9EDB8A; --hill:#6CC57A; --grass:#46A86A; --leaf-deco:#3E9C5F; --stem:#2E7D4F; --petal:#FF7AA8; --petal2:#B48CFF;
+  --wood:#B8743A; --wood-dark:#7E4A1E; --wood-light:#E8AE6A; --fern:#3FA34D; --fern-dark:#2A7A38; --vine:#4E9A3A; --leafy:#68C46C; --snake-green:#7ED957; --snake-green-dark:#3F9A2E; --snake-yellow:#FFC93D; --snake-yellow-dark:#C98A1A; --eye:#1F3328;
+
+  --display:"Secular One","Varela Round",system-ui,sans-serif;
+  --hand:"Amatic SC","Varela Round",cursive;
+  --body:"Varela Round","Arial Hebrew",system-ui,sans-serif;
+}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.5}
+.scene{position:fixed;inset:0;z-index:0;pointer-events:none}
+.scene svg{width:100%;height:100%;display:block}
+.frame{position:fixed;top:env(safe-area-inset-top,0px);bottom:env(safe-area-inset-bottom,0px);left:env(safe-area-inset-left,0px);right:env(safe-area-inset-right,0px);z-index:5;pointer-events:none}
+.frame .wood{position:absolute;inset:0;border:16px solid var(--wood);border-radius:30px;
+  box-shadow:0 0 0 60px var(--wood),inset 0 0 0 3px var(--wood-light),inset 0 0 0 6px var(--wood-dark),inset 0 10px 18px rgba(0,0,0,.28)}
+.frame .wood::before{content:"";position:absolute;inset:-16px;border-radius:30px;pointer-events:none;
+  background:repeating-linear-gradient(100deg,transparent 0 22px,rgba(0,0,0,.07) 22px 24px,transparent 24px 41px,rgba(255,255,255,.07) 41px 43px);
+  -webkit-mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);mask:linear-gradient(#000 0 0) content-box exclude,linear-gradient(#000 0 0);padding:16px}
+.frame svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.app{position:relative;z-index:1;max-width:560px;margin:0 auto;padding-left:max(30px,env(safe-area-inset-left,0px));padding-right:max(30px,env(safe-area-inset-right,0px));padding-block:52px 130px;display:flex;flex-direction:column;gap:22px}
+h1,h2,h3{font-family:var(--display);font-weight:400;margin:0;text-wrap:balance}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--sky);outline-offset:2px}
+
+/* Hero */
+.hero{position:relative;background:var(--leaf);color:#fff;border-radius:28px;padding:18px 18px 16px;display:flex;align-items:center;gap:10px;overflow:hidden}
+.hero::after{content:"";position:absolute;inset:auto -30px -40px auto;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,.08)}
+.hero svg{width:132px;height:auto;flex:none;position:relative;z-index:1}
+.hero-text{min-width:0;position:relative;z-index:1}
+.hero h1{font-size:2rem;line-height:1.1}
+.hero p{margin:6px 0 0;font-size:.95rem;opacity:.92}
+.bubble{display:inline-block;margin-top:10px;background:#fff;color:#1F3328;border-radius:16px;padding:6px 12px;font-size:.92rem}
+
+/* Status cards */
+.status{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.stat{background:var(--surface);border-radius:24px 30px 22px 28px / 28px 22px 30px 24px;padding:12px 8px;text-align:center;box-shadow:var(--shadow);border:2px solid var(--line);display:flex;flex-direction:column;gap:2px;min-width:0}
+.stat .num{font-family:var(--display);font-size:2.2rem;line-height:1;font-variant-numeric:tabular-nums}
+.stat .lbl{font-size:.82rem;color:var(--muted)}
+.stat .what{font-size:.88rem;font-weight:700}
+.stat.feed .num{color:var(--tangerine)} .stat.shed .num{color:var(--grape)} .stat.clean .num{color:var(--sky)}
+.hint{background:var(--surface);border-radius:18px;padding:12px 14px;border:2px dashed var(--line);font-size:.95rem}
+
+/* Actions */
+.section-title{font-size:1.35rem;align-self:flex-start;background:var(--surface);border-radius:999px;padding:4px 16px;box-shadow:var(--shadow)}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.actions{gap:16px 14px}
+.act{--c:var(--tangerine);position:relative;border:none;padding:24px 14px 22px;color:#fff;display:flex;flex-direction:column;align-items:center;gap:6px;
+  border-radius:62% 38% 55% 45% / 48% 58% 42% 52%;
+  background:radial-gradient(circle at 22% 28%,rgba(255,255,255,.22) 0 9px,transparent 10px),radial-gradient(circle at 78% 72%,rgba(255,255,255,.16) 0 13px,transparent 14px),radial-gradient(circle at 70% 22%,rgba(0,0,0,.09) 0 7px,transparent 8px),radial-gradient(circle at 30% 80%,rgba(0,0,0,.08) 0 10px,transparent 11px),var(--c);
+  box-shadow:0 6px 0 rgba(0,0,0,.2),inset 0 -6px 0 rgba(0,0,0,.08),inset 0 5px 0 rgba(255,255,255,.18);
+  animation:blob 9s ease-in-out infinite;transition:transform .15s}
+.act:nth-child(2){border-radius:42% 58% 45% 55% / 58% 44% 56% 42%;animation-delay:-3s}
+.act:nth-child(3){border-radius:55% 45% 38% 62% / 44% 56% 48% 52%;animation-delay:-5s}
+.act:nth-child(4){border-radius:40% 60% 60% 40% / 55% 45% 55% 45%;animation-delay:-7s}
+.act::after{content:"";position:absolute;width:34px;height:20px;top:-6px;inset-inline-start:14px;background:var(--leafy);border-radius:0 100% 0 100%;transform:rotate(-24deg);box-shadow:inset 0 0 0 2px rgba(0,0,0,.08)}
+.act:nth-child(even)::after{inset-inline-start:auto;inset-inline-end:16px;transform:rotate(30deg) scaleX(-1)}
+.act:active{transform:translateY(4px) scale(.97);box-shadow:0 2px 0 rgba(0,0,0,.2)}
+@keyframes blob{0%,100%{translate:0 0}50%{translate:0 -3px}}
+.act svg{width:46px;height:46px}
+.act span{font-family:var(--display);font-size:1.15rem;line-height:1.2;text-align:center}
+.act.feed{--c:var(--tangerine)} .act.shed{--c:var(--grape)} .act.clean{--c:var(--sky)} .act.note{--c:var(--berry)}
+
+/* Diary */
+.filters{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px}
+.filters button,.chip{border:2px solid var(--surface);background:var(--surface);border-radius:999px;padding:7px 14px;font-size:.95rem;white-space:nowrap}
+.filters button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.diary{display:flex;flex-direction:column;gap:10px;list-style:none;margin:0;padding:0}
+.entry{background:var(--surface);border-radius:20px;padding:12px 14px;display:flex;gap:12px;align-items:flex-start;border:2px solid var(--line)}
+.entry .dot{flex:none;width:44px;height:44px;border-radius:14px;display:grid;place-items:center;color:#fff}
+.entry .dot svg{width:28px;height:28px}
+.entry .body{min-width:0;flex:1}
+.entry .title{font-weight:700}
+.entry .meta{font-size:.85rem;color:var(--muted)}
+.entry .text{margin-top:4px;overflow-wrap:anywhere;white-space:pre-wrap}
+.entry img{margin-top:8px;border-radius:14px;max-height:260px;object-fit:cover;width:100%}
+.entry .del{border:none;background:none;color:var(--muted);font-size:.85rem;padding:4px}
+.entry .edit{color:var(--leaf);font-weight:700}
+.confirm{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap;align-items:center;font-size:.9rem}
+.confirm button{border:none;border-radius:12px;padding:6px 12px}
+.confirm .yes{background:var(--berry);color:#fff} .confirm .no{background:var(--chip)}
+.empty{text-align:center;padding:24px 16px;background:var(--surface);border-radius:22px;border:2px dashed var(--line);color:var(--muted)}
+.month{font-family:var(--display);color:var(--ink);background:var(--surface);align-self:flex-start;border-radius:999px;padding:2px 12px;font-size:.95rem;margin-top:6px}
+
+/* Sheet */
+.scrim{position:fixed;inset:0;background:rgba(10,20,14,.5);z-index:20}
+.sheet{position:fixed;inset:auto 0 0 0;z-index:21;background:var(--bg);border-radius:28px 28px 0 0;max-height:92%;max-height:92dvh;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;
+  padding:18px max(18px,env(safe-area-inset-right,0px)) calc(20px + env(safe-area-inset-bottom,0px)) max(18px,env(safe-area-inset-left,0px));
+  max-width:560px;margin:0 auto;animation:up .25s ease-out}
+@keyframes up{from{transform:translateY(40px);opacity:.4}to{transform:none;opacity:1}}
+.sheet h2{font-size:1.6rem;display:flex;align-items:center;gap:10px}
+.sheet h2 svg{width:40px;height:40px}
+.q{display:flex;flex-direction:column;gap:8px;margin-top:18px}
+.q > label,.q > .qt{font-family:var(--display);font-size:1.15rem}
+.choices{display:flex;flex-wrap:wrap;gap:8px}
+.choices button{border:2px solid var(--line);background:var(--surface);border-radius:16px;padding:10px 16px;font-size:1rem}
+.choices button[aria-pressed="true"]{background:var(--leaf);border-color:var(--leaf);color:#fff}
+.choices.big button{flex:1;padding:14px 10px;font-family:var(--display);font-size:1.15rem}
+.choices.big button.no[aria-pressed="true"]{background:var(--berry);border-color:var(--berry)}
+input[type=date],textarea{width:100%;font:inherit;border:2px solid var(--line);background:var(--surface);color:var(--ink);border-radius:16px;padding:10px 12px}
+textarea{min-height:110px;resize:vertical}
+.photo-pick{position:relative;overflow:hidden;font:inherit;width:100%;cursor:pointer;min-height:64px;display:grid;place-items:center;border:2px dashed var(--line);background:var(--surface);border-radius:16px;padding:12px;text-align:center;color:var(--muted)}
+.photo-input{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;font-size:100px}
+.photo-pick:focus-within{outline:3px solid var(--sky);outline-offset:2px}
+.paste-zone{min-height:52px;border:2px dashed var(--line);background:var(--surface);border-radius:16px;padding:12px;color:var(--muted);text-align:center;font-size:.92rem;-webkit-user-select:text;user-select:text}
+.paste-zone:empty::before{content:attr(data-ph)}
+.paste-zone:focus{outline:3px solid var(--sky);outline-offset:2px}
+.photo-pick,.photo-input{-webkit-tap-highlight-color:transparent}
+.photo-row{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.photo-preview{border-radius:16px;max-height:200px;object-fit:cover;width:100%}
+.sheet-actions{display:flex;gap:10px;margin-top:22px}
+.save{flex:2;border:none;border-radius:18px;padding:14px;background:var(--leaf);color:#fff;font-family:var(--display);font-size:1.25rem;box-shadow:0 4px 0 rgba(0,0,0,.18)}
+.save:disabled{opacity:.5}
+.cancel{flex:1;border:2px solid var(--line);background:var(--surface);border-radius:18px;padding:14px}
+.err{color:var(--berry);font-size:.92rem;margin-top:8px}
+
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:999px;z-index:30;font-family:var(--display)}
+.backup{background:var(--surface);border-radius:22px;padding:14px;display:flex;flex-direction:column;gap:8px;font-size:.95rem}
+.backup p{margin:0;color:var(--muted)}
+.backup-actions{display:flex;gap:10px;flex-wrap:wrap}
+.backup-actions button,.bk-load{position:relative;overflow:hidden;border:2px solid var(--line);background:var(--chip);border-radius:999px;padding:9px 16px;font:inherit;font-size:1rem;cursor:pointer}
+.bk-load input{position:absolute;inset:0;opacity:0;cursor:pointer}
+.foot{font-size:.9rem;color:var(--ink);text-align:center;background:var(--surface);border-radius:16px;padding:8px 12px}
+
+/* Tip from Piper */
+.tip{display:flex;gap:10px;align-items:flex-start;background:#FFF6D8;color:#1F3328;border-radius:30px 44px 34px 40px / 40px 30px 44px 34px;padding:14px 14px 16px;box-shadow:0 6px 0 rgba(120,90,20,.18);border:3px solid #FFD84D}
+.tip-snake{width:70px;height:70px;flex:none}
+.tip-body{min-width:0;flex:1;display:flex;flex-direction:column;gap:6px}
+.tip-label{font-family:var(--display);font-size:1.05rem;color:#B36B12}
+.tip-text{margin:0;font-size:1.05rem;line-height:1.45}
+.tip-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+.tip-do{border:none;background:var(--leaf);color:#fff;font-family:var(--display);font-size:1.05rem;padding:9px 18px;border-radius:999px;box-shadow:0 4px 0 rgba(0,0,0,.18)}
+.tip-do:active{transform:translateY(3px);box-shadow:0 1px 0 rgba(0,0,0,.18)}
+.tip-do:disabled{opacity:.55}
+.tip-next{border:2px solid #E8C65A;background:#fff;color:#1F3328;padding:7px 14px;border-radius:999px}
+.hearts{position:fixed;inset:0;pointer-events:none;z-index:35}
+.hearts span{position:absolute;bottom:20%;font-size:28px;color:#FF6F9A;animation:rise 1.6s ease-out forwards}
+@keyframes rise{from{transform:translateY(0) scale(.6);opacity:1}to{transform:translateY(-55vh) scale(1.2);opacity:0}}
+
+/* Goodbye dialog */
+.bye{position:fixed;inset:0;z-index:45;background:rgba(20,40,25,.55);display:grid;place-items:center;padding:20px max(20px,env(safe-area-inset-right,0px)) 20px max(20px,env(safe-area-inset-left,0px))}
+.bye-card{width:min(100%,360px);background:#FFF6D8;color:#1F3328;border:4px solid #FFD84D;text-align:center;padding:22px 20px 24px;
+  border-radius:46% 54% 42% 58% / 14% 12% 16% 14%;box-shadow:0 10px 0 rgba(120,90,20,.25);animation:pop .3s ease-out}
+@keyframes pop{from{transform:scale(.8);opacity:0}to{transform:none;opacity:1}}
+.bye-card svg{width:130px;height:auto}
+.bye-card h2{font-size:1.7rem;color:#B3541E;margin-top:4px}
+.bye-card p{margin:8px 0 0;font-size:1.05rem}
+.bye-actions{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap;justify-content:center}
+.bye-yes,.bye-no{border:none;font-family:var(--display);font-size:1.1rem;padding:12px 18px;color:#fff;box-shadow:0 5px 0 rgba(0,0,0,.2)}
+.bye-yes{background:var(--berry);border-radius:58% 42% 55% 45% / 48% 58% 42% 52%}
+.bye-no{background:var(--leaf);border-radius:42% 58% 45% 55% / 58% 44% 56% 42%}
+
+/* Calendar */
+.cal-btn{background:radial-gradient(circle at 85% 30%,rgba(255,255,255,.2) 0 12px,transparent 13px),radial-gradient(circle at 12% 75%,rgba(0,0,0,.08) 0 14px,transparent 15px),var(--sky);border-radius:64px 42px 60px 46px / 44px 58px 40px 56px}
+.date-pick{display:flex;align-items:center;gap:10px;width:100%;border:2px solid var(--line);background:var(--surface);border-radius:16px;padding:10px 12px;text-align:start;color:var(--ink)}
+.date-pick svg{width:26px;height:26px;flex:none;color:var(--leaf)}
+.date-panel{background:var(--surface);border:2px solid var(--line);border-radius:18px;padding:10px}
+.cal-head{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:8px}
+.cal-title{font-family:var(--display);font-size:1.2rem}
+.cal-arrow{border:none;background:var(--chip);color:var(--ink);width:40px;height:40px;border-radius:50%;display:grid;place-items:center;padding:0}
+.cal-arrow:disabled{opacity:.3}
+.cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+.cal-wd{text-align:center;font-size:.8rem;color:var(--muted);padding-bottom:2px}
+.cal-day{position:relative;border:none;background:var(--chip);border-radius:12px;aspect-ratio:1;min-width:0;padding:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;overflow:hidden;font-variant-numeric:tabular-nums}
+.cal-day:disabled{opacity:.3}
+.cal-day.today{box-shadow:inset 0 0 0 2px var(--tangerine)}
+.cal-day.sel{background:var(--leaf);color:#fff}
+.cal-n{position:relative;z-index:1;font-size:.95rem}
+.cal-dots{position:relative;z-index:1;display:flex;gap:2px}
+.cal-dots i{width:7px;height:7px;border-radius:50%;box-shadow:0 0 0 1px #fff}
+.cal-day.has-photo .cal-n{background:rgba(255,255,255,.88);color:#1F3328;border-radius:8px;padding:0 5px}
+.cal-day.has-photo.sel{box-shadow:inset 0 0 0 3px var(--leaf)}
+.cal-day img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.cal-card{background:var(--surface);border-radius:26px 34px 24px 30px / 30px 24px 34px 26px;padding:14px;box-shadow:var(--shadow)}
+.cal-legend{display:flex;flex-wrap:wrap;gap:6px 12px;background:var(--surface);border-radius:16px;padding:8px 12px;font-size:.85rem}
+.cal-legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-inline-end:5px}
+.cal-day-list{display:flex;flex-direction:column;gap:10px}
+.day-title{font-size:1.15rem;align-self:flex-start;background:var(--surface);border-radius:999px;padding:4px 14px}
+
+/* Album */
+.view{display:flex;flex-direction:column;gap:22px}
+.album-btn{display:flex;align-items:center;gap:14px;border:none;padding:16px 20px;color:#fff;text-align:start;
+  border-radius:40px 70px 46px 64px / 56px 40px 60px 44px;background:radial-gradient(circle at 85% 30%,rgba(255,255,255,.2) 0 12px,transparent 13px),radial-gradient(circle at 12% 75%,rgba(0,0,0,.08) 0 14px,transparent 15px),var(--leaf);
+  box-shadow:0 6px 0 rgba(0,0,0,.2),inset 0 5px 0 rgba(255,255,255,.18)}
+.album-btn:active{transform:translateY(4px);box-shadow:0 2px 0 rgba(0,0,0,.2)}
+.album-btn svg{width:54px;height:54px;flex:none}
+.album-btn span{display:flex;flex-direction:column;min-width:0}
+.album-btn b{font-family:var(--display);font-weight:400;font-size:1.3rem}
+.album-btn small{font-size:.9rem;opacity:.92}
+.album-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.back{border:none;background:var(--surface);border-radius:999px;padding:8px 16px;box-shadow:var(--shadow);font-family:var(--display)}
+.page{position:relative;background:
+  radial-gradient(circle at 20% 30%,rgba(160,120,60,.05) 0 2px,transparent 3px) 0 0/28px 28px,
+  linear-gradient(160deg,#FFFBEA,#FFF3D2);
+  border-radius:8px 18px 18px 8px;padding:42px 22px 54px 40px;min-height:560px;box-shadow:0 10px 24px rgba(31,51,40,.25),inset -14px 0 18px -14px rgba(120,80,30,.25);
+  display:flex;flex-direction:column;gap:34px;overflow:hidden}
+.page::before{content:"";position:absolute;inset-block:18px;right:10px;width:12px;background:radial-gradient(circle,#D8C49A 0 5px,transparent 6px) 0 0/12px 34px repeat-y}
+.page-art{position:absolute;inset:0;pointer-events:none;width:100%;height:100%}
+.page-no{position:absolute;bottom:14px;left:0;right:0;text-align:center;font-family:var(--hand);font-size:1.4rem;color:#6B5A3A}
+.photo{position:relative;z-index:1;background:#fff;padding:10px 10px 8px;box-shadow:0 6px 14px rgba(0,0,0,.18);width:min(100%,300px);border:none;cursor:zoom-in;display:block}
+.photo:nth-of-type(odd){align-self:flex-start} .photo:nth-of-type(even){align-self:flex-end}
+.photo img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;background:#E8E2D0}
+.photo figcaption{font-family:var(--hand);font-size:1.45rem;line-height:1.1;color:#3B3226;padding-top:6px;text-align:center;overflow-wrap:anywhere}
+.tape{position:absolute;width:74px;height:24px;top:-10px;opacity:.85;box-shadow:0 1px 2px rgba(0,0,0,.12);
+  background:repeating-linear-gradient(45deg,rgba(255,255,255,.35) 0 6px,transparent 6px 12px),var(--tc);
+  -webkit-mask:linear-gradient(90deg,transparent 0 2px,#000 2px calc(100% - 2px),transparent 0),conic-gradient(from -45deg at 50% 100%,#000 90deg,transparent 0) 0 0/8px 100%;}
+.tape.a{right:-16px;transform:rotate(38deg)} .tape.b{left:-18px;transform:rotate(-36deg)}
+.album-empty{font-family:var(--hand);font-size:1.8rem;color:#5A4A30;text-align:center;margin:auto 0;position:relative;z-index:1;line-height:1.2}
+.album-empty small{display:block;font-family:var(--body);font-size:1rem;margin-top:10px}
+.album-nav{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.album-nav span{background:var(--surface);border-radius:999px;padding:4px 14px;font-size:.95rem}
+.pg{border:none;color:#fff;background:var(--tangerine);padding:12px 20px;font-family:var(--display);font-size:1.1rem;border-radius:58% 42% 55% 45% / 48% 58% 42% 52%;box-shadow:0 5px 0 rgba(0,0,0,.2)}
+.pg.prev{background:var(--sky)} .pg:disabled{opacity:.35}
+.lightbox{position:fixed;inset:0;z-index:40;background:rgba(15,30,20,.92);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:calc(20px + env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) calc(20px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.lightbox img{max-width:100%;max-height:72%;object-fit:contain;border:8px solid #fff;border-radius:4px}
+.lb-cap{color:#fff;font-family:var(--hand);font-size:1.8rem;text-align:center;max-width:36ch}
+.lb-close{border:none;background:#fff;color:#1F3328;border-radius:999px;padding:10px 24px;font-family:var(--display)}
+.lb-actions,.lb-confirm{display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:center;color:#fff}
+.lb-del{border:2px solid rgba(255,255,255,.6);background:none;color:#fff;border-radius:999px;padding:8px 18px}
+.lb-yes{border:none;background:var(--berry);color:#fff;border-radius:999px;padding:10px 20px;font-family:var(--display)}
+
+@media (max-width:380px){.hero svg{width:104px}.hero h1{font-size:1.7rem}.stat .num{font-size:1.8rem}}
+.blink{animation:blink 4s infinite;transform-origin:center;transform-box:fill-box}
+@keyframes blink{0%,92%,100%{transform:scaleY(1)}95%{transform:scaleY(.1)}}
+.tongue{animation:flick 3s infinite;transform-origin:0 50%;transform-box:fill-box}
+@keyframes flick{0%,70%,100%{transform:scaleX(0)}78%,88%{transform:scaleX(1)}}
+@media (prefers-reduced-motion:reduce){.blink,.tongue,.tongue-v,.sheet,.sway,.act{animation:none!important}.tongue{transform:none}}
+.tongue-v{animation:flickv 3.4s infinite;transform-origin:50% 0;transform-box:fill-box}
+@keyframes flickv{0%,70%,100%{transform:scaleY(0)}78%,88%{transform:scaleY(1)}}
+.sway{animation:sway 5s ease-in-out infinite;transform-box:fill-box}
+@keyframes sway{0%,100%{transform:rotate(0)}50%{transform:rotate(3deg)}}
+</style>
+</head>
+<body>
+
+<div class="scene" aria-hidden="true">
+  <svg viewBox="0 0 400 860" preserveAspectRatio="xMidYMid slice">
+    <defs>
+      <linearGradient id="jl" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#FFF7CF"/><stop offset=".45" stop-color="#E4F7C4"/><stop offset="1" stop-color="#B9E89A"/></linearGradient>
+      <g id="mon"><path d="M0 0 C30 -40 92 -34 104 18 C112 60 70 96 22 92 C-12 88 -22 40 0 0Z"/><path d="M50 4 L36 30 M78 20 L56 40 M92 52 L64 54 M80 80 L56 66 M20 70 L36 56" stroke="#E4F7C4" stroke-width="7" stroke-linecap="round"/><path d="M0 0 C30 20 50 40 60 56" stroke="rgba(0,0,0,.15)" stroke-width="3" fill="none"/></g>
+      <g id="ban"><path d="M0 0 C40 -14 140 -10 200 10 C140 30 40 30 0 0Z"/><path d="M6 1 C60 2 140 4 196 10" stroke="rgba(0,0,0,.14)" stroke-width="3" fill="none"/><path d="M40 -6 L46 8 M70 -8 L76 12 M100 -8 L106 14 M130 -6 L136 14 M160 -2 L164 12" stroke="rgba(255,255,255,.35)" stroke-width="2"/></g>
+    </defs>
+    <rect width="400" height="860" fill="url(#jl)"/>
+    <g fill="#FFFFFF" opacity=".35"><path d="M330 -20 L380 -20 L200 860 L120 860Z"/><path d="M260 -20 L290 -20 L60 860 L20 860Z" opacity=".6"/></g>
+    <g fill="#A9DE86"><ellipse cx="40" cy="610" rx="120" ry="70"/><ellipse cx="220" cy="640" rx="140" ry="60"/><ellipse cx="380" cy="600" rx="110" ry="80"/></g>
+    <g fill="#8FD06E"><ellipse cx="120" cy="720" rx="150" ry="70"/><ellipse cx="340" cy="740" rx="140" ry="70"/></g>
+    <rect y="760" width="400" height="100" fill="#7CC45C"/>
+    <use href="#ban" transform="translate(-30 300) rotate(-18)" fill="#5DBB5A"/>
+    <use href="#ban" transform="translate(430 420) rotate(200)" fill="#4FAE52"/>
+    <use href="#mon" transform="translate(-40 470) rotate(-20) scale(1.2)" fill="#3E9C4A"/>
+    <use href="#mon" transform="translate(440 250) rotate(150) scale(1.1)" fill="#46A852"/>
+    <use href="#mon" transform="translate(300 700) rotate(-40) scale(.9)" fill="#3E9C4A"/>
+    <use href="#mon" transform="translate(30 760) rotate(-70) scale(.8)" fill="#52B35A"/>
+    <g stroke="#5A9E3A" stroke-width="3" fill="none"><path d="M90 -10 C80 60 100 120 86 200"/><path d="M300 -10 C312 70 290 130 304 230"/></g>
+    <g fill="#6CC46A"><ellipse cx="84" cy="60" rx="10" ry="5" transform="rotate(40 84 60)"/><ellipse cx="96" cy="110" rx="10" ry="5" transform="rotate(-30 96 110)"/><ellipse cx="88" cy="160" rx="10" ry="5" transform="rotate(30 88 160)"/><ellipse cx="308" cy="70" rx="10" ry="5" transform="rotate(-40 308 70)"/><ellipse cx="294" cy="130" rx="10" ry="5" transform="rotate(30 294 130)"/><ellipse cx="302" cy="190" rx="10" ry="5" transform="rotate(-30 302 190)"/></g>
+    <g transform="translate(70 820)"><g fill="#FF6F9A"><ellipse cx="0" cy="-10" rx="7" ry="11"/><ellipse cx="10" cy="-2" rx="11" ry="7"/><ellipse cx="5" cy="9" rx="7" ry="10" transform="rotate(-30 5 9)"/><ellipse cx="-6" cy="8" rx="7" ry="10" transform="rotate(30 -6 8)"/><ellipse cx="-10" cy="-2" rx="11" ry="7"/></g><circle r="4" fill="#FFD84D"/></g>
+    <g transform="translate(330 830)"><g fill="#FFA24D"><ellipse cx="0" cy="-10" rx="7" ry="11"/><ellipse cx="10" cy="-2" rx="11" ry="7"/><ellipse cx="5" cy="9" rx="7" ry="10" transform="rotate(-30 5 9)"/><ellipse cx="-6" cy="8" rx="7" ry="10" transform="rotate(30 -6 8)"/><ellipse cx="-10" cy="-2" rx="11" ry="7"/></g><circle r="4" fill="#FFE27A"/></g>
+    <g transform="translate(250 380)"><path d="M0 0 C-14 -16 -26 -4 -16 6 C-24 14 -10 22 0 8Z" fill="#FFB347"/><path d="M0 0 C14 -16 26 -4 16 6 C24 14 10 22 0 8Z" fill="#FF8C42"/><path d="M0 -4 V12" stroke="#5A3A1E" stroke-width="2.5" stroke-linecap="round"/></g>
+  </svg>
+</div>
+<div class="frame" aria-hidden="true"><div class="wood"></div><svg id="frameArt"></svg></div>
+<div class="app" dir="rtl">
+<div id="mainView" class="view">
+  <header class="hero">
+    <svg viewBox="0 0 160 140" aria-label="פייפר הנחשה" role="img">
+      <!-- coiled body -->
+      <ellipse cx="80" cy="122" rx="62" ry="10" fill="rgba(0,0,0,.15)"/>
+      <path d="M30 100 C 20 60, 60 40, 95 52 C 130 64, 135 104, 100 112 C 70 119, 48 104, 58 86" fill="none" stroke="var(--scale)" stroke-width="26" stroke-linecap="round"/>
+      <path d="M30 100 C 20 60, 60 40, 95 52 C 130 64, 135 104, 100 112 C 70 119, 48 104, 58 86" fill="none" stroke="var(--scale-dark)" stroke-width="14" stroke-linecap="round" stroke-dasharray="10 16"/>
+      <path d="M30 100 C 40 118, 70 122, 96 120" fill="none" stroke="var(--scale)" stroke-width="22" stroke-linecap="round"/>
+      <path d="M96 120 C 112 118, 124 114, 132 108" fill="none" stroke="var(--scale)" stroke-width="12" stroke-linecap="round"/>
+      <path d="M58 86 C 64 70, 78 66, 88 70" fill="none" stroke="var(--scale)" stroke-width="22" stroke-linecap="round"/>
+      <!-- head -->
+      <g transform="translate(96 40)">
+        <path class="tongue" d="M28 14 L44 14 M44 14 L50 9 M44 14 L50 19" stroke="#E2457A" stroke-width="3" stroke-linecap="round" fill="none"/>
+        <ellipse cx="6" cy="14" rx="26" ry="19" fill="var(--scale)"/>
+        <path d="M-14 18 C -2 30, 18 30, 30 18" fill="var(--belly)"/>
+        <path d="M-12 4 C -4 -4, 10 -6, 20 2" fill="none" stroke="var(--scale-dark)" stroke-width="5" stroke-linecap="round"/>
+        <g class="blink"><circle cx="8" cy="10" r="7" fill="#fff"/><circle cx="10" cy="10" r="4" fill="#1F3328"/><circle cx="11.5" cy="8.5" r="1.4" fill="#fff"/></g>
+        <path d="M14 22 Q 20 26 26 21" stroke="#1F3328" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+        <circle cx="-2" cy="22" r="3.2" fill="#FF9AB5" opacity=".8"/>
+      </g>
+    </svg>
+    <div class="hero-text">
+      <h1>החיים של פייפר</h1>
+      <p>היומן של פיתונית מתכדררת ושל עינב</p>
+      <div class="bubble" id="greet">שלום עינב!</div>
+    </div>
+  </header>
+
+  <section aria-label="מצב עכשיו">
+    <div class="status">
+      <div class="stat feed"><span class="lbl">ימים מאז</span><span class="num" id="dFeed">–</span><span class="what">ארוחה</span></div>
+      <div class="stat shed"><span class="lbl">ימים מאז</span><span class="num" id="dShed">–</span><span class="what">השלת עור</span></div>
+      <div class="stat clean"><span class="lbl">ימים מאז</span><span class="num" id="dClean">–</span><span class="what">ניקיון</span></div>
+    </div>
+  </section>
+  <div class="hint" id="hint">כאן פייפר תספר לך איך היא מרגישה.</div>
+  <section class="tip" aria-live="polite">
+    <svg class="tip-snake" viewBox="0 0 80 80" aria-hidden="true"><path d="M10 70 C 4 50, 30 44, 40 56 C 50 68, 72 62, 66 44" stroke="#C98A4B" stroke-width="12" fill="none" stroke-linecap="round"/><path d="M10 70 C 4 50, 30 44, 40 56 C 50 68, 72 62, 66 44" stroke="#6B4423" stroke-width="6" fill="none" stroke-linecap="round" stroke-dasharray="4 9"/><ellipse cx="62" cy="30" rx="15" ry="12" fill="#C98A4B"/><circle cx="57" cy="27" r="4" fill="#fff"/><circle cx="67" cy="27" r="4" fill="#fff"/><circle cx="57.6" cy="28" r="2.2" fill="#1F3328"/><circle cx="67.6" cy="28" r="2.2" fill="#1F3328"/><path d="M57 35 Q62 39 67 35" stroke="#1F3328" stroke-width="1.8" fill="none" stroke-linecap="round"/><path d="M48 8 c-4 -6 4 -10 6 -4 c2 -6 10 -2 6 4 l-6 6z" fill="#FF6F9A"/></svg>
+    <div class="tip-body">
+      <div class="tip-label" id="tipLabel">פייפר מבקשת</div>
+      <p class="tip-text" id="tipText"></p>
+      <div class="tip-actions"><button class="tip-do" id="tipDo">עשיתי את זה!</button><button class="tip-next" id="tipNext">עוד משהו</button></div>
+    </div>
+  </section>
+
+  <section style="display:flex;flex-direction:column;gap:12px">
+    <h2 class="section-title">מה קרה היום?</h2>
+    <div class="actions">
+      <button class="act feed" data-open="feed"><svg viewBox="0 0 48 48" aria-hidden="true"><ellipse cx="22" cy="28" rx="15" ry="11" fill="#fff"/><circle cx="12" cy="18" r="6" fill="#fff"/><circle cx="12" cy="18" r="3" fill="#FFB3C7"/><circle cx="9" cy="27" r="2" fill="#1F3328"/><path d="M37 30 C 44 30, 44 40, 38 40" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round"/></svg><span>פייפר אכלה</span></button>
+      <button class="act shed" data-open="shed"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M8 38 C 8 20, 22 22, 24 12 C 26 22, 40 20, 40 38" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-dasharray="3 5"/><path d="M24 4 l2 4 4 1 -4 2 -2 4 -2 -4 -4 -2 4 -1z" fill="#FFE27A"/></svg><span>פייפר השילה עור</span></button>
+      <button class="act clean" data-open="clean"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 6 C 30 16, 36 22, 36 30 a12 12 0 0 1 -24 0 C 12 22, 18 16, 24 6z" fill="#fff"/><path d="M19 30 a5 5 0 0 0 5 5" stroke="var(--sky)" stroke-width="3" fill="none" stroke-linecap="round"/></svg><span>ניקינו את הבית</span></button>
+      <button class="act note" data-open="note"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="10" y="7" width="26" height="34" rx="5" fill="#fff"/><path d="M16 17h14M16 24h14M16 31h8" stroke="var(--berry)" stroke-width="3" stroke-linecap="round"/><path d="M33 30 l8 -8 4 4 -8 8 -5 1z" fill="#FFE27A"/></svg><span>יומן ותמונה</span></button>
+    </div>
+    <button class="album-btn" id="openAlbum"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="6" y="10" width="36" height="30" rx="4" fill="#fff"/><rect x="11" y="15" width="26" height="18" rx="2" fill="#8FD06E"/><circle cx="31" cy="20" r="3" fill="#FFD84D"/><path d="M11 33 L19 23 L25 29 L29 25 L37 33Z" fill="#3E9C4A"/><rect x="14" y="6" width="12" height="6" rx="1" fill="#FFE27A" opacity=".9" transform="rotate(-8 20 9)"/></svg><span><b>אלבום התמונות</b><small id="albumCount">כל התמונות של פייפר</small></span></button>
+    <button class="album-btn cal-btn" id="openCal"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="6" y="9" width="36" height="32" rx="6" fill="#fff"/><rect x="6" y="9" width="36" height="9" rx="4" fill="#FFD84D"/><path d="M15 5v8M33 5v8" stroke="#fff" stroke-width="4" stroke-linecap="round"/><circle cx="15" cy="26" r="3" fill="#FF7A3D"/><circle cx="24" cy="26" r="3" fill="#8A5CD6"/><circle cx="33" cy="26" r="3" fill="#2F9FD8"/><circle cx="15" cy="34" r="3" fill="#E2457A"/><circle cx="24" cy="34" r="3" fill="#2E9A68"/></svg><span><b>לוח השנה</b><small>מה קרה בכל יום</small></span></button>
+  </section>
+
+  <section style="display:flex;flex-direction:column;gap:12px">
+    <h2 class="section-title">היומן של פייפר</h2>
+    <div class="filters" role="group" aria-label="סינון">
+      <button aria-pressed="true" data-f="all">הכל</button>
+      <button aria-pressed="false" data-f="feed">ארוחות</button>
+      <button aria-pressed="false" data-f="shed">השלות</button>
+      <button aria-pressed="false" data-f="clean">ניקיון</button>
+      <button aria-pressed="false" data-f="note">יומן</button>
+      <button aria-pressed="false" data-f="bond">זמן ביחד</button>
+    </div>
+    <ul class="diary" id="diary"></ul>
+  </section>
+  <p class="foot" id="foot">פייפר שמחה שאתה דואג לה.</p>
+  <section class="backup">
+    <h2 class="section-title">גיבוי</h2>
+    <p>כל מה שנרשם שמור בטלפון הזה. כדאי לשמור גיבוי מדי פעם, למשל בגוגל דרייב או בוואטסאפ לעצמך.</p>
+    <div class="backup-actions"><button id="bkSave">שמור גיבוי</button><label class="bk-load">טען גיבוי<input type="file" id="bkLoad" accept=".json,application/json"></label></div>
+  </section>
+</div>
+<div id="calView" class="view" hidden>
+  <div class="album-head">
+    <button class="back" id="calBack">→ חזרה</button>
+    <h2 class="section-title">לוח השנה</h2>
+  </div>
+  <div class="cal-card" id="calCard"></div>
+  <div class="cal-legend"><span><i style="background:var(--tangerine)"></i>ארוחה</span><span><i style="background:var(--grape)"></i>השלה</span><span><i style="background:var(--sky)"></i>ניקיון</span><span><i style="background:var(--berry)"></i>יומן</span><span><i style="background:var(--leaf)"></i>ביחד</span></div>
+  <section class="cal-day-list"><h3 class="day-title" id="dayTitle"></h3><ul class="diary" id="dayList"></ul></section>
+</div>
+<div id="albumView" class="view" hidden>
+  <div class="album-head">
+    <button class="back" id="albumBack">→ חזרה</button>
+    <h2 class="section-title">אלבום התמונות של פייפר</h2>
+  </div>
+  <div id="albumPage"></div>
+  <div class="album-nav" id="albumNav">
+    <button class="pg next" id="pgNext">הבא ←</button>
+    <span id="pgLabel"></span>
+    <button class="pg prev" id="pgPrev">→ הקודם</button>
+  </div>
+</div>
+</div>
+<div class="lightbox" id="lightbox" hidden><img id="lbImg" alt="תמונה של פייפר"><div class="lb-cap" id="lbCap"></div><div class="lb-actions"><button class="lb-close" id="lbClose">סגור</button><button class="lb-del" id="lbDel">מחק מהאלבום</button></div><div class="lb-confirm" id="lbConfirm" hidden><span>למחוק את התמונה?</span><button class="lb-yes" id="lbYes">כן, למחוק</button><button class="lb-close" id="lbNo">לא</button></div></div>
+
+<div class="scrim" id="scrim" hidden></div>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" dir="rtl" hidden></div>
+<div class="toast" id="toast" hidden></div>
+<div class="bye" id="bye" dir="rtl" hidden><div class="bye-card" role="dialog" aria-modal="true" aria-labelledby="byeTitle">
+  <svg viewBox="0 0 120 90" aria-hidden="true"><path d="M10 80 C 0 60, 40 52, 54 66 C 68 80, 100 72, 92 46" stroke="#C98A4B" stroke-width="16" fill="none" stroke-linecap="round"/><path d="M10 80 C 0 60, 40 52, 54 66 C 68 80, 100 72, 92 46" stroke="#6B4423" stroke-width="7" fill="none" stroke-linecap="round" stroke-dasharray="5 11"/><ellipse cx="90" cy="30" rx="19" ry="15" fill="#C98A4B"/><circle cx="83" cy="27" r="5" fill="#fff"/><circle cx="96" cy="27" r="5" fill="#fff"/><circle cx="83.6" cy="28" r="2.8" fill="#1F3328"/><circle cx="96.6" cy="28" r="2.8" fill="#1F3328"/><path d="M83 37 Q90 42 97 37" stroke="#1F3328" stroke-width="2" fill="none" stroke-linecap="round"/><path class="tongue" d="M108 32 L118 32 M118 32 l4 -4 M118 32 l4 4" stroke="#E2457A" stroke-width="2.4" fill="none" stroke-linecap="round"/></svg>
+  <h2 id="byeTitle">סיימנו להיום?</h2><p id="byeText"></p>
+  <div class="bye-actions"><button class="bye-yes" id="byeYes">כן, להתראות!</button><button class="bye-no" id="byeNo">עוד קצת!</button></div>
+</div></div>
+<div class="bye" id="byeDone" dir="rtl" hidden><div class="bye-card"><h2>להתראות עינב!</h2><p>פייפר מחכה לך.</p></div></div>
+
+<script>
+(function(){
+const $=s=>document.querySelector(s);
+const ICON={
+ feed:'<svg viewBox="0 0 48 48"><ellipse cx="22" cy="28" rx="15" ry="11" fill="#fff"/><circle cx="12" cy="18" r="6" fill="#fff"/><circle cx="9" cy="27" r="2" fill="#1F3328"/></svg>',
+ shed:'<svg viewBox="0 0 48 48"><path d="M8 38 C 8 20, 22 22, 24 12 C 26 22, 40 20, 40 38" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-dasharray="3 5"/></svg>',
+ clean:'<svg viewBox="0 0 48 48"><path d="M24 6 C 30 16, 36 22, 36 30 a12 12 0 0 1 -24 0 C 12 22, 18 16, 24 6z" fill="#fff"/></svg>',
+ bond:'<svg viewBox="0 0 48 48"><path d="M24 40 C8 28 6 18 12 12 C17 7 22 10 24 15 C26 10 31 7 36 12 C42 18 40 28 24 40Z" fill="#fff"/></svg>',
+ note:'<svg viewBox="0 0 48 48"><rect x="10" y="7" width="26" height="34" rx="5" fill="#fff"/><path d="M16 17h14M16 24h14M16 31h8" stroke="#E2457A" stroke-width="3" stroke-linecap="round"/></svg>'
+};
+const COLOR={feed:'var(--tangerine)',shed:'var(--grape)',clean:'var(--sky)',note:'var(--berry)',bond:'var(--leaf)'};
+const TITLE={feed:'מתי פייפר אכלה?',shed:'פייפר השילה עור!',clean:'ניקינו את הבית של פייפר',note:'מה קרה היום עם פייפר?'};
+
+/* ---------- dates ---------- */
+const pad=n=>String(n).padStart(2,'0');
+const ymd=d=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());
+const today=()=>ymd(new Date());
+const daysAgo=n=>{const d=new Date();d.setDate(d.getDate()-n);return ymd(d)};
+const parse=s=>{const [y,m,d]=s.split('-').map(Number);return new Date(y,m-1,d)};
+const diffDays=s=>Math.round((parse(today())-parse(s))/86400000);
+const nice=s=>{const n=diffDays(s);if(n===0)return 'היום';if(n===1)return 'אתמול';return parse(s).toLocaleDateString('he-IL',{weekday:'long',day:'numeric',month:'long'})};
+
+/* ---------- storage: shared db, falls back to this phone ---------- */
+let entries=[]; let db=null; let assets=null; const LS='piper-life-v1';
+function lsLoad(){try{return JSON.parse(localStorage.getItem(LS)||'[]')}catch(e){return []}}
+/* entries live in IndexedDB on the phone (room for photos); localStorage is only an old fallback */
+function idb(){return new Promise((res,rej)=>{const r=indexedDB.open('piper-life',1);r.onupgradeneeded=()=>r.result.createObjectStore('kv');r.onsuccess=()=>res(r.result);r.onerror=()=>rej(r.error)})}
+async function idbGet(k){const d=await idb();return new Promise((res,rej)=>{const q=d.transaction('kv').objectStore('kv').get(k);q.onsuccess=()=>res(q.result);q.onerror=()=>rej(q.error)})}
+async function idbSet(k,v){const d=await idb();return new Promise((res,rej)=>{const t=d.transaction('kv','readwrite');t.objectStore('kv').put(v,k);t.oncomplete=()=>res();t.onerror=()=>rej(t.error)})}
+function lsSave(){idbSet('entries',entries).catch(()=>toast('לא הצלחתי לשמור בטלפון. בדוק שיש מקום פנוי.'))}
+const store={
+  async add(e){ if(db){await db.collection('log').doc(e.id).set(e)} else {entries=entries.filter(x=>x.id!==e.id);entries.push(e);lsSave();render()} },
+  async remove(id){ if(db){await db.collection('log').doc(id).delete()} else {entries=entries.filter(x=>x.id!==id);lsSave();render()} }
+};
+entries=[];
+
+
+/* ---------- tips from Piper ---------- */
+const T=(t,task)=>({t,task});
+const TIPS=[
+ T('שב ליד הבית של פייפר 5 דקות ודבר אליה בשקט. היא מזהה אותך לפי הריח.',1),
+ T('התקרב היום לפייפר מהצד, לאט לאט, ולא מלמעלה. ככה היא לא נבהלת.',1),
+ T('לפני שמרימים את פייפר שוטפים ידיים, כדי שהיד לא תריח כמו אוכל. שטוף ידיים ואז תגיד לה שלום.',1),
+ T('גע בעדינות בגוף של פייפר עם מקל רך לפני שמרימים אותה. זה הסימן שלה: עכשיו לא אוכל, עכשיו עינב.',1),
+ T('החזק את פייפר כשאתה תומך בגוף שלה בשתי ידיים, כדי שהיא לא תהיה תלויה באוויר.',1),
+ T('תן לפייפר לזחול מיד ליד, כמו הליכון. היא בוחרת לאן ללכת, ואתה רק מחליף ידיים.',1),
+ T('היום רק 5 דקות עם פייפר בידיים. בפעם הבאה אפשר 10.',1),
+ T('שב ליד פייפר וספר לה מה היה לך היום.',1),
+ T('צלם את פייפר היום ותוסיף את התמונה לאלבום.',1),
+ T('צייר את פייפר על דף, צלם את הציור והדבק אותו באלבום.',1),
+ T('תמציא לפייפר שם חיבה סודי שרק אתה יודע.',1),
+ T('בדוק אם יש לפייפר מים נקיים, ואם צריך תחליף.',1),
+ T('הסתכל על פייפר 5 דקות: איפה היא אוהבת לשבת? במחבוא, ליד המים או בצד החם?',1),
+ T('הפעם כשאתה מחזיק את פייפר, שב על הרצפה. ככה גם אם היא זזה פתאום, לא קורה כלום.',1),
+ T('לפני שאתה פותח את הבית של פייפר, נשום עמוק שלוש פעמים. כשאתה רגוע, גם היא נרגעת.',1),
+ T('פיתון מתכדרר מתגלגל לכדור כשהוא מתבייש. אם פייפר בכדור, היא לא כועסת, רק צריכה זמן.',0),
+ T('פייפר מריחה עם הלשון! היא אוספת ריחות מהאוויר ומכניסה אותם לאיבר מיוחד בפה. כשהיא מוציאה לשון לאט, היא סקרנית ומריחה אותך.',0),
+ T('כל נחש צעיר נבהל בהתחלה. כשפייפר נשכה, זה היה מפחד ולא כי היא לא אוהבת אותך. ככל שתבלו יותר זמן ביחד, היא תפחד פחות.',0),
+ T('לנחשים אין אוזניים מבחוץ. פייפר מרגישה את הרעידות של הקול והצעדים שלך דרך הגוף והלסת.',0),
+ T('לפיתונים יש גומות קטנות בשפה שמרגישות חום. ככה הם מוצאים אוכל גם בחושך.',0),
+ T('לפני השלת עור העיניים של פייפר נהיות כחולות ועכורות. בימים האלה היא רואה פחות ונבהלת יותר, אז לא מרימים אותה.',0),
+ T('פיתון מתכדרר יכול לחיות יותר מ־20 שנה. אתה ופייפר תגדלו ביחד!',0),
+ T('פיתונים מתכדררים מגיעים ממערב ומרכז אפריקה. שם הם חיים בשטחי עשב וביערות פתוחים.',0),
+ T('באנגלית קוראים לפייפר Ball Python, כלומר "פיתון כדור", בגלל שהיא מתגלגלת לכדור כשהיא מפחדת.',0),
+ T('לפיתון מתכדרר יש עוד שם: "פיתון מלכותי". לפי אגדה, מלכות באפריקה ענדו אותם כמו תכשיט.',0),
+ T('פיתונים לא ארסיים. כשהם צדים, הם מתלפפים סביב הטרף ולוחצים עליו.',0),
+ T('נקבות פיתון מתכדרר גדלות יותר מזכרים. נקבה בוגרת מגיעה בדרך כלל לאורך של 1.2 עד 1.5 מטר.',0),
+ T('גור פיתון מתכדרר שבוקע מהביצה הוא באורך של 25 עד 40 סנטימטר בערך.',0),
+ T('אמא פיתון מתכדרר מטילה כמה ביצים, בדרך כלל בין 3 ל־11, ומתכרבלת סביבן כדי לשמור עליהן.',0),
+ T('פיתון מתכדרר בוגר יכול לצום כמה שבועות ואפילו חודשים, במיוחד בחורף. זה טבעי אצלם.',0),
+ T('בטבע פיתונים מתכדררים מבלים הרבה זמן בתוך מחילות של מכרסמים, כדי להסתתר ולהישאר בחום נעים.',0),
+ T('מגדלים יצרו מאות צבעים ודוגמאות של פיתון מתכדרר. קוראים להם "מופעים" (באנגלית Morphs), ויש להם שמות כמו בננה, פסטל ואלבינו.',0),
+ T('ליד הזנב יש לפיתונים שני קוצים קטנים. אלה שרידים של רגליים אחוריות מלפני מיליוני שנים!',0),
+ T('השיא: פיתון מתכדרר בגן חיות חי כמעט 50 שנה!',0),
+ T('לנחשים אין עפעפיים. קשקש שקוף מכסה להם את העין, כמו משקפיים, והוא מתחלף בכל השלת עור.',0),
+ T('נחשים לא יכולים למצמץ, ולכן הם ישנים עם עיניים פתוחות.',0),
+ T('נחשים לא לועסים. הם בולעים את האוכל שלם.',0),
+ T('נחשים יכולים לבלוע אוכל רחב יותר מהראש שלהם, כי עצמות הלסת שלהם מחוברות ברצועות גמישות שנמתחות.',0),
+ T('הלסת התחתונה של נחש בנויה משני חצאים שזזים כל אחד לבד. ככה הנחש "הולך" עם הפה על האוכל.',0),
+ T('כשנחש בולע משהו גדול, הוא מוציא צינור נשימה קטן לקדמת הפה, כדי שיוכל לנשום גם כשהפה מלא.',0),
+ T('הלשון של נחש מפוצלת לשתיים. ככה הוא יודע מאיזה צד הריח חזק יותר, ולאן ללכת.',0),
+ T('לנחשים יש מאות חוליות בעמוד השדרה. לחלקם יש יותר מ־300! לך יש 33.',0),
+ T('לרוב הנחשים יש רק ריאה אחת שעובדת, כי הגוף שלהם צר וארוך.',0),
+ T('נחשים הם בעלי דם קר. הם מתחממים מהסביבה, ולכן לפייפר צריך צד חם בבית.',0),
+ T('נחש מגדל עור חדש מתחת לישן. כשהוא בריא, הוא משיל את העור הישן בחתיכה אחת.',0),
+ T('כשנחש משיל עור, העור יוצא הפוך, כמו גרב שמורידים מהרגל.',0),
+ T('נחש צעיר משיל עור יותר פעמים מנחש מבוגר, כי הוא גדל מהר.',0),
+ T('הקשקשים של נחש עשויים מקרטין, אותו חומר שממנו עשויות הציפורניים שלך.',0),
+ T('הקשקשים בבטן של נחש רחבים, כל אחד כמו פס. הם נתפסים בקרקע ועוזרים לו לזחול.',0),
+ T('פיתונים יודעים לזחול בקו ישר, כמו זחל, בעזרת השרירים בבטן. ככה הם זזים בשקט.',0),
+ T('פיתון שנבהל יכול לשרוק. זו הדרך שלו להגיד "תתרחק ממני".',0),
+ T('פיתון לא צריך לאכול כל יום. ארוחה אחת יכולה להספיק לו לשבוע ויותר.',0),
+ T('נחשים שומעים בעיקר צלילים נמוכים, דרך עצמות הראש.',0),
+ T('רוב הנחשים רואים תנועה טוב מאוד, אבל לא פרטים קטנים.',0),
+ T('נחשים קיימים בכל יבשת חוץ מאנטארקטיקה.',0),
+ T('באירלנד, איסלנד וניו זילנד אין נחשים בטבע בכלל.',0),
+ T('בעולם יש כמעט 4,000 מינים של נחשים.',0),
+ T('הנחש הארוך בעולם הוא הפיתון המרושת. הוא יכול להגיע ליותר מ־6 מטרים!',0),
+ T('הנחש הכבד בעולם הוא האנקונדה הירוקה. היא יכולה לשקול יותר מ־90 קילו.',0),
+ T('הנחש הקטן בעולם חי באי ברבדוס. האורך שלו בערך 10 סנטימטר, והוא דק כמו ספגטי.',0),
+ T('בדרום מזרח אסיה יש נחשים שגולשים באוויר מעץ לעץ! הם משטחים את הגוף כמו כנף.',0),
+ T('יש נחשי ים שיכולים להחזיק את הנשימה מתחת למים יותר משעה.',0),
+ T('הרעשן של נחש הרעשן עשוי מקרטין, כמו הציפורניים שלך.',0),
+ T('נחש "רוקד" לא שומע את החליל. הוא עוקב אחרי התנועה של החליל.',0),
+ T('נחשים התפתחו מלטאות לפני יותר מ־100 מיליון שנה, בתקופת הדינוזאורים.',0),
+ T('בישראל חיים בערך 40 מינים של נחשים, ורובם לא ארסיים.',0),
+ T('הצפע המצוי הוא הנחש הארסי הנפוץ בישראל. כשרואים נחש בטבע לא נוגעים בו, מתרחקים וקוראים למבוגר.',0),
+ T('לפעמים פיתונים אוהבים לשכב בתוך קערת המים, במיוחד לפני השלת עור.',0)
+];
+(function(){let sd=11;const r=()=>(sd=(sd*9301+49297)%233280)/233280;for(let i=TIPS.length-1;i>0;i--){const j=Math.floor(r()*(i+1));[TIPS[i],TIPS[j]]=[TIPS[j],TIPS[i]]}})();
+const EVENING=T('פייפר אוהבת לטייל בערב ובלילה. הצץ עכשיו לראות מה היא עושה.',1);
+const REST=T('פייפר אכלה לא מזמן ועכשיו מעכלת. היום לא מרימים אותה. אפשר לבוא להגיד שלום דרך הזכוכית.',0);
+let tipIdx=null,tipShown=null;
+function dayIndex(){const d=parse(today());return Math.floor(d.getTime()/86400000)}
+function currentTip(){
+  const lf=lastOf('feed',e=>e.ate!==false);
+  if(lf&&diffDays(lf.date)<=1)return {...REST,rest:true};
+  const pool=new Date().getHours()>=18?[EVENING,...TIPS]:TIPS;
+  if(tipIdx===null)tipIdx=(dayIndex()*7)%pool.length;
+  return {...pool[tipIdx%pool.length],rest:false};
+}
+function showTip(){const t=currentTip();if(t.t===tipShown)return;tipShown=t.t;$('#tipText').textContent=t.t;
+  $('#tipLabel').textContent=t.task?'משימה מפייפר':'פייפר מספרת';
+  $('#tipDo').textContent=t.task?'עשיתי את זה!':'הבנתי!';$('#tipDo').disabled=false;$('#tipNext').hidden=!!t.rest;
+  $('#tipNext').textContent='עוד משהו'}
+$('#tipNext').onclick=()=>{tipIdx=(tipIdx+1)%(TIPS.length+1);showTip()};
+$('#tipDo').onclick=async()=>{const t=currentTip();hearts();
+  if(t.rest){toast('פייפר אומרת תודה שאתה נותן לה לנוח');return}
+  $('#tipDo').disabled=true;
+  if(!t.task){toast('עכשיו אתה יודע עוד משהו על פייפר!');setTimeout(()=>{tipIdx=(tipIdx||0)+1;showTip()},1500);return}
+  try{await store.add({id:'b'+Date.now().toString(36)+Math.random().toString(36).slice(2,5),kind:'bond',date:today(),created:Date.now(),text:t.t});
+    toast('כל הכבוד עינב! פייפר מתרגלת אליך');setTimeout(()=>{tipIdx=(tipIdx||0)+1;showTip()},1800)}
+  catch(e){$('#tipDo').disabled=false;toast('לא הצלחתי לשמור. נסה שוב.')}};
+function hearts(){if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;const h=document.createElement('div');h.className='hearts';
+  for(let i=0;i<9;i++){const sp=document.createElement('span');sp.textContent='♥';sp.style.left=(10+Math.random()*80)+'%';sp.style.animationDelay=(Math.random()*.4)+'s';sp.style.color=['#FF6F9A','#FFD84D','#7ED957','#C9A6FF'][i%4];h.appendChild(sp)}
+  document.body.appendChild(h);setTimeout(()=>h.remove(),2200)}
+
+/* ---------- render ---------- */
+let filter='all', confirmId=null;
+function lastOf(kind,pred){return entries.filter(e=>e.kind===kind&&(!pred||pred(e))).sort(sortFn)[0]}
+function sortFn(a,b){return a.date<b.date?1:a.date>b.date?-1:(b.created||0)-(a.created||0)}
+function setNum(id,e){$(id).textContent=e?diffDays(e.date):'–'}
+function render(){
+  const lf=lastOf('feed',e=>e.ate!==false), ls=lastOf('shed'), lc=lastOf('clean');
+  setNum('#dFeed',lf);setNum('#dShed',ls);setNum('#dClean',lc);
+  let h;
+  if(!entries.length) h='עוד אין כלום ביומן. לחץ על אחד הכפתורים הצבעוניים כדי לכתוב את הדבר הראשון על פייפר.';
+  else if(!lf) h='עוד לא רשמנו ארוחה. מתי פייפר אכלה בפעם האחרונה?';
+  else{const n=diffDays(lf.date);
+    h= n<=6 ? 'פייפר אכלה לפני '+(n===0?'פחות מיום':n+' ימים')+'. היא שבעה ומתכרבלת בנחת.'
+     : n<=13 ? 'עברו '+n+' ימים מהארוחה. אולי בקרוב זמן לארוחה הבאה. כדאי לבדוק עם אבא.'
+     : 'עברו כבר '+n+' ימים מהארוחה. פיתונים לפעמים צמים, אבל כדאי לבדוק עם אבא.'}
+  $('#hint').textContent=h;
+  showTip();
+  const eaten=entries.filter(e=>e.kind==='feed'&&e.ate!==false).length;
+  updateAlbumCount&&updateAlbumCount();if(!$('#albumView').hidden)renderAlbum();if(!$('#calView').hidden)renderCal();
+  const bonds=entries.filter(e=>e.kind==='bond').length;
+  $('#foot').textContent=bonds?('בילית עם פייפר '+bonds+(bonds===1?' פעם':' פעמים')+'. היא מתרגלת אליך כל פעם יותר!'):eaten?('עד עכשיו רשמת '+eaten+' ארוחות של פייפר. כל הכבוד, עינב!'):'פייפר שמחה שאתה דואג לה.';
+
+  const ul=$('#diary');ul.textContent='';
+  const list=entries.filter(e=>!(e.kind==='note'&&e.photo&&!e.text)&&(filter==='all'||e.kind===filter)).sort(sortFn);
+  if(!list.length){const li=document.createElement('li');li.className='empty';
+    li.textContent=filter==='all'?'היומן ריק. הרשומה הראשונה שתוסיף תופיע כאן.':'אין עדיין רשומות מהסוג הזה.';ul.appendChild(li);return}
+  let lastMonth='';
+  for(const e of list){
+    const m=parse(e.date).toLocaleDateString('he-IL',{month:'long',year:'numeric'});
+    if(m!==lastMonth){lastMonth=m;const mh=document.createElement('li');mh.className='month';mh.textContent=m;ul.appendChild(mh)}
+    ul.appendChild(entryEl(e));
+  }
+}
+function entryEl(e){
+    const li=document.createElement('li');li.className='entry';
+    const dot=document.createElement('div');dot.className='dot';dot.style.background=COLOR[e.kind];dot.innerHTML=ICON[e.kind];
+    const body=document.createElement('div');body.className='body';
+    const t=document.createElement('div');t.className='title';t.textContent=describe(e);
+    const meta=document.createElement('div');meta.className='meta';meta.textContent=nice(e.date);
+    body.append(t,meta);
+    if(e.text){const p=document.createElement('div');p.className='text';p.textContent=e.text;body.appendChild(p)}
+    if(e.photo){const img=document.createElement('img');img.alt='תמונה של פייפר';img.loading='lazy';img.src=photoSrc(e.photo);body.appendChild(img)}
+    if(confirmId===e.id){const c=document.createElement('div');c.className='confirm';
+      const s=document.createElement('span');s.textContent='למחוק את זה?';
+      const y=document.createElement('button');y.className='yes';y.textContent='כן, למחוק';y.onclick=async()=>{confirmId=null;try{await store.remove(e.id);toast('נמחק')}catch(err){toast('לא הצלחתי למחוק. נסה שוב.')};render()};
+      const n=document.createElement('button');n.className='no';n.textContent='לא';n.onclick=()=>{confirmId=null;render()};
+      c.append(s,y,n);body.appendChild(c)}
+    const tools=document.createElement('div');tools.style.cssText='display:flex;flex-direction:column;gap:2px;flex:none';
+    if(canEdit(e)){const ed=document.createElement('button');ed.className='del edit';ed.textContent='ערוך';ed.setAttribute('aria-label','ערוך רשומה');ed.onclick=()=>openSheet(e.kind,e);tools.appendChild(ed)}
+    const del=document.createElement('button');del.className='del';del.textContent='מחק';del.setAttribute('aria-label','מחק רשומה');del.onclick=()=>{confirmId=e.id;render()};
+    tools.appendChild(del);li.append(dot,body,tools);return li;
+}
+const canEdit=e=>!!e.created&&Date.now()-e.created<86400000;
+const FEM={'קטן':'קטנה','בינוני':'בינונית','גדול':'גדולה'};
+const sizeWord=(sz,prey)=>prey==='חולדה'?(FEM[sz]||sz):sz;
+function describe(e){
+  if(e.kind==='feed'){ if(e.ate===false) return 'פייפר לא רצתה לאכול'+(e.prey?' ('+e.prey+')':'');
+    return 'פייפר אכלה '+(e.prey||'')+(e.size?' '+sizeWord(e.size,e.prey):'') }
+  if(e.kind==='shed') return e.whole===false?'השלת עור בחתיכות':'השלת עור שלמה';
+  if(e.kind==='bond') return 'זמן ביחד עם פייפר';
+  if(e.kind==='clean') return 'ניקיון: '+((e.tasks&&e.tasks.length)?e.tasks.join(', '):'הבית של פייפר');
+  return 'מהיומן של עינב';
+}
+
+/* ---------- sheet with friendly questions ---------- */
+let form={};
+function choiceRow(key,opts,{big=false,multi=false}={}){
+  const wrap=document.createElement('div');wrap.className='choices'+(big?' big':'');
+  opts.forEach(o=>{const [val,label,cls]=Array.isArray(o)?o:[o,o];const b=document.createElement('button');b.type='button';b.textContent=label;if(cls)b.className=cls;
+    const on=()=>multi?(form[key]||[]).includes(val):form[key]===val;
+    b.setAttribute('aria-pressed',on());
+    b.onclick=()=>{ if(multi){const a=form[key]||[];form[key]=a.includes(val)?a.filter(x=>x!==val):[...a,val]} else form[key]=val;
+      [...wrap.children].forEach((c,i)=>{const v=Array.isArray(opts[i])?opts[i][0]:opts[i];c.setAttribute('aria-pressed',multi?(form[key]||[]).includes(v):form[key]===v)}); check() };
+    wrap.appendChild(b)});
+  return wrap;
+}
+function question(text,node,id){const q=document.createElement('div');q.className='q';const l=document.createElement(id?'label':'div');
+  if(id)l.htmlFor=id;else l.className='qt';l.textContent=text;q.append(l,node);return q}
+const MONTHS=['ינואר','פברואר','מרץ','אפריל','מאי','יוני','יולי','אוגוסט','ספטמבר','אוקטובר','נובמבר','דצמבר'];
+const WD=['א׳','ב׳','ג׳','ד׳','ה׳','ו׳','ש׳'],WDL=['ראשון','שני','שלישי','רביעי','חמישי','שישי','שבת'];
+const longDate=ds=>{const d=parse(ds);return 'יום '+WDL[d.getDay()]+', '+d.getDate()+' ב'+MONTHS[d.getMonth()]+' '+d.getFullYear()};
+const calIcon='<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3" fill="#fff" stroke="currentColor" stroke-width="2"/><path d="M3 10h18" stroke="currentColor" stroke-width="2"/><path d="M8 3v4M16 3v4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="15" r="2" fill="var(--tangerine)"/></svg>';
+/* month grid: Sunday first, right to left */
+function monthGrid(y,m,{sel,max,cell,onPick}){
+  const wrap=document.createElement('div');wrap.className='cal-grid';
+  WD.forEach(w=>{const h=document.createElement('div');h.className='cal-wd';h.textContent=w;wrap.appendChild(h)});
+  const first=new Date(y,m,1).getDay(),days=new Date(y,m+1,0).getDate();
+  for(let i=0;i<first;i++)wrap.appendChild(document.createElement('div'));
+  for(let d=1;d<=days;d++){const ds=y+'-'+pad(m+1)+'-'+pad(d);const b=document.createElement('button');b.type='button';b.className='cal-day';
+    const n=document.createElement('span');n.className='cal-n';n.textContent=d;b.appendChild(n);
+    if(ds===today())b.classList.add('today');if(ds===sel)b.classList.add('sel');
+    if(max&&ds>max){b.disabled=true}
+    b.setAttribute('aria-label',longDate(ds));
+    if(cell)cell(ds,b);b.onclick=()=>onPick(ds);wrap.appendChild(b)}
+  return wrap;
+}
+function monthHeader(y,m,go,canNext){const h=document.createElement('div');h.className='cal-head';
+  const prev=document.createElement('button');prev.type='button';prev.className='cal-arrow';prev.innerHTML='<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M9 5l7 7-7 7" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';prev.setAttribute('aria-label','חודש קודם');prev.onclick=()=>go(-1);
+  const t=document.createElement('div');t.className='cal-title';t.textContent=MONTHS[m]+' '+y;
+  const next=document.createElement('button');next.type='button';next.className='cal-arrow';next.innerHTML='<svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M15 5l-7 7 7 7" stroke="currentColor" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg>';next.setAttribute('aria-label','חודש הבא');next.onclick=()=>go(1);next.disabled=!canNext;
+  h.append(prev,t,next);return h}
+function dateQ(text){
+  const box=document.createElement('div');box.style.display='flex';box.style.flexDirection='column';box.style.gap='8px';
+  const row=choiceRow('dq',[['0','היום'],['1','אתמול'],['2','שלשום']]);
+  const pickBtn=document.createElement('button');pickBtn.type='button';pickBtn.className='date-pick';
+  const pickTxt=document.createElement('span');pickBtn.innerHTML=calIcon;pickBtn.appendChild(pickTxt);
+  const panel=document.createElement('div');panel.className='date-panel';panel.hidden=true;
+  let vy,vm;
+  const show=()=>{pickTxt.textContent=longDate(form.date)};
+  const draw=()=>{panel.textContent='';const t=parse(today());
+    panel.append(monthHeader(vy,vm,dir=>{vm+=dir;if(vm<0){vm=11;vy--}if(vm>11){vm=0;vy++}draw()},vy<t.getFullYear()||(vy===t.getFullYear()&&vm<t.getMonth())),
+      monthGrid(vy,vm,{sel:form.date,max:today(),onPick:ds=>{form.date=ds;const n=diffDays(ds);form.dq=n<=2?String(n):null;
+        row.querySelectorAll('button').forEach((b,i)=>b.setAttribute('aria-pressed',String(i)===form.dq));show();panel.hidden=true;check()}}))};
+  pickBtn.onclick=()=>{if(panel.hidden){const d=parse(form.date);vy=d.getFullYear();vm=d.getMonth();draw()}panel.hidden=!panel.hidden};
+  row.querySelectorAll('button').forEach((b,i)=>b.addEventListener('click',()=>{form.date=daysAgo(i);show();panel.hidden=true;check()}));
+  show();box.append(row,pickBtn,panel);return question(text,box);
+}
+let saveBtn;
+function check(){ if(!saveBtn)return; let ok=!!form.date;
+  if(form.kind==='feed') ok=ok&&form.ate!==undefined&&!!form.prey;
+  if(form.kind==='shed') ok=ok&&form.whole!==undefined;
+  if(form.kind==='clean') ok=ok&&(form.tasks||[]).length>0;
+  if(form.kind==='note') ok=ok&&(!!(form.text||'').trim()||!!form.photoBlob||!!form.photo);
+  saveBtn.disabled=!ok }
+
+let editing=null;
+function openSheet(kind,existing){
+  editing=existing||null;
+  if(existing){form=JSON.parse(JSON.stringify(existing));const n=diffDays(existing.date);form.dq=n<=2?String(n):null;form.tasks=existing.tasks?[...existing.tasks]:undefined}
+  else form={kind,date:today(),dq:'0'};
+  const s=$('#sheet');s.textContent='';
+  const h=document.createElement('h2');const ic=document.createElement('span');ic.style.cssText='display:grid;place-items:center;width:52px;height:52px;border-radius:16px;background:'+COLOR[kind];ic.innerHTML=ICON[kind];h.append(ic,document.createTextNode(existing?'עריכה: '+TITLE[kind]:TITLE[kind]));s.appendChild(h);
+  if(kind==='feed'){
+    s.appendChild(dateQ('באיזה יום?'));
+    const preyRow=choiceRow('prey',['עכבר','חולדה','אוגר','אפרוח','משהו אחר']);
+    const sizeRow=choiceRow('size',['קטן','בינוני','גדול']);
+    const fixSizes=()=>[...sizeRow.children].forEach((b,i)=>{b.textContent=sizeWord(['קטן','בינוני','גדול'][i],form.prey)});
+    preyRow.addEventListener('click',()=>setTimeout(fixSizes,0));fixSizes();
+    s.appendChild(question('מה הגשנו לה?',preyRow));
+    s.appendChild(question('באיזה גודל?',sizeRow));
+    s.appendChild(question('היא אכלה?',choiceRow('ate',[[true,'כן, אכלה!'],[false,'לא רצתה','no']],{big:true})));
+  }
+  if(kind==='shed'){
+    s.appendChild(dateQ('מתי מצאת את העור?'));
+    s.appendChild(question('העור ירד בחתיכה אחת?',choiceRow('whole',[[true,'כן, שלם!'],[false,'בחתיכות','no']],{big:true})));
+  }
+  if(kind==='clean'){
+    s.appendChild(dateQ('מתי ניקינו?'));
+    s.appendChild(question('מה עשינו? (אפשר לבחור כמה)',choiceRow('tasks',['החלפנו מים','ניקינו את הטרריום','החלפנו מצע','ניקינו את המחבוא'],{multi:true})));
+  }
+  if(kind==='note'||kind==='feed'||kind==='shed'){
+    const ta=document.createElement('textarea');ta.id='f-text';ta.placeholder=kind==='note'?'פייפר הסתתרה כל היום במחבוא...':'משהו מיוחד? (לא חובה)';
+    ta.value=form.text||'';ta.oninput=()=>{form.text=ta.value;check()};
+    if(kind==='note') s.appendChild(dateQ('באיזה יום?'));
+    s.appendChild(question(kind==='note'?'ספר מה ראית:':'עוד משהו לספר?',ta,'f-text'));
+  }
+  if(kind==='note'){
+    const box=document.createElement('div');box.style.display='flex';box.style.flexDirection='column';box.style.gap='8px';
+    const prev=document.createElement('img');prev.className='photo-preview';prev.hidden=!form.photo;prev.alt='';if(form.photo)prev.src=photoSrc(form.photo);
+    const row=document.createElement('div');row.className='photo-row';
+    const mk=(label,cap)=>{const lab=document.createElement('div');lab.className='photo-pick';const t=document.createElement('span');t.textContent=label;
+      const inp=document.createElement('input');inp.type='file';inp.accept='image/*';if(cap)inp.setAttribute('capture','environment');inp.className='photo-input';inp.setAttribute('aria-label',label);
+      inp.onchange=async()=>{const f=inp.files&&inp.files[0];if(!f)return;try{form.photoBlob=await shrink(f);prev.src=URL.createObjectURL(form.photoBlob);prev.hidden=false;toast('התמונה נוספה!')}catch(e){toast('לא הצלחתי לפתוח את התמונה')};check()};
+      lab.append(t,inp);return lab};
+    row.append(mk('צלם עכשיו',true),mk('בחר מהגלריה',false));
+    box.append(row,prev);s.appendChild(question('תמונה (לא חובה)',box));
+  }
+  const err=document.createElement('div');err.className='err';err.id='f-err';err.hidden=true;s.appendChild(err);
+  const act=document.createElement('div');act.className='sheet-actions';
+  saveBtn=document.createElement('button');saveBtn.className='save';saveBtn.textContent='שמור ביומן';saveBtn.onclick=save;
+  const c=document.createElement('button');c.className='cancel';c.textContent='ביטול';c.onclick=closeSheet;
+  act.append(saveBtn,c);s.appendChild(act);check();
+  $('#scrim').hidden=false;s.hidden=false;s.scrollTop=0;lockScroll();pushLayer('sheet');
+}
+function doCloseSheet(){$('#sheet').hidden=true;$('#scrim').hidden=true;saveBtn=null;unlockScroll()}
+function closeSheet(){closeLayer(doCloseSheet)}
+$('#scrim').onclick=closeSheet;
+
+
+function shrink(file,M=1200,Q=.82){return new Promise((res,rej)=>{const img=new Image();img.onload=()=>{let {width:w,height:h}=img;const k=Math.min(1,M/Math.max(w,h));w=Math.round(w*k);h=Math.round(h*k);
+  const c=document.createElement('canvas');c.width=w;c.height=h;c.getContext('2d').drawImage(img,0,0,w,h);c.toBlob(b=>b?res(b):rej(),'image/jpeg',Q)};img.onerror=rej;img.src=URL.createObjectURL(file)})}
+const photoSrc=p=>p.startsWith('data:')?p:'/_blob/'+p;
+const toDataURL=b=>new Promise(r=>{const fr=new FileReader();fr.onload=()=>r(fr.result);fr.readAsDataURL(b)});
+
+async function save(){
+  saveBtn.disabled=true;saveBtn.textContent='שומר...';
+  const e=editing?{id:editing.id,kind:editing.kind,date:form.date,created:editing.created,edited:Date.now()}
+    :{id:'e'+Date.now().toString(36)+Math.random().toString(36).slice(2,6),kind:form.kind,date:form.date,created:Date.now()};
+  if(editing&&editing.photo)e.photo=editing.photo;
+  if(form.kind==='feed'){e.prey=form.prey;if(form.size)e.size=form.size;e.ate=form.ate}
+  if(form.kind==='shed')e.whole=form.whole;
+  if(form.kind==='clean')e.tasks=form.tasks;
+  if((form.text||'').trim())e.text=form.text.trim();
+  try{
+    if(form.photoBlob){
+      let done=false;
+      if(assets){try{const up=await assets.upload(form.photoBlob);e.photo=up.id;done=true}catch(x){}}
+      if(!done){e.photo=await toDataURL(form.photoBlob)}
+    }
+    await store.add(e);closeSheet();
+    toast(editing?'השינוי נשמר':form.kind==='feed'&&e.ate?'יאמי! פייפר אומרת תודה':(e.kind==='note'&&e.photo&&!e.text)?'התמונה נכנסה לאלבום!':'נשמר ביומן!');
+  }catch(err){const el=$('#f-err');el.hidden=false;el.textContent='לא הצלחתי לשמור. בדוק שיש אינטרנט ונסה שוב.';saveBtn.disabled=false;saveBtn.textContent='שמור ביומן'}
+}
+
+let tt;function toast(m){const t=$('#toast');t.textContent=m;t.hidden=false;clearTimeout(tt);tt=setTimeout(()=>t.hidden=true,2400)}
+
+document.querySelectorAll('[data-open]').forEach(b=>b.onclick=()=>openSheet(b.dataset.open));
+document.querySelectorAll('.filters button').forEach(b=>b.onclick=()=>{filter=b.dataset.f;document.querySelectorAll('.filters button').forEach(x=>x.setAttribute('aria-pressed',x===b));render()});
+
+const hour=new Date().getHours();
+$('#greet').textContent=hour<12?'בוקר טוב עינב!':hour<18?'צהריים טובים עינב!':'ערב טוב עינב!';
+render();
+
+/* ---------- photo album ---------- */
+const PER=2,TAPES=['#FF8FB0','#FFD84D','#7FD3F7','#B9E27A','#C9A6FF','#FFB067'];let albumPg=0;
+const hash=str=>{let h=0;for(const c of str)h=(h*31+c.charCodeAt(0))|0;return Math.abs(h)};
+function photos(){return entries.filter(e=>e.photo).sort(sortFn)}
+function updateAlbumCount(){const n=photos().length;$('#albumCount').textContent=n?(n===1?'תמונה אחת של פייפר':n+' תמונות של פייפר'):'כאן יופיעו התמונות של פייפר'}
+function pageArt(i){let seed=i*97+13;const r=()=>(seed=(seed*9301+49297)%233280)/233280;
+  const leaf=(x,y,a,sc,f)=>`<g transform="translate(${x} ${y}) rotate(${a}) scale(${sc})"><path d="M0 0 C10 -14 36 -14 50 0 C36 14 10 14 0 0Z" fill="${f}"/><path d="M3 0 H46" stroke="rgba(0,0,0,.15)" stroke-width="1.5"/></g>`;
+  const mon=(x,y,a,sc,f)=>`<g transform="translate(${x} ${y}) rotate(${a}) scale(${sc})"><path d="M0 0 C30 -40 92 -34 104 18 C112 60 70 96 22 92 C-12 88 -22 40 0 0Z" fill="${f}"/><path d="M50 4 L36 30 M78 20 L56 40 M92 52 L64 54 M80 80 L56 66" stroke="#FFF6DA" stroke-width="7" stroke-linecap="round"/></g>`;
+  const fernS=(x,y,a,f)=>{let g=`<g transform="translate(${x} ${y}) rotate(${a})"><path d="M0 0 Q40 6 80 0" stroke="#2A7A38" stroke-width="2" fill="none"/>`;for(let k=1;k<9;k++){const t=k*9,sz=14-k*1.2;g+=`<ellipse cx="${t}" cy="${-sz*.6}" rx="${sz*.5}" ry="${sz*.22}" transform="rotate(-55 ${t} ${-sz*.6})" fill="${f}"/><ellipse cx="${t}" cy="${sz*.6}" rx="${sz*.5}" ry="${sz*.22}" transform="rotate(55 ${t} ${sz*.6})" fill="${f}"/>`}return g+'</g>'};
+  const flower=(x,y,c)=>`<g transform="translate(${x} ${y})"><g fill="${c}"><circle cx="0" cy="-7" r="6"/><circle cx="7" cy="0" r="6"/><circle cx="0" cy="7" r="6"/><circle cx="-7" cy="0" r="6"/></g><circle r="4" fill="#FFD84D"/></g>`;
+  const snake=(x,y,a)=>`<g transform="translate(${x} ${y}) rotate(${a})"><path d="M-40 10 C-30 -6 -14 22 0 6" stroke="#7ED957" stroke-width="9" fill="none" stroke-linecap="round"/><ellipse cx="8" cy="2" rx="12" ry="9" fill="#7ED957"/><circle cx="6" cy="0" r="3.4" fill="#fff"/><circle cx="12" cy="0" r="3.4" fill="#fff"/><circle cx="6.6" cy=".6" r="1.8" fill="#1F3328"/><circle cx="12.6" cy=".6" r="1.8" fill="#1F3328"/><path d="M5 6 Q9 9 13 6" stroke="#1F3328" stroke-width="1.4" fill="none"/></g>`;
+  const v=['#3E9C4A','#5DBB5A','#2E8A40','#6CC46A'];const c=()=>v[(r()*v.length)|0];
+  let o='';
+  o+=mon(-30,-20,20+r()*30,.9,c())+leaf(60,10,30+r()*30,.9,c())+fernS(0,70,-20+r()*20,c());
+  return `<svg class="page-art" viewBox="0 0 340 600" preserveAspectRatio="none" aria-hidden="true"><g>${o}</g>`+
+    `<g transform="translate(340 600) rotate(180)">${mon(-30,-20,10+r()*40,.85,c())}${leaf(50,8,20+r()*40,.9,c())}${fernS(0,80,-10,c())}</g>`+
+    `<g transform="translate(340 0) scale(-1 1)">${leaf(20,40,50,.7,c())}${flower(30,22,i%2?'#FF6F9A':'#FFA24D')}</g>`+
+    `<g transform="translate(0 600) scale(1 -1)">${leaf(20,40,50,.7,c())}${flower(36,26,i%2?'#C9A6FF':'#FF8FB0')}</g>`+
+    (i%2===0?snake(250,585,0):snake(70,16,180))+`</svg>`;
+}
+function renderAlbum(){
+  const list=photos(),pages=Math.max(1,Math.ceil(list.length/PER));albumPg=Math.min(albumPg,pages-1);
+  const host=$('#albumPage');host.textContent='';
+  const page=document.createElement('div');page.className='page';page.innerHTML=pageArt(albumPg);
+  if(!list.length){const em=document.createElement('div');em.className='album-empty';em.textContent='האלבום מחכה לתמונה הראשונה של פייפר!';
+    const sm=document.createElement('small');sm.textContent='מוסיפים תמונה בכפתור "יומן ותמונה".';em.appendChild(sm);page.appendChild(em)}
+  list.slice(albumPg*PER,albumPg*PER+PER).forEach((e,k)=>{const h=hash(e.id);
+    const fig=document.createElement('button');fig.className='photo';fig.type='button';
+    fig.style.transform=`rotate(${((h%9)-4)*1.1}deg)`;fig.setAttribute('aria-label','הגדל תמונה');
+    for(const side of ['a','b']){const t=document.createElement('span');t.className='tape '+side;t.style.setProperty('--tc',TAPES[(h+(side==='a'?0:3))%TAPES.length]);fig.appendChild(t)}
+    const img=document.createElement('img');img.src=photoSrc(e.photo);img.alt='תמונה של פייפר';img.loading='lazy';
+    const cap=document.createElement('figcaption');cap.textContent=caption(e);
+    fig.append(img,cap);fig.onclick=()=>{lbEntry=e;$('#lbImg').src=img.src;$('#lbCap').textContent=caption(e,true);$('#lbConfirm').hidden=true;$('#lightbox').hidden=false;lockScroll();pushLayer('photo')};
+    page.appendChild(fig)});
+  const no=document.createElement('div');no.className='page-no';no.textContent='עמוד '+(albumPg+1)+' מתוך '+pages;page.appendChild(no);
+  host.appendChild(page);
+  $('#pgLabel').textContent=(albumPg+1)+' / '+pages;$('#pgPrev').disabled=albumPg===0;$('#pgNext').disabled=albumPg>=pages-1;
+  $('#albumNav').hidden=pages<2;
+}
+function caption(e,full){const d=parse(e.date).toLocaleDateString('he-IL',{day:'numeric',month:'long',year:'numeric'});
+  if(!e.text)return d;const t=full||e.text.length<=60?e.text:e.text.slice(0,58)+'…';return d+' · '+t}
+let mainY=0;
+function showAlbum(on){if(on){mainY=scrollY}$('#mainView').hidden=on;$('#albumView').hidden=!on;if(on){renderAlbum();scrollTo(0,0)}else{scrollTo(0,mainY);requestAnimationFrame(()=>scrollTo(0,mainY))}}
+$('#openAlbum').onclick=()=>{albumPg=0;showAlbum(true);pushLayer('album')};$('#albumBack').onclick=()=>closeLayer(()=>showAlbum(false));
+$('#pgNext').onclick=()=>{albumPg++;renderAlbum();scrollTo(0,0)};$('#pgPrev').onclick=()=>{albumPg--;renderAlbum();scrollTo(0,0)};
+let lbEntry=null;function doCloseLb(){$('#lightbox').hidden=true;unlockScroll()}
+$('#lbClose').onclick=()=>closeLayer(doCloseLb);
+$('#lbDel').onclick=()=>{$('#lbConfirm').hidden=false};$('#lbNo').onclick=()=>{$('#lbConfirm').hidden=true};
+$('#lbYes').onclick=async()=>{const e=lbEntry;if(!e)return;try{
+    if(e.text||e.kind!=='note'){const c={...e};delete c.photo;await store.add(c)}else await store.remove(e.id);
+    if(!db)renderAlbum();closeLayer(doCloseLb);toast('התמונה נמחקה מהאלבום')}catch(x){toast('לא הצלחתי למחוק. נסה שוב.')}};$('#lightbox').addEventListener('click',ev=>{if(ev.target.id==='lightbox')closeLayer(doCloseLb)});
+let tx=null;$('#albumPage').addEventListener('touchstart',ev=>{tx=ev.touches[0].clientX},{passive:true});
+$('#albumPage').addEventListener('touchend',ev=>{if(tx==null)return;const dx=ev.changedTouches[0].clientX-tx;tx=null;const pages=Math.ceil(photos().length/PER);
+  if(dx>60&&albumPg<pages-1){albumPg++;renderAlbum()}else if(dx<-60&&albumPg>0){albumPg--;renderAlbum()}});
+
+/* ---------- the picture frame with ferns and peeking snakes ---------- */
+function drawFrame(){
+  const svg=document.getElementById('frameArt');if(!svg)return;
+  const W=svg.clientWidth,H=svg.clientHeight;if(!W||!H)return;
+  const B=16,o=[];let seed=7;const rnd=()=>(seed=(seed*9301+49297)%233280)/233280;
+  const leaf=(x,y,a,sz,fill)=>o.push(`<g transform="translate(${x.toFixed(1)} ${y.toFixed(1)}) rotate(${a.toFixed(1)}) scale(${sz.toFixed(2)})"><path d="M0 0 C6 -7 19 -7 26 0 C19 7 6 7 0 0Z" fill="${fill}"/><path d="M2 0 H22" stroke="rgba(0,0,0,.18)" stroke-width="1.2"/></g>`);
+  function fern(x,y,ang,len,bend,cls){
+    const r=ang*Math.PI/180,c=Math.cos(r),s=Math.sin(r);
+    const pt=t=>{const lx=len*t,ly=bend*len*t*t;return [x+lx*c-ly*s,y+lx*s+ly*c]};
+    let d=`M${x} ${y}`;for(let i=1;i<=20;i++){const p=pt(i/20);d+=` L${p[0].toFixed(1)} ${p[1].toFixed(1)}`}
+    const g=[`<path d="${d}" stroke="var(--fern-dark)" stroke-width="2.5" fill="none" stroke-linecap="round"/>`];
+    const n=13;for(let i=1;i<=n;i++){const t=i/(n+1),p=pt(t),p2=pt(t+.01);
+      const dir=Math.atan2(p2[1]-p[1],p2[0]-p[0])*180/Math.PI;const sz=(1-t)*len*.2+4;
+      for(const side of [-1,1]){const a=dir+side*62;
+        g.push(`<ellipse cx="${(p[0]+Math.cos(a*Math.PI/180)*sz*.85).toFixed(1)}" cy="${(p[1]+Math.sin(a*Math.PI/180)*sz*.85).toFixed(1)}" rx="${sz.toFixed(1)}" ry="${(sz*.34).toFixed(1)}" transform="rotate(${a.toFixed(1)} ${(p[0]+Math.cos(a*Math.PI/180)*sz*.85).toFixed(1)} ${(p[1]+Math.sin(a*Math.PI/180)*sz*.85).toFixed(1)})" fill="${i%2?'var(--fern)':'var(--leafy)'}"/>`)}}
+    o.push(`<g class="sway" style="transform-origin:${x}px ${y}px;animation-delay:${(-rnd()*5).toFixed(1)}s">${g.join('')}</g>`);
+  }
+  function head(x,y,rot,sc,body,spot){
+    o.push(`<g transform="translate(${x} ${y}) rotate(${rot}) scale(${sc})">
+      <path class="tongue-v" d="M0 29 V39 M0 39 L-4 44 M0 39 L4 44" stroke="#E2457A" stroke-width="2.4" stroke-linecap="round" fill="none"/>
+      <ellipse cx="0" cy="17" rx="17" ry="14" fill="${body}"/>
+      <circle cx="-6" cy="8" r="2.6" fill="${spot}"/><circle cx="5" cy="6" r="2" fill="${spot}"/><circle cx="12" cy="11" r="1.8" fill="${spot}"/>
+      <g class="blink"><circle cx="-7" cy="17" r="5.2" fill="#fff"/><circle cx="7" cy="17" r="5.2" fill="#fff"/><circle cx="-6.4" cy="18" r="3" fill="var(--eye)"/><circle cx="7.6" cy="18" r="3" fill="var(--eye)"/><circle cx="-5.4" cy="16.6" r="1.1" fill="#fff"/><circle cx="8.6" cy="16.6" r="1.1" fill="#fff"/></g>
+      <ellipse cx="-12" cy="24" rx="3.4" ry="2" fill="#FF8FB0" opacity=".85"/><ellipse cx="12" cy="24" rx="3.4" ry="2" fill="#FF8FB0" opacity=".85"/>
+      <path d="M-4 25 Q0 28.5 4 25" stroke="var(--eye)" stroke-width="1.8" fill="none" stroke-linecap="round"/></g>`);
+  }
+  // vines along the top bar and down the sides
+  let v=`M0 ${B/2}`;for(let x=0;x<=W;x+=24)v+=` Q${x+12} ${B/2+(x/24%2?7:-7)} ${x+24} ${B/2}`;
+  o.push(`<path d="${v}" stroke="var(--vine)" stroke-width="3.5" fill="none"/>`);
+  for(let x=10;x<W;x+=30){const down=(x/30|0)%2;leaf(x,B/2+(down?4:-2),down?70+rnd()*30:-110+rnd()*40,.75+rnd()*.25,(x/30|0)%3?'var(--leafy)':'var(--fern)')}
+  for(const side of [0,1]){const X=side?W-B/2:B/2;let d=`M${X} 0`;const h=H*.34;
+    for(let y=0;y<h;y+=26)d+=` Q${X+(y/26%2?6:-6)} ${y+13} ${X} ${y+26}`;
+    o.push(`<path d="${d}" stroke="var(--vine)" stroke-width="3" fill="none"/>`);
+    for(let y=40;y<h;y+=34)leaf(X,y,side?(160+rnd()*30):(-10-rnd()*30)+(((y/34|0)%2)?20:0),.7+rnd()*.2,'var(--leafy)')}
+  // corner ferns
+  fern(4,4,52,Math.min(120,W*.28),.25);fern(W-4,4,128,Math.min(120,W*.28),-.25);
+  fern(6,H-4,-74,Math.min(80,W*.2),-.25);fern(W-6,H-4,-106,Math.min(80,W*.2),.25);
+  fern(4,H*.62,-10,Math.min(48,W*.12),.3);fern(W-4,H*.7,190,Math.min(48,W*.12),-.3);
+  // snake 1: green snake wrapped over the top bar, head hanging down
+  const sx=W*.66;
+  o.push(`<path d="M${sx-70} ${B/2} q12 -16 24 0 t24 0 t24 0 t20 6" stroke="var(--snake-green)" stroke-width="10" fill="none" stroke-linecap="round"/>`);
+  o.push(`<path d="M${sx-70} ${B/2} q12 -16 24 0 t24 0 t24 0 t20 6" stroke="var(--snake-green-dark)" stroke-width="4" stroke-dasharray="3 9" fill="none" stroke-linecap="round"/>`);
+  o.push(`<path d="M${sx+2} ${B/2+6} q6 8 2 20" stroke="var(--snake-green)" stroke-width="10" fill="none" stroke-linecap="round"/>`);
+  head(sx+4,B+12,0,.85,'var(--snake-green)','var(--snake-green-dark)');
+  leaf(sx-58,B/2,-150,.8,'var(--fern)');leaf(sx-24,B/2+2,40,.75,'var(--leafy)');
+  // snake 2: yellow snake peeking up from the bottom-left ferns
+  o.push(`<path d="M${B+30} ${H} q-4 -14 1 -24" stroke="var(--snake-yellow)" stroke-width="9" fill="none" stroke-linecap="round"/>`);
+  head(B+31,H-24,180,.75,'var(--snake-yellow)','var(--snake-yellow-dark)');
+  leaf(B+8,H-10,-60,.9,'var(--fern)');leaf(B+52,H-8,-125,.9,'var(--leafy)');leaf(B+28,H-4,-95,.8,'var(--fern-dark)');
+  // snake 3: Piper-colored snake peeking in from the right side
+  head(W-B+2,H*.46,90,.75,'var(--scale)','var(--scale-dark)');
+  leaf(W-B+4,H*.46-16,200,.9,'var(--fern)');leaf(W-B+4,H*.46+16,160,.9,'var(--leafy)');
+  svg.setAttribute('viewBox',`0 0 ${W} ${H}`);svg.innerHTML=o.join('');
+}
+drawFrame();let rz;addEventListener('resize',()=>{clearTimeout(rz);rz=setTimeout(drawFrame,120)});
+
+
+
+/* ---------- calendar view ---------- */
+let calY,calM,calSel;
+function dayEntries(ds){return entries.filter(e=>e.date===ds).sort(sortFn)}
+function renderCal(){
+  const card=$('#calCard');card.textContent='';const t=parse(today());
+  card.append(monthHeader(calY,calM,dir=>{calM+=dir;if(calM<0){calM=11;calY--}if(calM>11){calM=0;calY++}renderCal()},calY<t.getFullYear()||(calY===t.getFullYear()&&calM<t.getMonth())),
+    monthGrid(calY,calM,{sel:calSel,max:today(),onPick:ds=>{calSel=ds;renderCal()},cell:(ds,b)=>{
+      const es=dayEntries(ds);if(!es.length)return;
+      const ph=es.find(e=>e.photo);if(ph){const im=document.createElement('img');im.src=photoSrc(ph.photo);im.alt='';im.loading='lazy';b.prepend(im);b.classList.add('has-photo')}
+      const kinds=[...new Set(es.map(e=>e.kind))];const dots=document.createElement('span');dots.className='cal-dots';
+      kinds.slice(0,4).forEach(k=>{const i=document.createElement('i');i.style.background=COLOR[k];dots.appendChild(i)});b.appendChild(dots)}}));
+  $('#dayTitle').textContent=longDate(calSel);
+  const ul=$('#dayList');ul.textContent='';const es=dayEntries(calSel);
+  if(!es.length){const li=document.createElement('li');li.className='empty';li.textContent='ביום הזה לא נרשם כלום.';ul.appendChild(li)}
+  else es.forEach(e=>ul.appendChild(entryEl(e)));
+}
+function showCal(on){if(on){mainY=scrollY;const d=parse(today());calY=d.getFullYear();calM=d.getMonth();calSel=today()}
+  $('#mainView').hidden=on;$('#calView').hidden=!on;if(on){renderCal();scrollTo(0,0)}else{scrollTo(0,mainY);requestAnimationFrame(()=>scrollTo(0,mainY))}}
+$('#openCal').onclick=()=>{showCal(true);pushLayer('cal')};$('#calBack').onclick=()=>closeLayer(()=>showCal(false));
+
+/* ---------- scroll lock, back button and the goodbye dialog ---------- */
+let lockY=0,locks=0;
+function lockScroll(){if(locks++)return;lockY=scrollY;const b=document.body.style;b.position='fixed';b.top=(-lockY)+'px';b.left='0';b.right='0';b.overflow='hidden'}
+function unlockScroll(){if(!locks||--locks)return;const b=document.body.style;b.position='';b.top='';b.left='';b.right='';b.overflow='';scrollTo(0,lockY)}
+const NATIVE=!!(window.Capacitor&&window.Capacitor.isNativePlatform&&window.Capacitor.isNativePlatform());
+const Plug=n=>window.Capacitor&&window.Capacitor.Plugins&&window.Capacitor.Plugins[n];
+let histOK=!NATIVE;
+function pushLayer(v){if(!histOK)return;try{history.pushState({v},'')}catch(e){histOK=false}}
+function closeLayer(fn){if(histOK){pendingClose=fn;try{history.back();return}catch(e){histOK=false}}fn()}
+let pendingClose=null;
+function closeTop(){
+  if(pendingClose){const f=pendingClose;pendingClose=null;f();return true}
+  if(!$('#lightbox').hidden){doCloseLb();return true}
+  if(!$('#sheet').hidden){doCloseSheet();return true}
+  if(!$('#albumView').hidden){showAlbum(false);return true}
+  if(!$('#calView').hidden){showCal(false);return true}
+  return false}
+const BYE=[
+ {h:'סיימנו להיום?',p:'פייפר תחכה לך כאן, מכורבלת במחבוא שלה.'},
+ {h:'כבר יוצאים מהג׳ונגל?',p:'לפני שהולכים: יש לפייפר מים נקיים?'},
+ {h:'להגיד לילה טוב לפייפר?',p:'מחר מחכה לך משימה חדשה מפייפר!'},
+ {h:'הולך כבר?',p:'פייפר שולחת לך שלום עם הלשון. ככה נחשים אומרים להתראות.'},
+ {h:'נתראה בקרוב?',p:'כל יום שאתה דואג לפייפר, היא מכירה אותך עוד קצת.'},
+ {h:'סוגרים את היומן?',p:'פייפר מבטיחה לא לברוח עד שתחזור.'}];
+const BYE_YES=['כן, להתראות פייפר!','ביי פייפר!','נתראה מחר!'],BYE_NO=['עוד קצת!','רגע, נשארים','עוד משימה אחת'];
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+function showBye(){const b=pick(BYE);$('#byeTitle').textContent=b.h;$('#byeText').textContent=b.p;$('#byeYes').textContent=pick(BYE_YES);$('#byeNo').textContent=pick(BYE_NO);$('#bye').hidden=false;lockScroll()}
+function hideBye(){$('#bye').hidden=true;unlockScroll()}
+addEventListener('popstate',()=>{
+  if(!$('#bye').hidden){leaving=true;try{history.back()}catch(e){}return}
+  if(leaving)return;
+  if(closeTop())return;
+  showBye();pushLayer('main');
+});
+let leaving=false;
+$('#byeNo').onclick=()=>hideBye();
+$('#byeYes').onclick=()=>{hideBye();$('#byeDone').hidden=false;leaving=true;setTimeout(()=>{
+  if(NATIVE){const A=Plug('App');if(A)A.exitApp();setTimeout(()=>{$('#byeDone').hidden=true;leaving=false},500)}else{try{history.go(-2)}catch(e){}}},900)};
+if(NATIVE){const A=Plug('App');if(A)A.addListener('backButton',()=>{if(!$('#byeDone').hidden)return;if(!$('#bye').hidden){$('#byeYes').click();return}if(!closeTop())showBye()})}
+try{history.scrollRestoration='manual'}catch(e){}
+if(histOK){try{history.replaceState({v:'guard'},'');history.pushState({v:'main'},'')}catch(e){histOK=false}}
+
+/* ---------- load from the phone ---------- */
+(async()=>{
+  try{const v=await idbGet('entries');if(Array.isArray(v))entries=v;else{const old=lsLoad();if(old.length){entries=old;lsSave()}}}catch(e){entries=lsLoad()}
+  render();
+})();
+
+/* ---------- backup and restore ---------- */
+$('#bkSave').onclick=async()=>{
+  const d=today(),name='piper-backup-'+d+'.json';
+  const json=JSON.stringify({app:'piper-life',version:1,exported:new Date().toISOString(),entries});
+  try{
+    if(NATIVE&&Plug('Filesystem')&&Plug('Share')){
+      const r=await Plug('Filesystem').writeFile({path:name,data:json,directory:'CACHE',encoding:'utf8'});
+      await Plug('Share').share({title:'גיבוי של פייפר',text:'גיבוי של החיים של פייפר מ־'+d,files:[r.uri],dialogTitle:'איפה לשמור את הגיבוי?'});return}
+    const file=new File([json],name,{type:'application/json'});
+    if(navigator.canShare&&navigator.canShare({files:[file]})){await navigator.share({files:[file],title:'גיבוי של פייפר'});return}
+    const a=document.createElement('a');a.href=URL.createObjectURL(file);a.download=name;document.body.appendChild(a);a.click();a.remove();toast('הגיבוי נשמר בהורדות');
+  }catch(e){if(e&&e.name==='AbortError')return;toast('לא הצלחתי לשמור גיבוי. נסה שוב.')}
+};
+$('#bkLoad').onchange=async ev=>{
+  const f=ev.target.files&&ev.target.files[0];ev.target.value='';if(!f)return;
+  try{const data=JSON.parse(await f.text());const list=Array.isArray(data)?data:data.entries;
+    if(!Array.isArray(list))throw 0;
+    const map=new Map(entries.map(e=>[e.id,e]));let n=0;
+    for(const e of list){if(e&&e.id&&e.kind&&e.date){map.set(e.id,e);n++}}
+    entries=[...map.values()];lsSave();render();toast('נטענו '+n+' רשומות מהגיבוי!');hearts();
+  }catch(e){toast('הקובץ הזה לא נראה כמו גיבוי של פייפר')}
+};
+
+if(!NATIVE&&'serviceWorker' in navigator&&location.protocol==='https:'){addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}))}
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,14 @@
+{
+  "name": "piper-life",
+  "version": "1.0.0",
+  "private": true,
+  "description": "החיים של פייפר — יומן לפיתונית מתכדררת",
+  "dependencies": {
+    "@capacitor/android": "6.2.1",
+    "@capacitor/app": "6.0.3",
+    "@capacitor/cli": "6.2.1",
+    "@capacitor/core": "6.2.1",
+    "@capacitor/filesystem": "6.0.4",
+    "@capacitor/share": "6.0.4"
+  }
+}
