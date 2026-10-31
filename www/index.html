@@ -3,12 +3,12 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>החיים של פייפר</title>
+<title>החיים של הנחש שלי</title>
 <meta name="theme-color" content="#2E9A68">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="החיים של פייפר">
+<meta name="apple-mobile-web-app-title" content="החיים של הנחש שלי">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icons/icon-192.png">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
@@ -202,6 +202,79 @@ textarea{min-height:110px;resize:vertical}
 .cal-day-list{display:flex;flex-direction:column;gap:10px}
 .day-title{font-size:1.15rem;align-self:flex-start;background:var(--surface);border-radius:999px;padding:4px 14px}
 
+/* Snake switcher */
+.snakes{display:flex;gap:8px;overflow-x:auto;padding:2px 2px 6px;margin-top:-8px}
+.snake-chip{display:flex;align-items:center;gap:8px;flex:none;border:3px solid var(--surface);background:var(--surface);border-radius:999px;padding:4px 14px 4px 6px;font-family:var(--display);font-size:1.05rem;box-shadow:var(--shadow)}
+.snake-chip.on{border-color:var(--leaf);background:#E9F8EE}
+.snake-chip.add{background:rgba(255,255,255,.75);border-style:dashed;border-color:var(--leaf);color:var(--leaf)}
+.avatar{width:36px;height:36px;border-radius:50%;overflow:hidden;display:grid;place-items:center;flex:none;box-shadow:inset 0 0 0 2px rgba(255,255,255,.7)}
+.avatar img{width:100%;height:100%;object-fit:cover}
+.avatar b{color:#fff;font-family:var(--display);font-weight:400;font-size:1.1rem;text-shadow:0 1px 2px rgba(0,0,0,.5)}
+.avatar.plus{background:var(--leaf);color:#fff;font-size:1.5rem;line-height:1}
+.avatar.big{width:110px;height:110px;border-radius:24px;box-shadow:0 0 0 4px #fff,0 4px 10px rgba(0,0,0,.2)}
+.avatar.big b{font-size:3rem}
+.hero-tools{margin-top:10px}
+.id-btn{display:inline-flex;align-items:center;gap:6px;border:2px solid rgba(255,255,255,.7);background:rgba(255,255,255,.15);color:#fff;border-radius:999px;padding:5px 12px;font-size:.92rem}
+.id-btn svg{width:22px;height:22px}
+/* Wizard */
+.wizard{position:fixed;inset:0;z-index:50;display:grid;place-items:center;background:linear-gradient(180deg,#FFF7CF,#B9E89A);padding:calc(16px + env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) calc(16px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));overflow-y:auto}
+.wiz-card{width:min(100%,440px);background:#FFFDF4;border:4px solid #FFD84D;border-radius:34px 44px 30px 40px / 40px 30px 44px 34px;padding:22px 18px;box-shadow:0 10px 0 rgba(120,90,20,.2);display:flex;flex-direction:column;gap:16px;color:#1F3328}
+.wiz-dots{display:flex;gap:6px;justify-content:center}
+.wiz-dots i{width:10px;height:10px;border-radius:50%;background:#E3DCC2}
+.wiz-dots i.on{background:var(--leaf)}
+.wiz-body{display:flex;flex-direction:column;gap:12px}
+.wiz-body h2{font-size:1.7rem;text-align:center;color:#1F3328}
+.wiz-hint{margin:0;text-align:center;color:#5A7266}
+.wiz-input{font:inherit;font-size:1.3rem;text-align:center;border:3px solid var(--line);border-radius:18px;padding:12px;background:#fff;color:#1F3328;width:100%}
+.wiz-input:focus{outline:none;border-color:var(--leaf)}
+.wiz-choices{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.wiz-choices button{flex:1;min-width:110px;border:3px solid var(--line);background:#fff;border-radius:22px;padding:16px 10px;font-family:var(--display);font-size:1.3rem}
+.wiz-choices button[aria-pressed="true"],.wiz-species button[aria-pressed="true"]{border-color:var(--leaf);background:#E9F8EE}
+.wiz-species{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.wiz-species button{display:flex;align-items:center;gap:8px;border:3px solid var(--line);background:#fff;border-radius:18px;padding:8px 10px;font-size:1.02rem;text-align:start}
+.wiz-species .sw{width:30px;height:30px;border-radius:50%;flex:none}
+.wiz-date{text-align:center;font-family:var(--display);font-size:1.15rem;background:#E9F8EE;border-radius:14px;padding:6px}
+.wiz-today{align-self:center;border:none;background:var(--tangerine);color:#fff;font-family:var(--display);font-size:1.3rem;padding:10px 28px;border-radius:58% 42% 55% 45% / 48% 58% 42% 52%;box-shadow:0 5px 0 rgba(0,0,0,.2)}
+.bdp{display:flex;flex-direction:column;gap:8px}
+.bdp-q{font-size:.95rem;color:#5A7266;text-align:center}
+.bdp-crumbs{display:flex;gap:6px;justify-content:center}
+.bdp-crumbs button{border:2px solid var(--leaf);background:#fff;color:var(--leaf);border-radius:999px;padding:4px 12px}
+.bdp-grid{display:grid;gap:6px}
+.bdp-grid.y{grid-template-columns:repeat(4,1fr)}
+.bdp-grid.m{grid-template-columns:repeat(3,1fr)}
+.bdp-grid button{border:none;background:var(--chip);border-radius:12px;padding:10px 4px;font-size:1rem;font-variant-numeric:tabular-nums}
+.bdp-grid button:disabled{opacity:.3}
+.wiz-photo{width:160px;height:160px;object-fit:cover;border-radius:24px;align-self:center;box-shadow:0 0 0 4px #fff,0 4px 10px rgba(0,0,0,.2)}
+.wiz-actions{display:flex;gap:8px;align-items:center}
+.wiz-next{flex:2;border:none;background:var(--leaf);color:#fff;font-family:var(--display);font-size:1.3rem;padding:13px;border-radius:18px;box-shadow:0 4px 0 rgba(0,0,0,.18)}
+.wiz-next:disabled{opacity:.45}
+.wiz-skip,.wiz-back{flex:1;border:2px solid var(--line);background:#fff;border-radius:18px;padding:12px 8px;color:#1F3328}
+/* ID card */
+.idview{position:fixed;inset:0;z-index:42;background:rgba(15,40,25,.88);display:grid;place-items:center;overflow-y:auto;padding:calc(16px + env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) calc(16px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
+.idview-inner{width:min(100%,420px);display:flex;flex-direction:column;gap:12px;align-items:stretch}
+.idview h2{color:#fff;text-align:center;font-size:1.6rem;text-shadow:0 2px 4px rgba(0,0,0,.4)}
+.idcard{position:relative;overflow:hidden;border-radius:22px;color:#1F3328;box-shadow:0 12px 26px rgba(0,0,0,.35);
+  background:radial-gradient(circle at 85% 20%,rgba(255,255,255,.6) 0 40px,transparent 41px),repeating-linear-gradient(45deg,rgba(46,154,104,.06) 0 8px,transparent 8px 16px),linear-gradient(160deg,#F4FFF0,#DDF3D2)}
+.idc-head{background:var(--leaf);color:#fff;padding:10px 16px;display:flex;flex-direction:column}
+.idc-head span{font-family:var(--display);font-size:1.4rem;line-height:1.1}
+.idc-head small{opacity:.85;font-size:.8rem}
+.idc-body{display:flex;gap:14px;padding:16px;align-items:flex-start}
+.idc-pic{flex:none}
+.idc-rows{margin:0;display:grid;grid-template-columns:auto 1fr;gap:4px 10px;min-width:0;font-size:.95rem}
+.idc-rows dt{color:#5A7266;font-size:.82rem;align-self:center}
+.idc-rows dd{margin:0;font-weight:700;overflow-wrap:anywhere}
+.idc-foot{display:flex;justify-content:space-between;align-items:center;padding:8px 16px 14px}
+.idc-num{font-variant-numeric:tabular-nums;letter-spacing:.08em;color:#3B5A48;font-size:.9rem}
+.idc-stamp{border:3px solid #D94A6A;color:#D94A6A;font-family:var(--display);padding:2px 10px;border-radius:10px;transform:rotate(-10deg);opacity:.85}
+.id-actions{display:flex;gap:8px;flex-wrap:wrap}
+.id-actions button{flex:1;border:none;background:#fff;color:#1F3328;border-radius:999px;padding:11px 12px;font-family:var(--display);font-size:1rem}
+.id-actions .primary{background:var(--leaf);color:#fff}
+.id-del{align-self:center;border:none;background:none;color:#fff;text-decoration:underline;opacity:.8}
+.id-del-confirm{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center;color:#fff;text-align:center}
+.id-del-confirm button{border:none;border-radius:999px;padding:8px 16px}
+#idDelYes{background:var(--berry);color:#fff}
+@media (max-width:380px){.idc-body{flex-direction:column;align-items:center}.wiz-species{grid-template-columns:1fr}}
+
 /* Album */
 .view{display:flex;flex-direction:column;gap:22px}
 .album-btn{display:flex;align-items:center;gap:14px;border:none;padding:16px 20px;color:#fff;text-align:start;
@@ -287,7 +360,7 @@ textarea{min-height:110px;resize:vertical}
 <div class="app" dir="rtl">
 <div id="mainView" class="view">
   <header class="hero">
-    <svg viewBox="0 0 160 140" aria-label="פייפר הנחשה" role="img">
+    <svg viewBox="0 0 160 140" role="img" data-ta="ציור של {N}">
       <!-- coiled body -->
       <ellipse cx="80" cy="122" rx="62" ry="10" fill="rgba(0,0,0,.15)"/>
       <path d="M30 100 C 20 60, 60 40, 95 52 C 130 64, 135 104, 100 112 C 70 119, 48 104, 58 86" fill="none" stroke="var(--scale)" stroke-width="26" stroke-linecap="round"/>
@@ -307,11 +380,13 @@ textarea{min-height:110px;resize:vertical}
       </g>
     </svg>
     <div class="hero-text">
-      <h1>החיים של פייפר</h1>
-      <p>היומן של פיתונית מתכדררת ושל עינב</p>
-      <div class="bubble" id="greet">שלום עינב!</div>
+      <h1 data-t="החיים של {N}">החיים של</h1>
+      <p data-t="היומן של {N} ושל {K}"></p>
+      <div class="bubble" id="greet"></div>
+      <div class="hero-tools"><button class="id-btn" id="openId" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="3" fill="#fff"/><circle cx="8" cy="11" r="2.6" fill="#2E9A68"/><path d="M4.5 16.5c.8-2 2.2-3 3.5-3s2.7 1 3.5 3" fill="#2E9A68"/><path d="M14 10h5M14 13h4" stroke="#2E9A68" stroke-width="1.8" stroke-linecap="round"/></svg>תעודת זהות</button></div>
     </div>
   </header>
+  <nav class="snakes" id="snakes" aria-label="הנחשים שלי"></nav>
 
   <section aria-label="מצב עכשיו">
     <div class="status">
@@ -320,11 +395,11 @@ textarea{min-height:110px;resize:vertical}
       <div class="stat clean"><span class="lbl">ימים מאז</span><span class="num" id="dClean">–</span><span class="what">ניקיון</span></div>
     </div>
   </section>
-  <div class="hint" id="hint">כאן פייפר תספר לך איך היא מרגישה.</div>
+  <div class="hint" id="hint"></div>
   <section class="tip" aria-live="polite">
     <svg class="tip-snake" viewBox="0 0 80 80" aria-hidden="true"><path d="M10 70 C 4 50, 30 44, 40 56 C 50 68, 72 62, 66 44" stroke="#C98A4B" stroke-width="12" fill="none" stroke-linecap="round"/><path d="M10 70 C 4 50, 30 44, 40 56 C 50 68, 72 62, 66 44" stroke="#6B4423" stroke-width="6" fill="none" stroke-linecap="round" stroke-dasharray="4 9"/><ellipse cx="62" cy="30" rx="15" ry="12" fill="#C98A4B"/><circle cx="57" cy="27" r="4" fill="#fff"/><circle cx="67" cy="27" r="4" fill="#fff"/><circle cx="57.6" cy="28" r="2.2" fill="#1F3328"/><circle cx="67.6" cy="28" r="2.2" fill="#1F3328"/><path d="M57 35 Q62 39 67 35" stroke="#1F3328" stroke-width="1.8" fill="none" stroke-linecap="round"/><path d="M48 8 c-4 -6 4 -10 6 -4 c2 -6 10 -2 6 4 l-6 6z" fill="#FF6F9A"/></svg>
     <div class="tip-body">
-      <div class="tip-label" id="tipLabel">פייפר מבקשת</div>
+      <div class="tip-label" id="tipLabel"></div>
       <p class="tip-text" id="tipText"></p>
       <div class="tip-actions"><button class="tip-do" id="tipDo">עשיתי את זה!</button><button class="tip-next" id="tipNext">עוד משהו</button></div>
     </div>
@@ -333,17 +408,17 @@ textarea{min-height:110px;resize:vertical}
   <section style="display:flex;flex-direction:column;gap:12px">
     <h2 class="section-title">מה קרה היום?</h2>
     <div class="actions">
-      <button class="act feed" data-open="feed"><svg viewBox="0 0 48 48" aria-hidden="true"><ellipse cx="22" cy="28" rx="15" ry="11" fill="#fff"/><circle cx="12" cy="18" r="6" fill="#fff"/><circle cx="12" cy="18" r="3" fill="#FFB3C7"/><circle cx="9" cy="27" r="2" fill="#1F3328"/><path d="M37 30 C 44 30, 44 40, 38 40" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round"/></svg><span>פייפר אכלה</span></button>
-      <button class="act shed" data-open="shed"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M8 38 C 8 20, 22 22, 24 12 C 26 22, 40 20, 40 38" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-dasharray="3 5"/><path d="M24 4 l2 4 4 1 -4 2 -2 4 -2 -4 -4 -2 4 -1z" fill="#FFE27A"/></svg><span>פייפר השילה עור</span></button>
+      <button class="act feed" data-open="feed"><svg viewBox="0 0 48 48" aria-hidden="true"><ellipse cx="22" cy="28" rx="15" ry="11" fill="#fff"/><circle cx="12" cy="18" r="6" fill="#fff"/><circle cx="12" cy="18" r="3" fill="#FFB3C7"/><circle cx="9" cy="27" r="2" fill="#1F3328"/><path d="M37 30 C 44 30, 44 40, 38 40" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round"/></svg><span data-t="{N} {אכלה|אכל}">אכל</span></button>
+      <button class="act shed" data-open="shed"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M8 38 C 8 20, 22 22, 24 12 C 26 22, 40 20, 40 38" fill="none" stroke="#fff" stroke-width="4" stroke-linecap="round" stroke-dasharray="3 5"/><path d="M24 4 l2 4 4 1 -4 2 -2 4 -2 -4 -4 -2 4 -1z" fill="#FFE27A"/></svg><span data-t="{N} {השילה|השיל} עור">השלת עור</span></button>
       <button class="act clean" data-open="clean"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 6 C 30 16, 36 22, 36 30 a12 12 0 0 1 -24 0 C 12 22, 18 16, 24 6z" fill="#fff"/><path d="M19 30 a5 5 0 0 0 5 5" stroke="var(--sky)" stroke-width="3" fill="none" stroke-linecap="round"/></svg><span>ניקינו את הבית</span></button>
       <button class="act note" data-open="note"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="10" y="7" width="26" height="34" rx="5" fill="#fff"/><path d="M16 17h14M16 24h14M16 31h8" stroke="var(--berry)" stroke-width="3" stroke-linecap="round"/><path d="M33 30 l8 -8 4 4 -8 8 -5 1z" fill="#FFE27A"/></svg><span>יומן ותמונה</span></button>
     </div>
-    <button class="album-btn" id="openAlbum"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="6" y="10" width="36" height="30" rx="4" fill="#fff"/><rect x="11" y="15" width="26" height="18" rx="2" fill="#8FD06E"/><circle cx="31" cy="20" r="3" fill="#FFD84D"/><path d="M11 33 L19 23 L25 29 L29 25 L37 33Z" fill="#3E9C4A"/><rect x="14" y="6" width="12" height="6" rx="1" fill="#FFE27A" opacity=".9" transform="rotate(-8 20 9)"/></svg><span><b>אלבום התמונות</b><small id="albumCount">כל התמונות של פייפר</small></span></button>
+    <button class="album-btn" id="openAlbum"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="6" y="10" width="36" height="30" rx="4" fill="#fff"/><rect x="11" y="15" width="26" height="18" rx="2" fill="#8FD06E"/><circle cx="31" cy="20" r="3" fill="#FFD84D"/><path d="M11 33 L19 23 L25 29 L29 25 L37 33Z" fill="#3E9C4A"/><rect x="14" y="6" width="12" height="6" rx="1" fill="#FFE27A" opacity=".9" transform="rotate(-8 20 9)"/></svg><span><b>אלבום התמונות</b><small id="albumCount"></small></span></button>
     <button class="album-btn cal-btn" id="openCal"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="6" y="9" width="36" height="32" rx="6" fill="#fff"/><rect x="6" y="9" width="36" height="9" rx="4" fill="#FFD84D"/><path d="M15 5v8M33 5v8" stroke="#fff" stroke-width="4" stroke-linecap="round"/><circle cx="15" cy="26" r="3" fill="#FF7A3D"/><circle cx="24" cy="26" r="3" fill="#8A5CD6"/><circle cx="33" cy="26" r="3" fill="#2F9FD8"/><circle cx="15" cy="34" r="3" fill="#E2457A"/><circle cx="24" cy="34" r="3" fill="#2E9A68"/></svg><span><b>לוח השנה</b><small>מה קרה בכל יום</small></span></button>
   </section>
 
   <section style="display:flex;flex-direction:column;gap:12px">
-    <h2 class="section-title">היומן של פייפר</h2>
+    <h2 class="section-title" data-t="היומן של {N}">היומן</h2>
     <div class="filters" role="group" aria-label="סינון">
       <button aria-pressed="true" data-f="all">הכל</button>
       <button aria-pressed="false" data-f="feed">ארוחות</button>
@@ -354,7 +429,7 @@ textarea{min-height:110px;resize:vertical}
     </div>
     <ul class="diary" id="diary"></ul>
   </section>
-  <p class="foot" id="foot">פייפר שמחה שאתה דואג לה.</p>
+  <p class="foot" id="foot"></p>
   <section class="backup">
     <h2 class="section-title">גיבוי</h2>
     <p>כל מה שנרשם שמור בטלפון הזה. כדאי לשמור גיבוי מדי פעם, למשל בגוגל דרייב או בוואטסאפ לעצמך.</p>
@@ -373,7 +448,7 @@ textarea{min-height:110px;resize:vertical}
 <div id="albumView" class="view" hidden>
   <div class="album-head">
     <button class="back" id="albumBack">→ חזרה</button>
-    <h2 class="section-title">אלבום התמונות של פייפר</h2>
+    <h2 class="section-title" data-t="אלבום התמונות של {N}">אלבום התמונות</h2>
   </div>
   <div id="albumPage"></div>
   <div class="album-nav" id="albumNav">
@@ -383,17 +458,33 @@ textarea{min-height:110px;resize:vertical}
   </div>
 </div>
 </div>
-<div class="lightbox" id="lightbox" hidden><img id="lbImg" alt="תמונה של פייפר"><div class="lb-cap" id="lbCap"></div><div class="lb-actions"><button class="lb-close" id="lbClose">סגור</button><button class="lb-del" id="lbDel">מחק מהאלבום</button></div><div class="lb-confirm" id="lbConfirm" hidden><span>למחוק את התמונה?</span><button class="lb-yes" id="lbYes">כן, למחוק</button><button class="lb-close" id="lbNo">לא</button></div></div>
+<div class="lightbox" id="lightbox" hidden><img id="lbImg" alt=""><div class="lb-cap" id="lbCap"></div><div class="lb-actions"><button class="lb-close" id="lbClose">סגור</button><button class="lb-del" id="lbDel">מחק מהאלבום</button></div><div class="lb-confirm" id="lbConfirm" hidden><span>למחוק את התמונה?</span><button class="lb-yes" id="lbYes">כן, למחוק</button><button class="lb-close" id="lbNo">לא</button></div></div>
 
 <div class="scrim" id="scrim" hidden></div>
 <div class="sheet" id="sheet" role="dialog" aria-modal="true" dir="rtl" hidden></div>
 <div class="toast" id="toast" hidden></div>
+<div class="wizard" id="wizard" dir="rtl" hidden>
+  <div class="wiz-card" role="dialog" aria-modal="true">
+    <div class="wiz-dots" id="wizDots"></div>
+    <div class="wiz-body" id="wizBody"></div>
+    <div class="wiz-actions"><button class="wiz-next" id="wizNext" type="button">הבא</button><button class="wiz-skip" id="wizSkip" type="button">דלג</button><button class="wiz-back" id="wizBack" type="button">חזרה</button></div>
+  </div>
+</div>
+<div class="idview" id="idView" dir="rtl" hidden>
+  <div class="idview-inner">
+    <h2 id="idTitle"></h2>
+    <div class="idcard" id="idCard"></div>
+    <div class="id-actions"><button id="idEdit" type="button">עריכת פרטים</button><button id="idKid" type="button">הפרטים שלי</button><button id="idClose" type="button" class="primary">סגור</button></div>
+    <button id="idDel" class="id-del" type="button">מחיקת הנחש</button>
+    <div class="id-del-confirm" id="idDelConfirm" hidden><span id="idDelText"></span><button id="idDelYes" type="button">כן, למחוק</button><button id="idDelNo" type="button">לא</button></div>
+  </div>
+</div>
 <div class="bye" id="bye" dir="rtl" hidden><div class="bye-card" role="dialog" aria-modal="true" aria-labelledby="byeTitle">
   <svg viewBox="0 0 120 90" aria-hidden="true"><path d="M10 80 C 0 60, 40 52, 54 66 C 68 80, 100 72, 92 46" stroke="#C98A4B" stroke-width="16" fill="none" stroke-linecap="round"/><path d="M10 80 C 0 60, 40 52, 54 66 C 68 80, 100 72, 92 46" stroke="#6B4423" stroke-width="7" fill="none" stroke-linecap="round" stroke-dasharray="5 11"/><ellipse cx="90" cy="30" rx="19" ry="15" fill="#C98A4B"/><circle cx="83" cy="27" r="5" fill="#fff"/><circle cx="96" cy="27" r="5" fill="#fff"/><circle cx="83.6" cy="28" r="2.8" fill="#1F3328"/><circle cx="96.6" cy="28" r="2.8" fill="#1F3328"/><path d="M83 37 Q90 42 97 37" stroke="#1F3328" stroke-width="2" fill="none" stroke-linecap="round"/><path class="tongue" d="M108 32 L118 32 M118 32 l4 -4 M118 32 l4 4" stroke="#E2457A" stroke-width="2.4" fill="none" stroke-linecap="round"/></svg>
   <h2 id="byeTitle">סיימנו להיום?</h2><p id="byeText"></p>
   <div class="bye-actions"><button class="bye-yes" id="byeYes">כן, להתראות!</button><button class="bye-no" id="byeNo">עוד קצת!</button></div>
 </div></div>
-<div class="bye" id="byeDone" dir="rtl" hidden><div class="bye-card"><h2>להתראות עינב!</h2><p>פייפר מחכה לך.</p></div></div>
+<div class="bye" id="byeDone" dir="rtl" hidden><div class="bye-card"><h2 data-t="להתראות {K}!"></h2><p data-t="{N} {מחכה|מחכה} לך."></p></div></div>
 
 <script>
 (function(){
@@ -406,7 +497,7 @@ const ICON={
  note:'<svg viewBox="0 0 48 48"><rect x="10" y="7" width="26" height="34" rx="5" fill="#fff"/><path d="M16 17h14M16 24h14M16 31h8" stroke="#E2457A" stroke-width="3" stroke-linecap="round"/></svg>'
 };
 const COLOR={feed:'var(--tangerine)',shed:'var(--grape)',clean:'var(--sky)',note:'var(--berry)',bond:'var(--leaf)'};
-const TITLE={feed:'מתי פייפר אכלה?',shed:'פייפר השילה עור!',clean:'ניקינו את הבית של פייפר',note:'מה קרה היום עם פייפר?'};
+const TITLE={feed:'מתי {N} {אכלה|אכל}?',shed:'{N} {השילה|השיל} עור!',clean:'ניקינו את הבית של {N}',note:'מה קרה היום עם {N}?'};
 
 /* ---------- dates ---------- */
 const pad=n=>String(n).padStart(2,'0');
@@ -426,49 +517,218 @@ async function idbGet(k){const d=await idb();return new Promise((res,rej)=>{cons
 async function idbSet(k,v){const d=await idb();return new Promise((res,rej)=>{const t=d.transaction('kv','readwrite');t.objectStore('kv').put(v,k);t.oncomplete=()=>res();t.onerror=()=>rej(t.error)})}
 function lsSave(){idbSet('entries',entries).catch(()=>toast('לא הצלחתי לשמור בטלפון. בדוק שיש מקום פנוי.'))}
 const store={
-  async add(e){ if(db){await db.collection('log').doc(e.id).set(e)} else {entries=entries.filter(x=>x.id!==e.id);entries.push(e);lsSave();render()} },
+  async add(e){ if(!e.snake)e.snake=curId(); if(db){await db.collection('log').doc(e.id).set(e)} else {entries=entries.filter(x=>x.id!==e.id);entries.push(e);lsSave();render()} },
   async remove(id){ if(db){await db.collection('log').doc(id).delete()} else {entries=entries.filter(x=>x.id!==id);lsSave();render()} }
 };
 entries=[];
 
 
-/* ---------- tips from Piper ---------- */
-const T=(t,task)=>({t,task});
+
+/* ---------- profile: the child and their snakes ---------- */
+const SPECIES=[
+ {k:'bp',n:'פיתון מתכדרר',c:['#C98A4B','#6B4423','#F3D9A4']},
+ {k:'corn',n:'קרחן תירס',c:['#E8743B','#B33A2B','#F7E3C4']},
+ {k:'king',n:'נחש מלך',c:['#33302E','#F2EFE6','#F2EFE6']},
+ {k:'milk',n:'נחש חלב',c:['#D8382E','#1F1F1F','#F6D35B']},
+ {k:'hog',n:'הוגנוז',c:['#C9A46A','#7A5A32','#EBDDBA']},
+ {k:'boa',n:'בואה',c:['#C7B08A','#7B3B2A','#EFE3C8']},
+ {k:'other',n:'נחש אחר',c:['#7FB069','#3E7A3A','#E5F2C8']}];
+const spec=k=>SPECIES.find(x=>x.k===k)||SPECIES[SPECIES.length-1];
+let prof=null;
+const curSnake=()=>(prof&&prof.snakes.find(x=>x.id===prof.cur))||(prof&&prof.snakes[0])||{id:'none',name:'הנחש',sex:'?',species:'other'};
+const curId=()=>curSnake().id;
+function mine(){const id=curId(),first=prof&&prof.snakes[0]&&prof.snakes[0].id;return entries.filter(e=>(e.snake||first)===id)}
+const snakeFem=s=>(s||curSnake()).sex==='f';
+const kidFem=()=>!!(prof&&prof.kid&&prof.kid.g==='f');
+/* {fem|masc} follows the snake, [boy|girl] follows the child, {N} snake name, {K} child name */
+function fmt(t,s){s=s||curSnake();const kid=(prof&&prof.kid&&prof.kid.name)||'';
+  return t.replace(/\{N\}/g,s.name||'הנחש').replace(/\{K\}/g,kid).replace(/\{([^{}|]*)\|([^{}|]*)\}/g,(m,f,ms)=>snakeFem(s)?f:ms).replace(/\[([^\[\]|]*)\|([^\[\]|]*)\]/g,(m,b,g)=>kidFem()?g:b)}
+function saveProf(){idbSet('profile',prof).catch(()=>{})}
+function snakeLabel(s){const sp=spec(s.species);return s.species==='other'&&s.speciesOther?s.speciesOther:sp.n}
+function applyTexts(){
+  document.querySelectorAll('[data-t]').forEach(el=>{el.textContent=fmt(el.dataset.t)});
+  document.querySelectorAll('[data-ta]').forEach(el=>el.setAttribute('aria-label',fmt(el.dataset.ta)));
+  document.title=fmt('החיים של {N}');greet();
+  const c=spec(curSnake().species).c,r=document.documentElement.style;r.setProperty('--scale',c[0]);r.setProperty('--scale-dark',c[1]);r.setProperty('--belly',c[2]);
+  renderSnakes();
+}
+function avatar(s,big){const d=document.createElement('span');d.className='avatar'+(big?' big':'');const c=spec(s.species).c;
+  if(s.photo){const im=document.createElement('img');im.src=photoSrc(s.photo);im.alt='';d.appendChild(im)}
+  else{d.style.background=`repeating-linear-gradient(135deg,${c[0]} 0 10px,${c[1]} 10px 15px)`;const t=document.createElement('b');t.textContent=(s.name||'?').slice(0,1);d.appendChild(t)}
+  return d}
+function renderSnakes(){const nav=$('#snakes');if(!nav||!prof)return;nav.textContent='';
+  prof.snakes.forEach(s=>{const b=document.createElement('button');b.type='button';b.className='snake-chip'+(s.id===curId()?' on':'');
+    b.setAttribute('aria-pressed',s.id===curId());b.append(avatar(s),document.createTextNode(s.name));
+    b.onclick=()=>{if(s.id===curId())return;prof.cur=s.id;saveProf();tipIdx=null;tipShown=null;render();toast(fmt('עכשיו ביומן של {N}'))};nav.appendChild(b)});
+  const add=document.createElement('button');add.type='button';add.className='snake-chip add';add.innerHTML='<span class="avatar plus">+</span>';
+  add.appendChild(document.createTextNode('נחש חדש'));add.onclick=()=>startWizard('add');nav.appendChild(add)}
+
+/* ---------- year → month → day picker for the wizard ---------- */
+function bigDatePicker(val,onPick){
+  const box=document.createElement('div');box.className='bdp';
+  const t=parse(today());let y=val?parse(val).getFullYear():null,m=val?parse(val).getMonth():null;
+  const draw=()=>{box.textContent='';
+    const crumbs=document.createElement('div');crumbs.className='bdp-crumbs';
+    const mk=(txt,fn)=>{const b=document.createElement('button');b.type='button';b.textContent=txt;b.onclick=fn;return b};
+    if(y!==null)crumbs.appendChild(mk(String(y),()=>{y=null;m=null;draw()}));
+    if(m!==null)crumbs.appendChild(mk(MONTHS[m],()=>{m=null;draw()}));
+    if(crumbs.children.length)box.appendChild(crumbs);
+    const g=document.createElement('div');
+    if(y===null){const lbl=document.createElement('div');lbl.className='bdp-q';lbl.textContent='באיזו שנה?';box.appendChild(lbl);g.className='bdp-grid y';
+      for(let yy=t.getFullYear();yy>=t.getFullYear()-11;yy--)g.appendChild(mk(String(yy),()=>{y=yy;draw()}))}
+    else if(m===null){const lbl=document.createElement('div');lbl.className='bdp-q';lbl.textContent='באיזה חודש?';box.appendChild(lbl);g.className='bdp-grid m';
+      MONTHS.forEach((mn,i)=>{const b=mk(mn,()=>{m=i;draw()});if(y===t.getFullYear()&&i>t.getMonth())b.disabled=true;g.appendChild(b)})}
+    else{const lbl=document.createElement('div');lbl.className='bdp-q';lbl.textContent='באיזה יום?';box.appendChild(lbl);
+      box.appendChild(monthGrid(y,m,{sel:val,max:today(),onPick:ds=>{val=ds;onPick(ds);draw()}}));return}
+    box.appendChild(g)};
+  draw();return box}
+
+/* ---------- the welcome questionnaire ---------- */
+let wiz=null;
+const WSTEPS={
+ kidName:{q:()=>'שלום! איך קוראים לך?',type:'text',ph:'השם שלי',key:'kidName',req:1},
+ kidG:{q:()=>'נעים מאוד, '+wiz.d.kidName+'! בן או בת?',type:'choice',key:'kidG',opts:[['m','אני בן'],['f','אני בת']],req:1,qraw:1},
+ name:{q:()=>wiz.mode==='add'?'איך קוראים לנחש החדש?':'איך קוראים לנחש [שלך|שלך]?',type:'text',ph:'שם הנחש',key:'name',req:1},
+ species:{q:()=>'מה הסוג של {N}?',type:'species',key:'species',req:1},
+ sex:{q:()=>'{N} זכר או נקבה?',type:'choice',key:'sex',opts:[['f','נקבה'],['m','זכר'],['?','עוד לא יודעים']],req:1},
+ hatch:{q:()=>'מתי {N} {בקעה|בקע} מהביצה?',hint:'אם לא יודעים בדיוק, אפשר לבחור בערך או לדלג.',type:'date',key:'hatch'},
+ joined:{q:()=>'מתי {N} {הגיעה|הגיע} הביתה?',type:'date',key:'joined',today:1},
+ morph:{q:()=>'איזה מופע או צבעים יש ל{N}?',hint:'למשל: נורמלי, בננה, פסטל, אלבינו. אפשר לדלג.',type:'text',ph:'המופע של {N}',key:'morph'},
+ photo:{q:()=>'תמונת פרופיל ל{N}',hint:'תמונה יפה של {N} לתעודת הזהות. אפשר להוסיף גם אחר כך.',type:'photo',key:'photo'}};
+function startWizard(mode,snake){
+  const d={};let steps;
+  if(mode==='new'){steps=['kidName','kidG','name','species','sex','hatch','joined','morph','photo']}
+  else if(mode==='add'){steps=['name','species','sex','hatch','joined','morph','photo']}
+  else if(mode==='edit'){Object.assign(d,snake);steps=['name','species','sex','hatch','joined','morph','photo']}
+  else if(mode==='kid'){d.kidName=prof.kid.name;d.kidG=prof.kid.g;steps=['kidName','kidG']}
+  else if(mode==='migrate'){Object.assign(d,snake);steps=['kidName','kidG',...['hatch','joined','morph','photo'].filter(k=>!d[k])]}
+  wiz={mode,steps,i:0,d,snake};$('#wizard').hidden=false;lockScroll();drawWiz()}
+function wizSnake(){const d=wiz.d;return {id:d.id||'x',name:d.name||'הנחש',sex:d.sex||'?',species:d.species||'other'}}
+function wfmt(t){const save=prof;if(!prof)prof={kid:{},snakes:[]};const kidSave=prof.kid;
+  prof.kid={name:wiz.d.kidName||(kidSave&&kidSave.name)||'',g:wiz.d.kidG||(kidSave&&kidSave.g)||'m'};
+  const r=fmt(t,wizSnake());prof.kid=kidSave;if(!save)prof=null;return r}
+function drawWiz(){
+  const st=WSTEPS[wiz.steps[wiz.i]],d=wiz.d,box=$('#wizBody');box.textContent='';
+  const dots=$('#wizDots');dots.textContent='';wiz.steps.forEach((_,k)=>{const i=document.createElement('i');if(k<=wiz.i)i.className='on';dots.appendChild(i)});
+  const h=document.createElement('h2');h.textContent=wfmt(st.q());box.appendChild(h);
+  if(st.hint){const p=document.createElement('p');p.className='wiz-hint';p.textContent=wfmt(st.hint);box.appendChild(p)}
+  if(st.type==='text'){const inp=document.createElement('input');inp.type='text';inp.id='wiz-'+st.key;inp.className='wiz-input';inp.maxLength=30;inp.placeholder=wfmt(st.ph||'');inp.value=d[st.key]||'';
+    inp.oninput=()=>{d[st.key]=inp.value.trim();wizCheck()};inp.onkeydown=e=>{if(e.key==='Enter'&&!$('#wizNext').disabled)$('#wizNext').click()};box.appendChild(inp);setTimeout(()=>inp.focus(),50)}
+  if(st.type==='choice'){const row=document.createElement('div');row.className='wiz-choices';
+    st.opts.forEach(([v,l])=>{const b=document.createElement('button');b.type='button';b.textContent=l;b.setAttribute('aria-pressed',d[st.key]===v);
+      b.onclick=()=>{d[st.key]=v;drawWiz();setTimeout(()=>$('#wizNext').click(),220)};row.appendChild(b)});box.appendChild(row)}
+  if(st.type==='species'){const g=document.createElement('div');g.className='wiz-species';
+    SPECIES.forEach(sp=>{const b=document.createElement('button');b.type='button';b.setAttribute('aria-pressed',d.species===sp.k);
+      const sw=document.createElement('span');sw.className='sw';sw.style.background=`repeating-linear-gradient(135deg,${sp.c[0]} 0 12px,${sp.c[1]} 12px 18px)`;
+      b.append(sw,document.createTextNode(sp.n));b.onclick=()=>{d.species=sp.k;drawWiz()};g.appendChild(b)});box.appendChild(g);
+    if(d.species==='other'){const inp=document.createElement('input');inp.type='text';inp.id='wiz-other';inp.className='wiz-input';inp.placeholder='איזה נחש?';inp.value=d.speciesOther||'';inp.oninput=()=>{d.speciesOther=inp.value.trim()};box.appendChild(inp)}}
+  if(st.type==='date'){const shown=document.createElement('div');shown.className='wiz-date';
+    const upd=()=>{shown.textContent=d[st.key]?longDate(d[st.key]):'עוד לא נבחר תאריך'};upd();
+    if(st.today){const b=document.createElement('button');b.type='button';b.className='wiz-today';b.textContent='היום!';b.onclick=()=>{d[st.key]=today();upd();wizCheck();setTimeout(()=>$('#wizNext').click(),200)};box.appendChild(b)}
+    box.append(shown,bigDatePicker(d[st.key],ds=>{d[st.key]=ds;upd();wizCheck()}))}
+  if(st.type==='photo'){const prev=document.createElement('img');prev.className='wiz-photo';prev.alt='';prev.hidden=!d.photo;if(d.photo)prev.src=photoSrc(d.photo);
+    const row=document.createElement('div');row.className='photo-row';
+    const mk=(label,cap)=>{const lab=document.createElement('div');lab.className='photo-pick';const t=document.createElement('span');t.textContent=label;
+      const inp=document.createElement('input');inp.type='file';inp.accept='image/*';if(cap)inp.setAttribute('capture','environment');inp.className='photo-input';inp.setAttribute('aria-label',label);
+      inp.onchange=async()=>{const f=inp.files&&inp.files[0];if(!f)return;try{d.photo=await toDataURL(await shrink(f,700,.82));prev.src=d.photo;prev.hidden=false}catch(e){toast('לא הצלחתי לפתוח את התמונה')}};
+      lab.append(t,inp);return lab};
+    row.append(mk('צלם עכשיו',true),mk('בחר מהגלריה',false));box.append(prev,row)}
+  $('#wizBack').hidden=wiz.i===0&&wiz.mode==='new';
+  $('#wizBack').textContent=wiz.i===0?'ביטול':'חזרה';
+  $('#wizSkip').hidden=!!st.req;
+  $('#wizNext').textContent=wiz.i===wiz.steps.length-1?'סיימתי!':'הבא';
+  wizCheck();
+}
+function wizCheck(){const st=WSTEPS[wiz.steps[wiz.i]];$('#wizNext').disabled=!!st.req&&!wiz.d[st.key]}
+$('#wizNext').onclick=()=>{if(wiz.i<wiz.steps.length-1){wiz.i++;drawWiz()}else finishWizard()};
+$('#wizSkip').onclick=()=>{const st=WSTEPS[wiz.steps[wiz.i]];if(!st.today||!wiz.d[st.key])delete wiz.d[st.key];$('#wizNext').click()};
+$('#wizBack').onclick=()=>{if(wiz.i>0){wiz.i--;drawWiz()}else if(wiz.mode!=='new'&&wiz.mode!=='migrate'){closeWizard()}else if(wiz.mode==='migrate'){closeWizard()}};
+function closeWizard(){$('#wizard').hidden=true;unlockScroll();wiz=null}
+function finishWizard(){
+  const d=wiz.d,mode=wiz.mode;
+  const fields=['name','species','speciesOther','sex','hatch','joined','morph','photo'];
+  const pickS=src=>{const o={};fields.forEach(f=>{if(src[f])o[f]=src[f]});return o};
+  if(mode==='new'){const id='s'+Date.now().toString(36);prof={kid:{name:d.kidName,g:d.kidG},snakes:[{id,...pickS(d)}],cur:id}}
+  else if(mode==='add'){const id='s'+Date.now().toString(36);prof.snakes.push({id,...pickS(d)});prof.cur=id}
+  else if(mode==='edit'){const s=prof.snakes.find(x=>x.id===d.id);fields.forEach(f=>{if(d[f])s[f]=d[f];else delete s[f]})}
+  else if(mode==='kid'){prof.kid={name:d.kidName,g:d.kidG}}
+  else if(mode==='migrate'){prof.kid={name:d.kidName,g:d.kidG};const s=prof.snakes[0];Object.assign(s,pickS(d))}
+  saveProf();closeWizard();tipShown=null;render();
+  if(mode==='new'||mode==='add'||mode==='migrate'){openIdCard(true)}else toast('נשמר!')}
+
+/* ---------- the ID card ---------- */
+function ageText(ds){const a=parse(ds),t=parse(today());let m=(t.getFullYear()-a.getFullYear())*12+t.getMonth()-a.getMonth();if(t.getDate()<a.getDate())m--;
+  if(m<1){const d=diffDays(ds);return d===1?'יום אחד':d+' ימים'}if(m<12)return m===1?'חודש אחד':m+' חודשים';const y=Math.floor(m/12),r=m%12;
+  return (y===1?'שנה':y===2?'שנתיים':y+' שנים')+(r?' ו־'+(r===1?'חודש':r+' חודשים'):'')}
+function idNumber(s){let h=0;for(const c of s.id+s.name)h=(h*131+c.charCodeAt(0))%9000000;return String(1000000+h)}
+function openIdCard(fresh){
+  const s=curSnake(),c=$('#idCard');c.textContent='';
+  const head=document.createElement('div');head.className='idc-head';head.innerHTML='<span>תעודת זהות</span><small>מדינת הג׳ונגל · מחלקת הנחשים</small>';
+  const body=document.createElement('div');body.className='idc-body';
+  const pic=document.createElement('div');pic.className='idc-pic';pic.appendChild(avatar(s,true));
+  const rows=document.createElement('dl');rows.className='idc-rows';
+  const row=(k,v)=>{if(!v)return;const dt=document.createElement('dt');dt.textContent=k;const dd=document.createElement('dd');dd.textContent=v;rows.append(dt,dd)};
+  row('שם',s.name);row('סוג',snakeLabel(s));row('מין',s.sex==='f'?'נקבה':s.sex==='m'?'זכר':'עוד לא יודעים');
+  if(s.hatch)row('תאריך בקיעה',s.hatch.split('-').reverse().join('.')+' (גיל '+ageText(s.hatch)+')');
+  if(s.joined)row('הגיע'+(s.sex==='f'?'ה':'')+' הביתה',s.joined.split('-').reverse().join('.')+(diffDays(s.joined)>0?' (כבר '+ageText(s.joined)+' במשפחה)':' (היום!)'));
+  row('מופע',s.morph);row(kidFem()?'הבעלים':'הבעלים',prof.kid.name);
+  body.append(pic,rows);
+  const foot=document.createElement('div');foot.className='idc-foot';
+  const num=document.createElement('span');num.className='idc-num';num.textContent='מספר זהות '+idNumber(s);
+  const stamp=document.createElement('span');stamp.className='idc-stamp';stamp.textContent='מאושר ✓';foot.append(num,stamp);
+  c.append(head,body,foot);
+  $('#idTitle').textContent=fresh?fmt('ברוכים הבאים, {N}!'):fmt('תעודת הזהות של {N}');
+  $('#idDel').hidden=prof.snakes.length<2;$('#idDelConfirm').hidden=true;
+  $('#idView').hidden=false;lockScroll();pushLayer('id');if(fresh)hearts();
+}
+function doCloseId(){$('#idView').hidden=true;unlockScroll()}
+$('#openId').onclick=()=>openIdCard(false);
+$('#idClose').onclick=()=>closeLayer(doCloseId);
+$('#idEdit').onclick=()=>{const s=curSnake();closeLayer(()=>{doCloseId();startWizard('edit',{...s})})};
+$('#idKid').onclick=()=>closeLayer(()=>{doCloseId();startWizard('kid')});
+$('#idDel').onclick=()=>{$('#idDelConfirm').hidden=false;$('#idDelText').textContent=fmt('למחוק את {N} וכל היומן {שלה|שלו}? אי אפשר לבטל.')};
+$('#idDelNo').onclick=()=>{$('#idDelConfirm').hidden=true};
+$('#idDelYes').onclick=()=>{const id=curId();entries=entries.filter(e=>(e.snake||prof.snakes[0].id)!==id);
+  prof.snakes=prof.snakes.filter(x=>x.id!==id);prof.cur=prof.snakes[0].id;saveProf();lsSave();closeLayer(doCloseId);render();toast('נמחק')};
+
+/* ---------- tips from the snake ---------- */
+const T=(t,task,sp)=>({t,task,sp:sp?sp.split(' '):null});
+const SP_ALL=null;
 const TIPS=[
- T('שב ליד הבית של פייפר 5 דקות ודבר אליה בשקט. היא מזהה אותך לפי הריח.',1),
- T('התקרב היום לפייפר מהצד, לאט לאט, ולא מלמעלה. ככה היא לא נבהלת.',1),
- T('לפני שמרימים את פייפר שוטפים ידיים, כדי שהיד לא תריח כמו אוכל. שטוף ידיים ואז תגיד לה שלום.',1),
- T('גע בעדינות בגוף של פייפר עם מקל רך לפני שמרימים אותה. זה הסימן שלה: עכשיו לא אוכל, עכשיו עינב.',1),
- T('החזק את פייפר כשאתה תומך בגוף שלה בשתי ידיים, כדי שהיא לא תהיה תלויה באוויר.',1),
- T('תן לפייפר לזחול מיד ליד, כמו הליכון. היא בוחרת לאן ללכת, ואתה רק מחליף ידיים.',1),
- T('היום רק 5 דקות עם פייפר בידיים. בפעם הבאה אפשר 10.',1),
- T('שב ליד פייפר וספר לה מה היה לך היום.',1),
- T('צלם את פייפר היום ותוסיף את התמונה לאלבום.',1),
- T('צייר את פייפר על דף, צלם את הציור והדבק אותו באלבום.',1),
- T('תמציא לפייפר שם חיבה סודי שרק אתה יודע.',1),
- T('בדוק אם יש לפייפר מים נקיים, ואם צריך תחליף.',1),
- T('הסתכל על פייפר 5 דקות: איפה היא אוהבת לשבת? במחבוא, ליד המים או בצד החם?',1),
- T('הפעם כשאתה מחזיק את פייפר, שב על הרצפה. ככה גם אם היא זזה פתאום, לא קורה כלום.',1),
- T('לפני שאתה פותח את הבית של פייפר, נשום עמוק שלוש פעמים. כשאתה רגוע, גם היא נרגעת.',1),
- T('פיתון מתכדרר מתגלגל לכדור כשהוא מתבייש. אם פייפר בכדור, היא לא כועסת, רק צריכה זמן.',0),
- T('פייפר מריחה עם הלשון! היא אוספת ריחות מהאוויר ומכניסה אותם לאיבר מיוחד בפה. כשהיא מוציאה לשון לאט, היא סקרנית ומריחה אותך.',0),
- T('כל נחש צעיר נבהל בהתחלה. כשפייפר נשכה, זה היה מפחד ולא כי היא לא אוהבת אותך. ככל שתבלו יותר זמן ביחד, היא תפחד פחות.',0),
- T('לנחשים אין אוזניים מבחוץ. פייפר מרגישה את הרעידות של הקול והצעדים שלך דרך הגוף והלסת.',0),
- T('לפיתונים יש גומות קטנות בשפה שמרגישות חום. ככה הם מוצאים אוכל גם בחושך.',0),
- T('לפני השלת עור העיניים של פייפר נהיות כחולות ועכורות. בימים האלה היא רואה פחות ונבהלת יותר, אז לא מרימים אותה.',0),
- T('פיתון מתכדרר יכול לחיות יותר מ־20 שנה. אתה ופייפר תגדלו ביחד!',0),
- T('פיתונים מתכדררים מגיעים ממערב ומרכז אפריקה. שם הם חיים בשטחי עשב וביערות פתוחים.',0),
- T('באנגלית קוראים לפייפר Ball Python, כלומר "פיתון כדור", בגלל שהיא מתגלגלת לכדור כשהיא מפחדת.',0),
- T('לפיתון מתכדרר יש עוד שם: "פיתון מלכותי". לפי אגדה, מלכות באפריקה ענדו אותם כמו תכשיט.',0),
- T('פיתונים לא ארסיים. כשהם צדים, הם מתלפפים סביב הטרף ולוחצים עליו.',0),
- T('נקבות פיתון מתכדרר גדלות יותר מזכרים. נקבה בוגרת מגיעה בדרך כלל לאורך של 1.2 עד 1.5 מטר.',0),
- T('גור פיתון מתכדרר שבוקע מהביצה הוא באורך של 25 עד 40 סנטימטר בערך.',0),
- T('אמא פיתון מתכדרר מטילה כמה ביצים, בדרך כלל בין 3 ל־11, ומתכרבלת סביבן כדי לשמור עליהן.',0),
- T('פיתון מתכדרר בוגר יכול לצום כמה שבועות ואפילו חודשים, במיוחד בחורף. זה טבעי אצלם.',0),
- T('בטבע פיתונים מתכדררים מבלים הרבה זמן בתוך מחילות של מכרסמים, כדי להסתתר ולהישאר בחום נעים.',0),
- T('מגדלים יצרו מאות צבעים ודוגמאות של פיתון מתכדרר. קוראים להם "מופעים" (באנגלית Morphs), ויש להם שמות כמו בננה, פסטל ואלבינו.',0),
- T('ליד הזנב יש לפיתונים שני קוצים קטנים. אלה שרידים של רגליים אחוריות מלפני מיליוני שנים!',0),
- T('השיא: פיתון מתכדרר בגן חיות חי כמעט 50 שנה!',0),
+ T('[שב|שבי] ליד הבית של {N} 5 דקות [ודבר|ודברי] {אליה|אליו} בשקט. {N} {מזהה|מזהה} אותך לפי הריח.',1),
+ T('[התקרב|התקרבי] היום ל{N} מהצד, לאט לאט, ולא מלמעלה. ככה {היא לא נבהלת|הוא לא נבהל}.',1),
+ T('לפני שמרימים את {N} שוטפים ידיים, כדי שהיד לא תריח כמו אוכל. [שטוף|שטפי] ידיים ואז [תגיד|תגידי] {לה|לו} שלום.',1),
+ T('[גע|געי] בעדינות בגוף של {N} עם מקל רך לפני שמרימים {אותה|אותו}. זה הסימן {שלה|שלו}: עכשיו לא אוכל, עכשיו {K}.',1),
+ T('[החזק|החזיקי] את {N} ותמכו בגוף {שלה|שלו} בשתי ידיים, כדי {שהיא לא תהיה תלויה|שהוא לא יהיה תלוי} באוויר.',1),
+ T('[תן|תני] ל{N} לזחול מיד ליד, כמו הליכון. {היא בוחרת|הוא בוחר} לאן ללכת, [ואתה רק מחליף|ואת רק מחליפה] ידיים.',1),
+ T('היום רק 5 דקות עם {N} בידיים. בפעם הבאה אפשר 10.',1),
+ T('[שב|שבי] ליד {N} [וספר|וספרי] {לה|לו} מה היה לך היום.',1),
+ T('[צלם|צלמי] את {N} היום [ותוסיף|ותוסיפי] את התמונה לאלבום.',1),
+ T('[צייר|ציירי] את {N} על דף, [צלם|צלמי] את הציור [והדבק|והדביקי] אותו באלבום.',1),
+ T('[תמציא|תמציאי] ל{N} שם חיבה סודי שרק [אתה יודע|את יודעת].',1),
+ T('[בדוק|בדקי] אם יש ל{N} מים נקיים, ואם צריך [תחליף|תחליפי].',1),
+ T('[הסתכל|הסתכלי] על {N} 5 דקות: איפה {היא אוהבת|הוא אוהב} לשבת? במחבוא, ליד המים או בצד החם?',1),
+ T('הפעם [כשאתה מחזיק|כשאת מחזיקה] את {N}, [שב|שבי] על הרצפה. ככה גם אם {היא זזה|הוא זז} פתאום, לא קורה כלום.',1),
+ T('לפני [שאתה פותח|שאת פותחת] את הבית של {N}, [נשום|נשמי] עמוק שלוש פעמים. [כשאתה רגוע|כשאת רגועה], גם {N} {נרגעת|נרגע}.',1),
+ T('פיתון מתכדרר מתגלגל לכדור כשהוא מתבייש. אם {N} בכדור, {היא לא כועסת|הוא לא כועס}, רק {צריכה|צריך} זמן.',0,'bp'),
+ T('{N} {מריחה|מריח} עם הלשון! {היא אוספת|הוא אוסף} ריחות מהאוויר {ומכניסה|ומכניס} אותם לאיבר מיוחד בפה. {כשהיא מוציאה|כשהוא מוציא} לשון לאט, {היא סקרנית ומריחה|הוא סקרן ומריח} אותך.',0),
+ T('כל נחש צעיר נבהל בהתחלה. אם {N} {נושכת|נושך} או {שורקת|שורק}, זה מפחד ולא כי {היא לא אוהבת|הוא לא אוהב} אותך. ככל שתבלו יותר זמן ביחד, {היא תפחד|הוא יפחד} פחות.',0),
+ T('לנחשים אין אוזניים מבחוץ. {N} {מרגישה|מרגיש} את הרעידות של הקול והצעדים שלך דרך הגוף והלסת.',0),
+ T('לפיתונים ולבואות יש גומות קטנות בשפה שמרגישות חום. ככה הם מוצאים אוכל גם בחושך.',0,'bp boa'),
+ T('לפני השלת עור העיניים של {N} נהיות כחולות ועכורות. בימים האלה {היא רואה|הוא רואה} פחות {ונבהלת|ונבהל} יותר, אז לא מרימים {אותה|אותו}.',0),
+ T('פיתון מתכדרר יכול לחיות יותר מ־20 שנה. [אתה|את] ו{N} תגדלו ביחד!',0,'bp'),
+ T('פיתונים מתכדררים מגיעים ממערב ומרכז אפריקה. שם הם חיים בשטחי עשב וביערות פתוחים.',0,'bp'),
+ T('באנגלית קוראים לפיתון מתכדרר Ball Python, כלומר "פיתון כדור", בגלל שהוא מתגלגל לכדור כשהוא מפחד.',0,'bp'),
+ T('לפיתון מתכדרר יש עוד שם: "פיתון מלכותי". לפי אגדה, מלכות באפריקה ענדו אותם כמו תכשיט.',0,'bp'),
+ T('פיתונים לא ארסיים. כשהם צדים, הם מתלפפים סביב הטרף ולוחצים עליו.',0,'bp'),
+ T('נקבות פיתון מתכדרר גדלות יותר מזכרים. נקבה בוגרת מגיעה בדרך כלל לאורך של 1.2 עד 1.5 מטר.',0,'bp'),
+ T('גור פיתון מתכדרר שבוקע מהביצה הוא באורך של 25 עד 40 סנטימטר בערך.',0,'bp'),
+ T('אמא פיתון מתכדרר מטילה כמה ביצים, בדרך כלל בין 3 ל־11, ומתכרבלת סביבן כדי לשמור עליהן.',0,'bp'),
+ T('פיתון מתכדרר בוגר יכול לצום כמה שבועות ואפילו חודשים, במיוחד בחורף. זה טבעי אצלם.',0,'bp'),
+ T('בטבע פיתונים מתכדררים מבלים הרבה זמן בתוך מחילות של מכרסמים, כדי להסתתר ולהישאר בחום נעים.',0,'bp'),
+ T('מגדלים יצרו מאות צבעים ודוגמאות של פיתון מתכדרר. קוראים להם "מופעים" (באנגלית Morphs), ויש להם שמות כמו בננה, פסטל ואלבינו.',0,'bp'),
+ T('ליד הזנב יש לפיתונים ולבואות שני קוצים קטנים. אלה שרידים של רגליים אחוריות מלפני מיליוני שנים!',0,'bp boa'),
+ T('השיא: פיתון מתכדרר בגן חיות חי כמעט 50 שנה!',0,'bp'),
  T('לנחשים אין עפעפיים. קשקש שקוף מכסה להם את העין, כמו משקפיים, והוא מתחלף בכל השלת עור.',0),
  T('נחשים לא יכולים למצמץ, ולכן הם ישנים עם עיניים פתוחות.',0),
  T('נחשים לא לועסים. הם בולעים את האוכל שלם.',0),
@@ -478,15 +738,15 @@ const TIPS=[
  T('הלשון של נחש מפוצלת לשתיים. ככה הוא יודע מאיזה צד הריח חזק יותר, ולאן ללכת.',0),
  T('לנחשים יש מאות חוליות בעמוד השדרה. לחלקם יש יותר מ־300! לך יש 33.',0),
  T('לרוב הנחשים יש רק ריאה אחת שעובדת, כי הגוף שלהם צר וארוך.',0),
- T('נחשים הם בעלי דם קר. הם מתחממים מהסביבה, ולכן לפייפר צריך צד חם בבית.',0),
+ T('נחשים הם בעלי דם קר. הם מתחממים מהסביבה, ולכן ל{N} צריך צד חם בבית.',0),
  T('נחש מגדל עור חדש מתחת לישן. כשהוא בריא, הוא משיל את העור הישן בחתיכה אחת.',0),
  T('כשנחש משיל עור, העור יוצא הפוך, כמו גרב שמורידים מהרגל.',0),
  T('נחש צעיר משיל עור יותר פעמים מנחש מבוגר, כי הוא גדל מהר.',0),
  T('הקשקשים של נחש עשויים מקרטין, אותו חומר שממנו עשויות הציפורניים שלך.',0),
  T('הקשקשים בבטן של נחש רחבים, כל אחד כמו פס. הם נתפסים בקרקע ועוזרים לו לזחול.',0),
- T('פיתונים יודעים לזחול בקו ישר, כמו זחל, בעזרת השרירים בבטן. ככה הם זזים בשקט.',0),
- T('פיתון שנבהל יכול לשרוק. זו הדרך שלו להגיד "תתרחק ממני".',0),
- T('פיתון לא צריך לאכול כל יום. ארוחה אחת יכולה להספיק לו לשבוע ויותר.',0),
+ T('פיתונים ובואות יודעים לזחול בקו ישר, כמו זחל, בעזרת השרירים בבטן. ככה הם זזים בשקט.',0,'bp boa'),
+ T('נחש שנבהל יכול לשרוק. זו הדרך שלו להגיד "תתרחק ממני".',0),
+ T('נחש לא צריך לאכול כל יום. ארוחה אחת יכולה להספיק לו לשבוע ויותר.',0),
  T('נחשים שומעים בעיקר צלילים נמוכים, דרך עצמות הראש.',0),
  T('רוב הנחשים רואים תנועה טוב מאוד, אבל לא פרטים קטנים.',0),
  T('נחשים קיימים בכל יבשת חוץ מאנטארקטיקה.',0),
@@ -502,31 +762,43 @@ const TIPS=[
  T('נחשים התפתחו מלטאות לפני יותר מ־100 מיליון שנה, בתקופת הדינוזאורים.',0),
  T('בישראל חיים בערך 40 מינים של נחשים, ורובם לא ארסיים.',0),
  T('הצפע המצוי הוא הנחש הארסי הנפוץ בישראל. כשרואים נחש בטבע לא נוגעים בו, מתרחקים וקוראים למבוגר.',0),
- T('לפעמים פיתונים אוהבים לשכב בתוך קערת המים, במיוחד לפני השלת עור.',0)
+ T('לפעמים נחשים אוהבים לשכב בתוך קערת המים, במיוחד לפני השלת עור.',0),
+ T('קרחן תירס מגיע מדרום מזרח ארצות הברית. הוא לא ארסי, ולוחץ על הטרף כמו פיתון.',0,'corn'),
+ T('קרחני תירס הם מטפסים טובים. הם יודעים לטפס על ענפים ועל קירות של כלוב, אז חשוב שהמכסה יהיה סגור.',0,'corn'),
+ T('קרחן תירס יכול לחיות 15 עד 20 שנה, ואפילו יותר.',0,'corn'),
+ T('נחש המלך נקרא כך כי הוא אוכל גם נחשים אחרים, אפילו נחשי רעשן. לחלקם יש עמידות לארס שלהם.',0,'king'),
+ T('לנחש מלך יש בדרך כלל פסים או טבעות בהירות על רקע כהה. כל נחש מלך מעוצב קצת אחרת.',0,'king'),
+ T('לפי אגדה ישנה, נחשי חלב יונקים חלב מפרות. זה לא נכון! נחשים לא שותים חלב.',0,'milk'),
+ T('לנחש חלב יש טבעות אדומות, שחורות וצהובות. הצבעים דומים לנחש ארסי בשם אלמוג, וזה עוזר לו להפחיד טורפים.',0,'milk'),
+ T('להוגנוז יש אף הפוך, כמו את חפירה. הוא משתמש בו כדי לחפור בחול.',0,'hog'),
+ T('כשהוגנוז נבהל, הוא מנפח את הצוואר כמו קוברה. ואם זה לא עובד, הוא מתהפך על הגב ומעמיד פנים שהוא מת!',0,'hog'),
+ T('בואה לא מטילה ביצים. הגורים נולדים חיים, והם יודעים לדאוג לעצמם מהרגע הראשון.',0,'boa'),
+ T('בואה יכולה לגדול לאורך של יותר משני מטרים. היא מתלפפת סביב הטרף ולוחצת עליו.',0,'boa')
 ];
 (function(){let sd=11;const r=()=>(sd=(sd*9301+49297)%233280)/233280;for(let i=TIPS.length-1;i>0;i--){const j=Math.floor(r()*(i+1));[TIPS[i],TIPS[j]]=[TIPS[j],TIPS[i]]}})();
-const EVENING=T('פייפר אוהבת לטייל בערב ובלילה. הצץ עכשיו לראות מה היא עושה.',1);
-const REST=T('פייפר אכלה לא מזמן ועכשיו מעכלת. היום לא מרימים אותה. אפשר לבוא להגיד שלום דרך הזכוכית.',0);
+const EVENING=T('{N} {אוהבת|אוהב} לטייל בערב ובלילה. [הצץ|הציצי] עכשיו לראות מה {היא עושה|הוא עושה}.',1);
+const REST=T('{N} {אכלה|אכל} לא מזמן ועכשיו {מעכלת|מעכל}. היום לא מרימים {אותה|אותו}. אפשר לבוא להגיד שלום דרך הזכוכית.',0);
 let tipIdx=null,tipShown=null;
 function dayIndex(){const d=parse(today());return Math.floor(d.getTime()/86400000)}
 function currentTip(){
   const lf=lastOf('feed',e=>e.ate!==false);
   if(lf&&diffDays(lf.date)<=1)return {...REST,rest:true};
-  const pool=new Date().getHours()>=18?[EVENING,...TIPS]:TIPS;
+  const sp=curSnake().species;const mine=TIPS.filter(x=>!x.sp||x.sp.includes(sp));
+  const pool=new Date().getHours()>=18?[EVENING,...mine]:mine;
   if(tipIdx===null)tipIdx=(dayIndex()*7)%pool.length;
   return {...pool[tipIdx%pool.length],rest:false};
 }
-function showTip(){const t=currentTip();if(t.t===tipShown)return;tipShown=t.t;$('#tipText').textContent=t.t;
-  $('#tipLabel').textContent=t.task?'משימה מפייפר':'פייפר מספרת';
+function showTip(){const t=currentTip();const key=curId()+t.t;if(key===tipShown)return;tipShown=key;$('#tipText').textContent=fmt(t.t);
+  $('#tipLabel').textContent=fmt(t.task?'משימה מ{N}':'{N} {מספרת|מספר}');
   $('#tipDo').textContent=t.task?'עשיתי את זה!':'הבנתי!';$('#tipDo').disabled=false;$('#tipNext').hidden=!!t.rest;
   $('#tipNext').textContent='עוד משהו'}
 $('#tipNext').onclick=()=>{tipIdx=(tipIdx+1)%(TIPS.length+1);showTip()};
 $('#tipDo').onclick=async()=>{const t=currentTip();hearts();
-  if(t.rest){toast('פייפר אומרת תודה שאתה נותן לה לנוח');return}
+  if(t.rest){toast(fmt('{N} {אומרת|אומר} תודה [שאתה נותן|שאת נותנת] {לה|לו} לנוח'));return}
   $('#tipDo').disabled=true;
-  if(!t.task){toast('עכשיו אתה יודע עוד משהו על פייפר!');setTimeout(()=>{tipIdx=(tipIdx||0)+1;showTip()},1500);return}
-  try{await store.add({id:'b'+Date.now().toString(36)+Math.random().toString(36).slice(2,5),kind:'bond',date:today(),created:Date.now(),text:t.t});
-    toast('כל הכבוד עינב! פייפר מתרגלת אליך');setTimeout(()=>{tipIdx=(tipIdx||0)+1;showTip()},1800)}
+  if(!t.task){toast(fmt('עכשיו [אתה יודע|את יודעת] עוד משהו על {N}!'));setTimeout(()=>{tipIdx=(tipIdx||0)+1;showTip()},1500);return}
+  try{await store.add({id:'b'+Date.now().toString(36)+Math.random().toString(36).slice(2,5),kind:'bond',date:today(),created:Date.now(),text:fmt(t.t)});
+    toast(fmt('כל הכבוד {K}! {N} {מתרגלת|מתרגל} אליך'));setTimeout(()=>{tipIdx=(tipIdx||0)+1;showTip()},1800)}
   catch(e){$('#tipDo').disabled=false;toast('לא הצלחתי לשמור. נסה שוב.')}};
 function hearts(){if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;const h=document.createElement('div');h.className='hearts';
   for(let i=0;i<9;i++){const sp=document.createElement('span');sp.textContent='♥';sp.style.left=(10+Math.random()*80)+'%';sp.style.animationDelay=(Math.random()*.4)+'s';sp.style.color=['#FF6F9A','#FFD84D','#7ED957','#C9A6FF'][i%4];h.appendChild(sp)}
@@ -534,30 +806,32 @@ function hearts(){if(matchMedia('(prefers-reduced-motion: reduce)').matches)retu
 
 /* ---------- render ---------- */
 let filter='all', confirmId=null;
-function lastOf(kind,pred){return entries.filter(e=>e.kind===kind&&(!pred||pred(e))).sort(sortFn)[0]}
+function lastOf(kind,pred){return mine().filter(e=>e.kind===kind&&(!pred||pred(e))).sort(sortFn)[0]}
 function sortFn(a,b){return a.date<b.date?1:a.date>b.date?-1:(b.created||0)-(a.created||0)}
 function setNum(id,e){$(id).textContent=e?diffDays(e.date):'–'}
 function render(){
+  if(!prof)return;
   const lf=lastOf('feed',e=>e.ate!==false), ls=lastOf('shed'), lc=lastOf('clean');
   setNum('#dFeed',lf);setNum('#dShed',ls);setNum('#dClean',lc);
   let h;
-  if(!entries.length) h='עוד אין כלום ביומן. לחץ על אחד הכפתורים הצבעוניים כדי לכתוב את הדבר הראשון על פייפר.';
-  else if(!lf) h='עוד לא רשמנו ארוחה. מתי פייפר אכלה בפעם האחרונה?';
+  if(!mine().length) h='עוד אין כלום ביומן. [לחץ|לחצי] על אחד הכפתורים הצבעוניים כדי לכתוב את הדבר הראשון על {N}.';
+  else if(!lf) h='עוד לא רשמנו ארוחה. מתי {N} {אכלה|אכל} בפעם האחרונה?';
   else{const n=diffDays(lf.date);
-    h= n<=6 ? 'פייפר אכלה לפני '+(n===0?'פחות מיום':n+' ימים')+'. היא שבעה ומתכרבלת בנחת.'
-     : n<=13 ? 'עברו '+n+' ימים מהארוחה. אולי בקרוב זמן לארוחה הבאה. כדאי לבדוק עם אבא.'
-     : 'עברו כבר '+n+' ימים מהארוחה. פיתונים לפעמים צמים, אבל כדאי לבדוק עם אבא.'}
-  $('#hint').textContent=h;
+    h= n<=6 ? '{N} {אכלה|אכל} לפני '+(n===0?'פחות מיום':n+' ימים')+'. {היא שבעה ומתכרבלת|הוא שבע ומתכרבל} בנחת.'
+     : n<=13 ? 'עברו '+n+' ימים מהארוחה. אולי בקרוב זמן לארוחה הבאה. כדאי לבדוק עם ההורים.'
+     : 'עברו כבר '+n+' ימים מהארוחה. נחשים לפעמים צמים, אבל כדאי לבדוק עם ההורים.'}
+  $('#hint').textContent=fmt(h);
   showTip();
-  const eaten=entries.filter(e=>e.kind==='feed'&&e.ate!==false).length;
+  const eaten=mine().filter(e=>e.kind==='feed'&&e.ate!==false).length;
   updateAlbumCount&&updateAlbumCount();if(!$('#albumView').hidden)renderAlbum();if(!$('#calView').hidden)renderCal();
-  const bonds=entries.filter(e=>e.kind==='bond').length;
-  $('#foot').textContent=bonds?('בילית עם פייפר '+bonds+(bonds===1?' פעם':' פעמים')+'. היא מתרגלת אליך כל פעם יותר!'):eaten?('עד עכשיו רשמת '+eaten+' ארוחות של פייפר. כל הכבוד, עינב!'):'פייפר שמחה שאתה דואג לה.';
+  const bonds=mine().filter(e=>e.kind==='bond').length;
+  $('#foot').textContent=fmt(bonds?('בילית עם {N} '+bonds+(bonds===1?' פעם':' פעמים')+'. {היא מתרגלת|הוא מתרגל} אליך כל פעם יותר!'):eaten?('עד עכשיו רשמת '+eaten+' ארוחות של {N}. כל הכבוד, {K}!'):'{N} {שמחה|שמח} [שאתה דואג|שאת דואגת] {לה|לו}.');
+  applyTexts();
 
   const ul=$('#diary');ul.textContent='';
-  const list=entries.filter(e=>!(e.kind==='note'&&e.photo&&!e.text)&&(filter==='all'||e.kind===filter)).sort(sortFn);
+  const list=mine().filter(e=>!(e.kind==='note'&&e.photo&&!e.text)&&(filter==='all'||e.kind===filter)).sort(sortFn);
   if(!list.length){const li=document.createElement('li');li.className='empty';
-    li.textContent=filter==='all'?'היומן ריק. הרשומה הראשונה שתוסיף תופיע כאן.':'אין עדיין רשומות מהסוג הזה.';ul.appendChild(li);return}
+    li.textContent=filter==='all'?fmt('היומן ריק. הרשומה הראשונה [שתוסיף|שתוסיפי] תופיע כאן.'):'אין עדיין רשומות מהסוג הזה.';ul.appendChild(li);return}
   let lastMonth='';
   for(const e of list){
     const m=parse(e.date).toLocaleDateString('he-IL',{month:'long',year:'numeric'});
@@ -573,7 +847,7 @@ function entryEl(e){
     const meta=document.createElement('div');meta.className='meta';meta.textContent=nice(e.date);
     body.append(t,meta);
     if(e.text){const p=document.createElement('div');p.className='text';p.textContent=e.text;body.appendChild(p)}
-    if(e.photo){const img=document.createElement('img');img.alt='תמונה של פייפר';img.loading='lazy';img.src=photoSrc(e.photo);body.appendChild(img)}
+    if(e.photo){const img=document.createElement('img');img.alt=fmt('תמונה של {N}');img.loading='lazy';img.src=photoSrc(e.photo);body.appendChild(img)}
     if(confirmId===e.id){const c=document.createElement('div');c.className='confirm';
       const s=document.createElement('span');s.textContent='למחוק את זה?';
       const y=document.createElement('button');y.className='yes';y.textContent='כן, למחוק';y.onclick=async()=>{confirmId=null;try{await store.remove(e.id);toast('נמחק')}catch(err){toast('לא הצלחתי למחוק. נסה שוב.')};render()};
@@ -588,12 +862,12 @@ const canEdit=e=>!!e.created&&Date.now()-e.created<86400000;
 const FEM={'קטן':'קטנה','בינוני':'בינונית','גדול':'גדולה'};
 const sizeWord=(sz,prey)=>prey==='חולדה'?(FEM[sz]||sz):sz;
 function describe(e){
-  if(e.kind==='feed'){ if(e.ate===false) return 'פייפר לא רצתה לאכול'+(e.prey?' ('+e.prey+')':'');
-    return 'פייפר אכלה '+(e.prey||'')+(e.size?' '+sizeWord(e.size,e.prey):'') }
+  if(e.kind==='feed'){ if(e.ate===false) return fmt('{N} לא {רצתה|רצה} לאכול')+(e.prey?' ('+e.prey+')':'');
+    return fmt('{N} {אכלה|אכל} ')+(e.prey||'')+(e.size?' '+sizeWord(e.size,e.prey):'') }
   if(e.kind==='shed') return e.whole===false?'השלת עור בחתיכות':'השלת עור שלמה';
-  if(e.kind==='bond') return 'זמן ביחד עם פייפר';
-  if(e.kind==='clean') return 'ניקיון: '+((e.tasks&&e.tasks.length)?e.tasks.join(', '):'הבית של פייפר');
-  return 'מהיומן של עינב';
+  if(e.kind==='bond') return fmt('זמן ביחד עם {N}');
+  if(e.kind==='clean') return 'ניקיון: '+((e.tasks&&e.tasks.length)?e.tasks.join(', '):fmt('הבית של {N}'));
+  return fmt('מהיומן של {K}');
 }
 
 /* ---------- sheet with friendly questions ---------- */
@@ -663,16 +937,16 @@ function openSheet(kind,existing){
   if(existing){form=JSON.parse(JSON.stringify(existing));const n=diffDays(existing.date);form.dq=n<=2?String(n):null;form.tasks=existing.tasks?[...existing.tasks]:undefined}
   else form={kind,date:today(),dq:'0'};
   const s=$('#sheet');s.textContent='';
-  const h=document.createElement('h2');const ic=document.createElement('span');ic.style.cssText='display:grid;place-items:center;width:52px;height:52px;border-radius:16px;background:'+COLOR[kind];ic.innerHTML=ICON[kind];h.append(ic,document.createTextNode(existing?'עריכה: '+TITLE[kind]:TITLE[kind]));s.appendChild(h);
+  const h=document.createElement('h2');const ic=document.createElement('span');ic.style.cssText='display:grid;place-items:center;width:52px;height:52px;border-radius:16px;background:'+COLOR[kind];ic.innerHTML=ICON[kind];h.append(ic,document.createTextNode(fmt(existing?'עריכה: '+TITLE[kind]:TITLE[kind])));s.appendChild(h);
   if(kind==='feed'){
     s.appendChild(dateQ('באיזה יום?'));
     const preyRow=choiceRow('prey',['עכבר','חולדה','אוגר','אפרוח','משהו אחר']);
     const sizeRow=choiceRow('size',['קטן','בינוני','גדול']);
     const fixSizes=()=>[...sizeRow.children].forEach((b,i)=>{b.textContent=sizeWord(['קטן','בינוני','גדול'][i],form.prey)});
     preyRow.addEventListener('click',()=>setTimeout(fixSizes,0));fixSizes();
-    s.appendChild(question('מה הגשנו לה?',preyRow));
+    s.appendChild(question(fmt('מה הגשנו {לה|לו}?'),preyRow));
     s.appendChild(question('באיזה גודל?',sizeRow));
-    s.appendChild(question('היא אכלה?',choiceRow('ate',[[true,'כן, אכלה!'],[false,'לא רצתה','no']],{big:true})));
+    s.appendChild(question(fmt('{היא אכלה|הוא אכל}?'),choiceRow('ate',[[true,fmt('כן, {אכלה|אכל}!')],[false,fmt('לא {רצתה|רצה}'),'no']],{big:true})));
   }
   if(kind==='shed'){
     s.appendChild(dateQ('מתי מצאת את העור?'));
@@ -683,7 +957,7 @@ function openSheet(kind,existing){
     s.appendChild(question('מה עשינו? (אפשר לבחור כמה)',choiceRow('tasks',['החלפנו מים','ניקינו את הטרריום','החלפנו מצע','ניקינו את המחבוא'],{multi:true})));
   }
   if(kind==='note'||kind==='feed'||kind==='shed'){
-    const ta=document.createElement('textarea');ta.id='f-text';ta.placeholder=kind==='note'?'פייפר הסתתרה כל היום במחבוא...':'משהו מיוחד? (לא חובה)';
+    const ta=document.createElement('textarea');ta.id='f-text';ta.placeholder=kind==='note'?fmt('{N} {הסתתרה|הסתתר} כל היום במחבוא...'):'משהו מיוחד? (לא חובה)';
     ta.value=form.text||'';ta.oninput=()=>{form.text=ta.value;check()};
     if(kind==='note') s.appendChild(dateQ('באיזה יום?'));
     s.appendChild(question(kind==='note'?'ספר מה ראית:':'עוד משהו לספר?',ta,'f-text'));
@@ -732,7 +1006,7 @@ async function save(){
       if(!done){e.photo=await toDataURL(form.photoBlob)}
     }
     await store.add(e);closeSheet();
-    toast(editing?'השינוי נשמר':form.kind==='feed'&&e.ate?'יאמי! פייפר אומרת תודה':(e.kind==='note'&&e.photo&&!e.text)?'התמונה נכנסה לאלבום!':'נשמר ביומן!');
+    toast(editing?'השינוי נשמר':form.kind==='feed'&&e.ate?fmt('יאמי! {N} {אומרת|אומר} תודה'):(e.kind==='note'&&e.photo&&!e.text)?'התמונה נכנסה לאלבום!':'נשמר ביומן!');
   }catch(err){const el=$('#f-err');el.hidden=false;el.textContent='לא הצלחתי לשמור. בדוק שיש אינטרנט ונסה שוב.';saveBtn.disabled=false;saveBtn.textContent='שמור ביומן'}
 }
 
@@ -742,14 +1016,14 @@ document.querySelectorAll('[data-open]').forEach(b=>b.onclick=()=>openSheet(b.da
 document.querySelectorAll('.filters button').forEach(b=>b.onclick=()=>{filter=b.dataset.f;document.querySelectorAll('.filters button').forEach(x=>x.setAttribute('aria-pressed',x===b));render()});
 
 const hour=new Date().getHours();
-$('#greet').textContent=hour<12?'בוקר טוב עינב!':hour<18?'צהריים טובים עינב!':'ערב טוב עינב!';
+function greet(){$('#greet').textContent=fmt(hour<12?'בוקר טוב {K}!':hour<18?'צהריים טובים {K}!':'ערב טוב {K}!')}
 render();
 
 /* ---------- photo album ---------- */
 const PER=2,TAPES=['#FF8FB0','#FFD84D','#7FD3F7','#B9E27A','#C9A6FF','#FFB067'];let albumPg=0;
 const hash=str=>{let h=0;for(const c of str)h=(h*31+c.charCodeAt(0))|0;return Math.abs(h)};
-function photos(){return entries.filter(e=>e.photo).sort(sortFn)}
-function updateAlbumCount(){const n=photos().length;$('#albumCount').textContent=n?(n===1?'תמונה אחת של פייפר':n+' תמונות של פייפר'):'כאן יופיעו התמונות של פייפר'}
+function photos(){return mine().filter(e=>e.photo).sort(sortFn)}
+function updateAlbumCount(){const n=photos().length;$('#albumCount').textContent=fmt(n?(n===1?'תמונה אחת של {N}':n+' תמונות של {N}'):'כאן יופיעו התמונות של {N}')}
 function pageArt(i){let seed=i*97+13;const r=()=>(seed=(seed*9301+49297)%233280)/233280;
   const leaf=(x,y,a,sc,f)=>`<g transform="translate(${x} ${y}) rotate(${a}) scale(${sc})"><path d="M0 0 C10 -14 36 -14 50 0 C36 14 10 14 0 0Z" fill="${f}"/><path d="M3 0 H46" stroke="rgba(0,0,0,.15)" stroke-width="1.5"/></g>`;
   const mon=(x,y,a,sc,f)=>`<g transform="translate(${x} ${y}) rotate(${a}) scale(${sc})"><path d="M0 0 C30 -40 92 -34 104 18 C112 60 70 96 22 92 C-12 88 -22 40 0 0Z" fill="${f}"/><path d="M50 4 L36 30 M78 20 L56 40 M92 52 L64 54 M80 80 L56 66" stroke="#FFF6DA" stroke-width="7" stroke-linecap="round"/></g>`;
@@ -769,13 +1043,13 @@ function renderAlbum(){
   const list=photos(),pages=Math.max(1,Math.ceil(list.length/PER));albumPg=Math.min(albumPg,pages-1);
   const host=$('#albumPage');host.textContent='';
   const page=document.createElement('div');page.className='page';page.innerHTML=pageArt(albumPg);
-  if(!list.length){const em=document.createElement('div');em.className='album-empty';em.textContent='האלבום מחכה לתמונה הראשונה של פייפר!';
+  if(!list.length){const em=document.createElement('div');em.className='album-empty';em.textContent=fmt('האלבום מחכה לתמונה הראשונה של {N}!');
     const sm=document.createElement('small');sm.textContent='מוסיפים תמונה בכפתור "יומן ותמונה".';em.appendChild(sm);page.appendChild(em)}
   list.slice(albumPg*PER,albumPg*PER+PER).forEach((e,k)=>{const h=hash(e.id);
     const fig=document.createElement('button');fig.className='photo';fig.type='button';
     fig.style.transform=`rotate(${((h%9)-4)*1.1}deg)`;fig.setAttribute('aria-label','הגדל תמונה');
     for(const side of ['a','b']){const t=document.createElement('span');t.className='tape '+side;t.style.setProperty('--tc',TAPES[(h+(side==='a'?0:3))%TAPES.length]);fig.appendChild(t)}
-    const img=document.createElement('img');img.src=photoSrc(e.photo);img.alt='תמונה של פייפר';img.loading='lazy';
+    const img=document.createElement('img');img.src=photoSrc(e.photo);img.alt=fmt('תמונה של {N}');img.loading='lazy';
     const cap=document.createElement('figcaption');cap.textContent=caption(e);
     fig.append(img,cap);fig.onclick=()=>{lbEntry=e;$('#lbImg').src=img.src;$('#lbCap').textContent=caption(e,true);$('#lbConfirm').hidden=true;$('#lightbox').hidden=false;lockScroll();pushLayer('photo')};
     page.appendChild(fig)});
@@ -860,7 +1134,7 @@ drawFrame();let rz;addEventListener('resize',()=>{clearTimeout(rz);rz=setTimeout
 
 /* ---------- calendar view ---------- */
 let calY,calM,calSel;
-function dayEntries(ds){return entries.filter(e=>e.date===ds).sort(sortFn)}
+function dayEntries(ds){return mine().filter(e=>e.date===ds).sort(sortFn)}
 function renderCal(){
   const card=$('#calCard');card.textContent='';const t=parse(today());
   card.append(monthHeader(calY,calM,dir=>{calM+=dir;if(calM<0){calM=11;calY--}if(calM>11){calM=0;calY++}renderCal()},calY<t.getFullYear()||(calY===t.getFullYear()&&calM<t.getMonth())),
@@ -890,23 +1164,25 @@ function closeLayer(fn){if(histOK){pendingClose=fn;try{history.back();return}cat
 let pendingClose=null;
 function closeTop(){
   if(pendingClose){const f=pendingClose;pendingClose=null;f();return true}
+  if(!$('#idView').hidden){doCloseId();return true}
   if(!$('#lightbox').hidden){doCloseLb();return true}
   if(!$('#sheet').hidden){doCloseSheet();return true}
   if(!$('#albumView').hidden){showAlbum(false);return true}
   if(!$('#calView').hidden){showCal(false);return true}
   return false}
 const BYE=[
- {h:'סיימנו להיום?',p:'פייפר תחכה לך כאן, מכורבלת במחבוא שלה.'},
- {h:'כבר יוצאים מהג׳ונגל?',p:'לפני שהולכים: יש לפייפר מים נקיים?'},
- {h:'להגיד לילה טוב לפייפר?',p:'מחר מחכה לך משימה חדשה מפייפר!'},
- {h:'הולך כבר?',p:'פייפר שולחת לך שלום עם הלשון. ככה נחשים אומרים להתראות.'},
- {h:'נתראה בקרוב?',p:'כל יום שאתה דואג לפייפר, היא מכירה אותך עוד קצת.'},
- {h:'סוגרים את היומן?',p:'פייפר מבטיחה לא לברוח עד שתחזור.'}];
-const BYE_YES=['כן, להתראות פייפר!','ביי פייפר!','נתראה מחר!'],BYE_NO=['עוד קצת!','רגע, נשארים','עוד משימה אחת'];
+ {h:'סיימנו להיום?',p:'{N} {תחכה|יחכה} לך כאן, {מכורבלת|מכורבל} במחבוא {שלה|שלו}.'},
+ {h:'כבר יוצאים מהג׳ונגל?',p:'לפני שהולכים: יש ל{N} מים נקיים?'},
+ {h:'להגיד לילה טוב ל{N}?',p:'מחר מחכה לך משימה חדשה מ{N}!'},
+ {h:'[הולך|הולכת] כבר?',p:'{N} {שולחת|שולח} לך שלום עם הלשון. ככה נחשים אומרים להתראות.'},
+ {h:'נתראה בקרוב?',p:'כל יום [שאתה דואג|שאת דואגת] ל{N}, {היא מכירה|הוא מכיר} אותך עוד קצת.'},
+ {h:'סוגרים את היומן?',p:'{N} {מבטיחה|מבטיח} לא לברוח עד [שתחזור|שתחזרי].'}];
+const BYE_YES=['כן, להתראות {N}!','ביי {N}!','נתראה מחר!'],BYE_NO=['עוד קצת!','רגע, נשארים','עוד משימה אחת'];
 const pick=a=>a[Math.floor(Math.random()*a.length)];
-function showBye(){const b=pick(BYE);$('#byeTitle').textContent=b.h;$('#byeText').textContent=b.p;$('#byeYes').textContent=pick(BYE_YES);$('#byeNo').textContent=pick(BYE_NO);$('#bye').hidden=false;lockScroll()}
+function showBye(){const b=pick(BYE);$('#byeTitle').textContent=fmt(b.h);$('#byeText').textContent=fmt(b.p);$('#byeYes').textContent=fmt(pick(BYE_YES));$('#byeNo').textContent=pick(BYE_NO);$('#bye').hidden=false;lockScroll()}
 function hideBye(){$('#bye').hidden=true;unlockScroll()}
 addEventListener('popstate',()=>{
+  if(wiz){if(histOK)pushLayer('main');$('#wizBack').click();return}
   if(!$('#bye').hidden){leaving=true;try{history.back()}catch(e){}return}
   if(leaving)return;
   if(closeTop())return;
@@ -916,26 +1192,33 @@ let leaving=false;
 $('#byeNo').onclick=()=>hideBye();
 $('#byeYes').onclick=()=>{hideBye();$('#byeDone').hidden=false;leaving=true;setTimeout(()=>{
   if(NATIVE){const A=Plug('App');if(A)A.exitApp();setTimeout(()=>{$('#byeDone').hidden=true;leaving=false},500)}else{try{history.go(-2)}catch(e){}}},900)};
-if(NATIVE){const A=Plug('App');if(A)A.addListener('backButton',()=>{if(!$('#byeDone').hidden)return;if(!$('#bye').hidden){$('#byeYes').click();return}if(!closeTop())showBye()})}
+if(NATIVE){const A=Plug('App');if(A)A.addListener('backButton',()=>{if(!$('#byeDone').hidden)return;if(wiz){$('#wizBack').click();return}if(!$('#bye').hidden){$('#byeYes').click();return}if(!closeTop())showBye()})}
 try{history.scrollRestoration='manual'}catch(e){}
 if(histOK){try{history.replaceState({v:'guard'},'');history.pushState({v:'main'},'')}catch(e){histOK=false}}
 
 /* ---------- load from the phone ---------- */
 (async()=>{
   try{const v=await idbGet('entries');if(Array.isArray(v))entries=v;else{const old=lsLoad();if(old.length){entries=old;lsSave()}}}catch(e){entries=lsLoad()}
+  try{prof=await idbGet('profile')||null}catch(e){prof=null}
+  if(!prof&&entries.length){
+    /* an install from before the ID card: everything so far belongs to Piper */
+    const id='s1';prof={kid:{name:'',g:'m'},snakes:[{id,name:'פייפר',species:'bp',sex:'f'}],cur:id};
+    entries.forEach(e=>{if(!e.snake)e.snake=id});lsSave();saveProf();
+    render();startWizard('migrate',{...prof.snakes[0]});return}
+  if(!prof){startWizard('new');return}
   render();
 })();
 
 /* ---------- backup and restore ---------- */
 $('#bkSave').onclick=async()=>{
   const d=today(),name='piper-backup-'+d+'.json';
-  const json=JSON.stringify({app:'piper-life',version:1,exported:new Date().toISOString(),entries});
+  const json=JSON.stringify({app:'piper-life',version:2,exported:new Date().toISOString(),profile:prof,entries});
   try{
     if(NATIVE&&Plug('Filesystem')&&Plug('Share')){
       const r=await Plug('Filesystem').writeFile({path:name,data:json,directory:'CACHE',encoding:'utf8'});
-      await Plug('Share').share({title:'גיבוי של פייפר',text:'גיבוי של החיים של פייפר מ־'+d,files:[r.uri],dialogTitle:'איפה לשמור את הגיבוי?'});return}
+      await Plug('Share').share({title:'גיבוי של היומן',text:'גיבוי של היומן מ־'+d,files:[r.uri],dialogTitle:'איפה לשמור את הגיבוי?'});return}
     const file=new File([json],name,{type:'application/json'});
-    if(navigator.canShare&&navigator.canShare({files:[file]})){await navigator.share({files:[file],title:'גיבוי של פייפר'});return}
+    if(navigator.canShare&&navigator.canShare({files:[file]})){await navigator.share({files:[file],title:'גיבוי של היומן'});return}
     const a=document.createElement('a');a.href=URL.createObjectURL(file);a.download=name;document.body.appendChild(a);a.click();a.remove();toast('הגיבוי נשמר בהורדות');
   }catch(e){if(e&&e.name==='AbortError')return;toast('לא הצלחתי לשמור גיבוי. נסה שוב.')}
 };
@@ -943,10 +1226,13 @@ $('#bkLoad').onchange=async ev=>{
   const f=ev.target.files&&ev.target.files[0];ev.target.value='';if(!f)return;
   try{const data=JSON.parse(await f.text());const list=Array.isArray(data)?data:data.entries;
     if(!Array.isArray(list))throw 0;
+    const bp=data.profile;
+    if(bp&&bp.snakes){if(!prof)prof=bp;else{for(const sn of bp.snakes)if(!prof.snakes.find(x=>x.id===sn.id))prof.snakes.push(sn);if(!prof.kid.name&&bp.kid)prof.kid=bp.kid}saveProf()}
+    const fallback=bp&&bp.snakes&&bp.snakes[0]?bp.snakes[0].id:curId();
     const map=new Map(entries.map(e=>[e.id,e]));let n=0;
-    for(const e of list){if(e&&e.id&&e.kind&&e.date){map.set(e.id,e);n++}}
+    for(const e of list){if(e&&e.id&&e.kind&&e.date){if(!e.snake)e.snake=fallback;map.set(e.id,e);n++}}
     entries=[...map.values()];lsSave();render();toast('נטענו '+n+' רשומות מהגיבוי!');hearts();
-  }catch(e){toast('הקובץ הזה לא נראה כמו גיבוי של פייפר')}
+  }catch(e){toast('הקובץ הזה לא נראה כמו גיבוי של היומן')}
 };
 
 if(!NATIVE&&'serviceWorker' in navigator&&location.protocol==='https:'){addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}))}
