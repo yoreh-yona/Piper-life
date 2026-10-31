@@ -1,5 +1,5 @@
 // Keeps the app working without internet. Bump VERSION when files change.
-const VERSION = 'piper-v2';
+const VERSION = 'piper-v3';
 const FILES = ['./', 'index.html', 'manifest.webmanifest', 'fonts/fonts.css',
   'fonts/secular-one-hebrew-400-normal.woff2', 'fonts/secular-one-latin-400-normal.woff2',
   'fonts/varela-round-hebrew-400-normal.woff2', 'fonts/varela-round-latin-400-normal.woff2',
