@@ -289,35 +289,45 @@ textarea{min-height:110px;resize:vertical}
 .album-btn span{display:flex;flex-direction:column;min-width:0}
 .album-btn b{font-family:var(--display);font-weight:400;font-size:1.3rem}
 .album-btn small{font-size:.9rem;opacity:.92}
-.album-head{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
+.album-head{padding-top:50px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap}
 .back{border:none;background:var(--surface);border-radius:999px;padding:8px 16px;box-shadow:var(--shadow);font-family:var(--display)}
-.page{position:relative;background:
+.page{position:relative;width:100%;aspect-ratio:10/19;background:
   radial-gradient(circle at 20% 30%,rgba(160,120,60,.05) 0 2px,transparent 3px) 0 0/28px 28px,
   linear-gradient(160deg,#FFFBEA,#FFF3D2);
-  border-radius:8px 18px 18px 8px;padding:42px 22px 54px 40px;min-height:560px;box-shadow:0 10px 24px rgba(31,51,40,.25),inset -14px 0 18px -14px rgba(120,80,30,.25);
-  display:flex;flex-direction:column;gap:34px;overflow:hidden}
+  border-radius:8px 18px 18px 8px;box-shadow:0 10px 24px rgba(31,51,40,.25),inset -14px 0 18px -14px rgba(120,80,30,.25);overflow:hidden}
 .page::before{content:"";position:absolute;inset-block:18px;right:10px;width:12px;background:radial-gradient(circle,#D8C49A 0 5px,transparent 6px) 0 0/12px 34px repeat-y}
 .page-art{position:absolute;inset:0;pointer-events:none;width:100%;height:100%}
-.page-no{position:absolute;bottom:14px;left:0;right:0;text-align:center;font-family:var(--hand);font-size:1.4rem;color:#6B5A3A}
-.photo{position:relative;z-index:1;background:#fff;padding:10px 10px 8px;box-shadow:0 6px 14px rgba(0,0,0,.18);width:min(100%,300px);border:none;cursor:zoom-in;display:block}
-.photo:nth-of-type(odd){align-self:flex-start} .photo:nth-of-type(even){align-self:flex-end}
+.page-no{position:absolute;bottom:10px;left:0;right:0;text-align:center;font-family:var(--hand);font-size:1.3rem;color:#6B5A3A}
+.photo{position:absolute;z-index:1;background:#fff;padding:6px 6px 4px;box-shadow:0 5px 12px rgba(0,0,0,.2);border:none;cursor:zoom-in;display:block;transform-origin:center}
+.photo:active{z-index:3}
 .photo img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;background:#E8E2D0}
-.photo figcaption{font-family:var(--hand);font-size:1.45rem;line-height:1.1;color:#3B3226;padding-top:6px;text-align:center;overflow-wrap:anywhere}
-.tape{position:absolute;width:74px;height:24px;top:-10px;opacity:.85;box-shadow:0 1px 2px rgba(0,0,0,.12);
+.photo.tall img{aspect-ratio:3/4}
+.photo.square img{aspect-ratio:1}
+.photo figcaption{font-family:var(--hand);font-size:1.12rem;line-height:1.05;color:#3B3226;padding-top:4px;text-align:center;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.tape{position:absolute;width:52px;height:18px;opacity:.85;box-shadow:0 1px 2px rgba(0,0,0,.12);z-index:2;
   background:repeating-linear-gradient(45deg,rgba(255,255,255,.35) 0 6px,transparent 6px 12px),var(--tc);
   -webkit-mask:linear-gradient(90deg,transparent 0 2px,#000 2px calc(100% - 2px),transparent 0),conic-gradient(from -45deg at 50% 100%,#000 90deg,transparent 0) 0 0/8px 100%;}
-.tape.a{right:-16px;transform:rotate(38deg)} .tape.b{left:-18px;transform:rotate(-36deg)}
-.album-empty{font-family:var(--hand);font-size:1.8rem;color:#5A4A30;text-align:center;margin:auto 0;position:relative;z-index:1;line-height:1.2}
+.album-empty{position:absolute;inset:0;display:grid;place-content:center;padding:30px;font-family:var(--hand);font-size:1.8rem;color:#5A4A30;text-align:center;z-index:1;line-height:1.2}
 .album-empty small{display:block;font-family:var(--body);font-size:1rem;margin-top:10px}
 .album-nav{display:flex;align-items:center;justify-content:space-between;gap:10px}
 .album-nav span{background:var(--surface);border-radius:999px;padding:4px 14px;font-size:.95rem}
 .pg{border:none;color:#fff;background:var(--tangerine);padding:12px 20px;font-family:var(--display);font-size:1.1rem;border-radius:58% 42% 55% 45% / 48% 58% 42% 52%;box-shadow:0 5px 0 rgba(0,0,0,.2)}
 .pg.prev{background:var(--sky)} .pg:disabled{opacity:.35}
 .lightbox{position:fixed;inset:0;z-index:40;background:rgba(15,30,20,.92);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:calc(20px + env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) calc(20px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px))}
-.lightbox img{max-width:100%;max-height:72%;object-fit:contain;border:8px solid #fff;border-radius:4px}
+.lb-stage{flex:1;min-height:0;width:100%;display:grid;place-items:center;overflow:hidden;touch-action:none;-webkit-user-select:none;user-select:none}
+.lb-stage img{max-width:100%;max-height:100%;object-fit:contain;border:6px solid #fff;border-radius:4px;transform-origin:center;will-change:transform;-webkit-user-drag:none}
+.lb-zoom{display:flex;gap:10px;align-items:center}
+.lb-zoom button{border:2px solid rgba(255,255,255,.7);background:rgba(255,255,255,.12);color:#fff;border-radius:999px;min-width:44px;height:44px;font-size:1.4rem;padding:0 12px}
+#lbFit{font-size:.95rem}
+.lb-confirm{position:absolute;inset:0;background:rgba(10,20,14,.7);display:grid;place-items:center;padding:20px}
+.lb-confirm-card{background:#FFF6D8;color:#1F3328;border:4px solid #FFD84D;border-radius:28px;padding:20px;max-width:320px;text-align:center;animation:pop .25s ease-out}
+.lb-confirm-card h3{font-family:var(--display);font-weight:400;font-size:1.6rem;margin:0;color:#B3541E}
+.lb-confirm-card p{margin:8px 0 16px}
+.lb-confirm-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.lb-no{border:none;background:var(--leaf);color:#fff;border-radius:999px;padding:10px 20px;font-family:var(--display)}
 .lb-cap{color:#fff;font-family:var(--hand);font-size:1.8rem;text-align:center;max-width:36ch}
 .lb-close{border:none;background:#fff;color:#1F3328;border-radius:999px;padding:10px 24px;font-family:var(--display)}
-.lb-actions,.lb-confirm{display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:center;color:#fff}
+.lb-actions{display:flex;gap:10px;align-items:center;flex-wrap:wrap;justify-content:center;color:#fff}
 .lb-del{border:2px solid rgba(255,255,255,.6);background:none;color:#fff;border-radius:999px;padding:8px 18px}
 .lb-yes{border:none;background:var(--berry);color:#fff;border-radius:999px;padding:10px 20px;font-family:var(--display)}
 
@@ -462,7 +472,16 @@ textarea{min-height:110px;resize:vertical}
   </div>
 </div>
 </div>
-<div class="lightbox" id="lightbox" hidden><img id="lbImg" alt=""><div class="lb-cap" id="lbCap"></div><div class="lb-actions"><button class="lb-close" id="lbClose">סגור</button><button class="lb-del" id="lbDel">מחק מהאלבום</button></div><div class="lb-confirm" id="lbConfirm" hidden><span>למחוק את התמונה?</span><button class="lb-yes" id="lbYes">כן, למחוק</button><button class="lb-close" id="lbNo">לא</button></div></div>
+<div class="lightbox" id="lightbox" dir="rtl" hidden>
+  <div class="lb-stage" id="lbStage"><img id="lbImg" alt="" draggable="false"></div>
+  <div class="lb-cap" id="lbCap"></div>
+  <div class="lb-zoom"><button type="button" id="lbIn" aria-label="הגדל">+</button><button type="button" id="lbFit">גודל רגיל</button><button type="button" id="lbOut" aria-label="הקטן">−</button></div>
+  <div class="lb-actions"><button class="lb-close" id="lbClose" type="button">סגור</button><button class="lb-del" id="lbDel" type="button">מחק מהאלבום</button></div>
+  <div class="lb-confirm" id="lbConfirm" hidden><div class="lb-confirm-card" role="alertdialog" aria-modal="true" aria-labelledby="lbAsk">
+    <h3 id="lbAsk"></h3><p>התמונה תימחק מהאלבום, ואי אפשר להחזיר אותה.</p>
+    <div class="lb-confirm-actions"><button class="lb-yes" id="lbYes" type="button">כן, למחוק</button><button class="lb-no" id="lbNo" type="button">לא, להשאיר</button></div>
+  </div></div>
+</div>
 
 <div class="scrim" id="scrim" hidden></div>
 <div class="sheet" id="sheet" role="dialog" aria-modal="true" dir="rtl" hidden></div>
@@ -1074,7 +1093,7 @@ function greet(){$('#greet').textContent=fmt(hour<12?'בוקר טוב {K}!':hour
 render();
 
 /* ---------- photo album ---------- */
-const PER=2,TAPES=['#FF8FB0','#FFD84D','#7FD3F7','#B9E27A','#C9A6FF','#FFB067'];let albumPg=0;
+const PER=6,TAPES=['#FF8FB0','#FFD84D','#7FD3F7','#B9E27A','#C9A6FF','#FFB067'];let albumPg=0;
 const hash=str=>{let h=0;for(const c of str)h=(h*31+c.charCodeAt(0))|0;return Math.abs(h)};
 function photos(){return mine().filter(e=>e.photo).sort(sortFn)}
 function updateAlbumCount(){const n=photos().length;$('#albumCount').textContent=fmt(n?(n===1?'תמונה אחת של {N}':n+' תמונות של {N}'):'כאן יופיעו התמונות של {N}')}
@@ -1099,28 +1118,61 @@ function renderAlbum(){
   const page=document.createElement('div');page.className='page';page.innerHTML=pageArt(albumPg);
   if(!list.length){const em=document.createElement('div');em.className='album-empty';em.textContent=fmt('האלבום מחכה לתמונה הראשונה של {N}!');
     const sm=document.createElement('small');sm.textContent='מוסיפים תמונה בכפתור "יומן ותמונה".';em.appendChild(sm);page.appendChild(em)}
-  list.slice(albumPg*PER,albumPg*PER+PER).forEach((e,k)=>{const h=hash(e.id);
-    const fig=document.createElement('button');fig.className='photo';fig.type='button';
-    fig.style.transform=`rotate(${((h%9)-4)*1.1}deg)`;fig.setAttribute('aria-label','הגדל תמונה');
-    for(const side of ['a','b']){const t=document.createElement('span');t.className='tape '+side;t.style.setProperty('--tc',TAPES[(h+(side==='a'?0:3))%TAPES.length]);fig.appendChild(t)}
+  const LAY=[[[3,3],[50,6],[6,34],[52,37],[4,65],[48,67]],[[50,2],[5,8],[48,33],[3,39],[50,64],[8,67]],[[8,4],[52,7],[2,35],[50,33],[6,66],[52,63]]];
+  const lay=LAY[albumPg%LAY.length];
+  const TAPESETS=[[[-8,'r',-12,38],[-8,'l',-12,-36]],[[-9,'c',0,-4]],[[-8,'l',-14,-38],['b','r',-14,-40]],[[30,'l',-24,82],[30,'r',-24,-84]],[[-9,'c',0,5],['b','c',0,-3]]];
+  list.slice(albumPg*PER,albumPg*PER+PER).forEach((e,k)=>{const h=hash(e.id);const r=n=>{let t=(h+Math.imul(n+1,0x6D2B79F5))|0;t=Math.imul(t^t>>>15,t|1);t^=t+Math.imul(t^t>>>7,t|61);return((t^t>>>14)>>>0)/4294967296};
+    const fig=document.createElement('button');fig.className='photo'+(r(4)<.15?' tall':r(4)<.3?' square':'');fig.type='button';
+    const w=35+Math.round(r(1)*12),pos=lay[k];
+    const left=Math.max(2,Math.min(pos[0]+(r(2)-.5)*5,97-w)),top=pos[1]+(r(3)-.5)*4;
+    fig.style.width=w+'%';fig.style.left=left+'%';fig.style.top=top+'%';
+    fig.style.transform=`rotate(${((r(5)-.5)*20).toFixed(1)}deg)`;fig.setAttribute('aria-label','הגדל תמונה');
+    TAPESETS[Math.floor(r(7)*TAPESETS.length)].forEach((t,ti)=>{const tp=document.createElement('span');tp.className='tape';
+      tp.style.setProperty('--tc',TAPES[(h+ti*3)%TAPES.length]);
+      if(t[0]==='b')tp.style.bottom='-8px';else tp.style.top=t[0]+'px';
+      if(t[1]==='c'){tp.style.left='calc(50% - 26px)'}else tp.style[t[1]==='l'?'left':'right']=t[2]+'px';
+      tp.style.transform=`rotate(${t[3]+(r(6+ti)-.5)*10}deg)`;fig.appendChild(tp)});
     const img=document.createElement('img');img.src=photoSrc(e.photo);img.alt=fmt('תמונה של {N}');img.loading='lazy';
     const cap=document.createElement('figcaption');cap.textContent=caption(e);
-    fig.append(img,cap);fig.onclick=()=>{lbEntry=e;$('#lbImg').src=img.src;$('#lbCap').textContent=caption(e,true);$('#lbConfirm').hidden=true;$('#lightbox').hidden=false;lockScroll();pushLayer('photo')};
+    fig.append(img,cap);fig.onclick=()=>openLb(e,img.src);
     page.appendChild(fig)});
   const no=document.createElement('div');no.className='page-no';no.textContent='עמוד '+(albumPg+1)+' מתוך '+pages;page.appendChild(no);
   host.appendChild(page);
   $('#pgLabel').textContent=(albumPg+1)+' / '+pages;$('#pgPrev').disabled=albumPg===0;$('#pgNext').disabled=albumPg>=pages-1;
   $('#albumNav').hidden=pages<2;
 }
-function caption(e,full){const d=parse(e.date).toLocaleDateString('he-IL',{day:'numeric',month:'long',year:'numeric'});
-  if(!e.text)return d;const t=full||e.text.length<=60?e.text:e.text.slice(0,58)+'…';return d+' · '+t}
+function caption(e,full){const d=parse(e.date).toLocaleDateString('he-IL',full?{day:'numeric',month:'long',year:'numeric'}:{day:'numeric',month:'numeric',year:'2-digit'});
+  if(!e.text)return d;const t=full||e.text.length<=40?e.text:e.text.slice(0,38)+'…';return d+' · '+t}
 let mainY=0;
 function showAlbum(on){if(on){mainY=scrollY}$('#mainView').hidden=on;$('#albumView').hidden=!on;if(on){renderAlbum();scrollTo(0,0)}else{scrollTo(0,mainY);requestAnimationFrame(()=>scrollTo(0,mainY))}}
 $('#openAlbum').onclick=()=>{albumPg=0;showAlbum(true);pushLayer('album')};$('#albumBack').onclick=()=>closeLayer(()=>showAlbum(false));
 $('#pgNext').onclick=()=>{albumPg++;renderAlbum();scrollTo(0,0)};$('#pgPrev').onclick=()=>{albumPg--;renderAlbum();scrollTo(0,0)};
-let lbEntry=null;function doCloseLb(){$('#lightbox').hidden=true;unlockScroll()}
+let lbEntry=null;function doCloseLb(){$('#lightbox').hidden=true;$('#lbConfirm').hidden=true;unlockScroll()}
+/* pinch, drag, double-tap and buttons to zoom the photo */
+const Z={s:1,x:0,y:0};const ptrs=new Map();let pinch=null,pan=null,tapT=0,tapP=null,moved=0;
+const stage=$('#lbStage'),lbImg=$('#lbImg');
+function zApply(anim){const W=stage.clientWidth,H=stage.clientHeight,w=lbImg.offsetWidth,h=lbImg.offsetHeight;
+  const mx=Math.max(0,(w*Z.s-W)/2),my=Math.max(0,(h*Z.s-H)/2);Z.x=Math.max(-mx,Math.min(mx,Z.x));Z.y=Math.max(-my,Math.min(my,Z.y));
+  lbImg.style.transition=anim?'transform .2s':'none';lbImg.style.transform=`translate(${Z.x}px,${Z.y}px) scale(${Z.s})`;$('#lbFit').hidden=Z.s===1}
+function zAt(ns,px,py,anim){ns=Math.max(1,Math.min(5,ns));Z.x=px-(px-Z.x)*(ns/Z.s);Z.y=py-(py-Z.y)*(ns/Z.s);Z.s=ns;if(ns===1){Z.x=0;Z.y=0}zApply(anim)}
+const rel=ev=>{const r=stage.getBoundingClientRect();return [ev.clientX-r.left-r.width/2,ev.clientY-r.top-r.height/2]};
+stage.addEventListener('pointerdown',ev=>{stage.setPointerCapture(ev.pointerId);ptrs.set(ev.pointerId,rel(ev));moved=0;
+  if(ptrs.size===2){const [a,b]=[...ptrs.values()];pinch={d:Math.hypot(a[0]-b[0],a[1]-b[1]),s:Z.s,m:[(a[0]+b[0])/2,(a[1]+b[1])/2],x:Z.x,y:Z.y};pan=null}
+  else if(ptrs.size===1){const p=rel(ev);pan={p,x:Z.x,y:Z.y}}});
+stage.addEventListener('pointermove',ev=>{if(!ptrs.has(ev.pointerId))return;ptrs.set(ev.pointerId,rel(ev));
+  if(ptrs.size===2&&pinch){const [a,b]=[...ptrs.values()];const d=Math.hypot(a[0]-b[0],a[1]-b[1]);const ns=Math.max(1,Math.min(5,pinch.s*d/pinch.d));
+    const m=[(a[0]+b[0])/2,(a[1]+b[1])/2];Z.s=ns;Z.x=m[0]-(pinch.m[0]-pinch.x)*(ns/pinch.s);Z.y=m[1]-(pinch.m[1]-pinch.y)*(ns/pinch.s);moved=9;zApply()}
+  else if(ptrs.size===1&&pan){const p=rel(ev);const dx=p[0]-pan.p[0],dy=p[1]-pan.p[1];moved=Math.max(moved,Math.abs(dx)+Math.abs(dy));if(Z.s>1){Z.x=pan.x+dx;Z.y=pan.y+dy;zApply()}}});
+function pEnd(ev){const p=ptrs.get(ev.pointerId);ptrs.delete(ev.pointerId);
+  if(ptrs.size===1){const q=[...ptrs.values()][0];pan={p:q,x:Z.x,y:Z.y};pinch=null;return}
+  if(ptrs.size===0){pinch=null;pan=null;
+    if(moved<8&&p){const now=Date.now();if(now-tapT<320&&tapP&&Math.hypot(p[0]-tapP[0],p[1]-tapP[1])<40){zAt(Z.s>1?1:2.5,p[0],p[1],true);tapT=0}else{tapT=now;tapP=p}}}}
+stage.addEventListener('pointerup',pEnd);stage.addEventListener('pointercancel',pEnd);
+stage.addEventListener('wheel',ev=>{ev.preventDefault();const p=rel(ev);zAt(Z.s*(ev.deltaY<0?1.2:1/1.2),p[0],p[1])},{passive:false});
+$('#lbIn').onclick=()=>zAt(Z.s*1.6,0,0,true);$('#lbOut').onclick=()=>zAt(Z.s/1.6,0,0,true);$('#lbFit').onclick=()=>zAt(1,0,0,true);
+function openLb(e,src){lbEntry=e;Z.s=1;Z.x=0;Z.y=0;lbImg.src=src;lbImg.alt=fmt('תמונה של {N}');zApply();$('#lbCap').textContent=caption(e,true);$('#lbConfirm').hidden=true;$('#lightbox').hidden=false;lockScroll();pushLayer('photo')}
 $('#lbClose').onclick=()=>closeLayer(doCloseLb);
-$('#lbDel').onclick=()=>{$('#lbConfirm').hidden=false};$('#lbNo').onclick=()=>{$('#lbConfirm').hidden=true};
+$('#lbDel').onclick=()=>{$('#lbAsk').textContent=fmt('[אתה בטוח|את בטוחה]?');$('#lbConfirm').hidden=false;setTimeout(()=>$('#lbNo').focus(),50)};$('#lbNo').onclick=()=>{$('#lbConfirm').hidden=true};
 $('#lbYes').onclick=async()=>{const e=lbEntry;if(!e)return;try{
     if(e.text||e.kind!=='note'){const c={...e};delete c.photo;await store.add(c)}else await store.remove(e.id);
     if(!db)renderAlbum();closeLayer(doCloseLb);toast('התמונה נמחקה מהאלבום')}catch(x){toast('לא הצלחתי למחוק. נסה שוב.')}};$('#lightbox').addEventListener('click',ev=>{if(ev.target.id==='lightbox')closeLayer(doCloseLb)});
@@ -1219,7 +1271,7 @@ let pendingClose=null;
 function closeTop(){
   if(pendingClose){const f=pendingClose;pendingClose=null;f();return true}
   if(!$('#idView').hidden){doCloseId();return true}
-  if(!$('#lightbox').hidden){doCloseLb();return true}
+  if(!$('#lightbox').hidden){if(!$('#lbConfirm').hidden){$('#lbConfirm').hidden=true;if(histOK)pushLayer('photo');return true}doCloseLb();return true}
   if(!$('#sheet').hidden){doCloseSheet();return true}
   if(!$('#albumView').hidden){showAlbum(false);return true}
   if(!$('#calView').hidden){showCal(false);return true}
